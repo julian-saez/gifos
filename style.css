@@ -1,0 +1,194 @@
+@charset "UTF-8";
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+h1 {
+  font-size: 1.56rem;
+  color: #6742E7;
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  font-size: 1.25rem;
+  color: #6742E7;
+  font-family: "Montserrat", sans-serif;
+}
+
+h3 {
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  color: #6742E7;
+}
+
+h4 {
+  font-size: 0.94rem;
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+.flex-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header {
+  width: 100%;
+  height: 95px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#nav {
+  margin-right: 26px;
+}
+
+#logo {
+  margin-left: 22px;
+}
+
+/**----------------------------------TÍTULO Y BUSCADOR DE GIFS (1ERA SECCIÓN)----------------------------------**/
+#home {
+  margin: 7px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#home h1 {
+  text-align: center;
+  margin: 0 45px;
+}
+
+#home img {
+  width: 100%;
+  max-width: 273px;
+  margin: 31px 45px 0;
+}
+
+#home h1 span {
+  color: #5ED7C6;
+}
+
+#buscador {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#home input {
+  width: 100%;
+  max-width: 334px;
+  line-height: 50px;
+  border: 1px solid #6742E7;
+  border-radius: 27px;
+}
+
+#home input::-webkit-input-placeholder {
+  font-size: 1rem;
+  padding-left: 35px;
+}
+
+#home input:-ms-input-placeholder {
+  font-size: 1rem;
+  padding-left: 35px;
+}
+
+#home input::-ms-input-placeholder {
+  font-size: 1rem;
+  padding-left: 35px;
+}
+
+#home input::placeholder {
+  font-size: 1rem;
+  padding-left: 35px;
+}
+
+#trending-categories h3 {
+  margin: 31px 0 2px;
+  text-align: center;
+}
+
+#trending-categories p {
+  text-align: center;
+  font-size: 0.88rem;
+  margin: 0 75px 45px;
+  color: #6742E7;
+  font-family: "Montserrat", sans-serif;
+  font-weight: normal;
+}
+
+/**----------------------------------GIFS EN TENDENCIAS Y RECOMENDACIONES (2DA SECCIÓN)----------------------------------**/
+#trending-gifos {
+  background-color: #F3F5F8;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+}
+
+#trending-gifos h2 {
+  padding: 46px 0 7px;
+}
+
+#trending-gifos p {
+  margin: 0 21px;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+}
+
+div#slider {
+  margin: 32px 82px;
+}
+
+#slider img {
+  width: 100%;
+  height: 100%;
+  max-width: 243px;
+  max-height: 187px;
+  margin-bottom: 82px;
+}
+
+#share {
+  margin: 47px 0 24px;
+  text-align: center;
+}
+
+footer img {
+  padding: 22px 19px 0;
+  margin: auto;
+}
+
+footer p {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+footer div {
+  width: 100%;
+  height: 5px;
+  background-color: #6742E7;
+}
+/*# sourceMappingURL=style.css.map */
