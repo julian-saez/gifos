@@ -6,6 +6,10 @@
           box-sizing: border-box;
 }
 
+body {
+  width: 100%;
+}
+
 h1 {
   font-size: 1.56rem;
   color: #6742E7;
@@ -44,7 +48,13 @@ li {
   display: flex;
 }
 
-header {
+#color {
+  width: 100%;
+  height: 5px;
+  background-color: #6742E7;
+}
+
+#barra-header {
   width: 100%;
   height: 95px;
   -webkit-box-pack: justify;
@@ -70,6 +80,9 @@ header {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #home h1 {
@@ -78,9 +91,11 @@ header {
 }
 
 #home img {
+  margin: 2% 11.5% 0;
   width: 100%;
+  height: 100%;
+  max-height: 130px;
   max-width: 273px;
-  margin: 31px 45px 0;
 }
 
 #home h1 span {
@@ -94,8 +109,9 @@ header {
 }
 
 #home input {
-  width: 100%;
+  width: 89.1%;
   max-width: 334px;
+  margin: 0 21px;
   line-height: 50px;
   border: 1px solid #6742E7;
   border-radius: 27px;
