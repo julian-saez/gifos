@@ -3,7 +3,6 @@
 
 
 #home {
-    width: 100%;
     margin: 7px;
     flex-direction: column;
     justify-content: center;
@@ -16,26 +15,25 @@
 }
 
 #home img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    height: 80%;
+    margin: 2% 11.5% 0;
+    width: 100%;
+    height: 100%;
     max-height: 130px;
-    max-width: 400px;
+    max-width: 273px;
 }
 
 #home h1 span {
     color: $secundario;
 }
 
+#buscador {
+    justify-content: center;
+}
+
 #home input {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 89.1%;
-    max-width: 550px;
-    // margin: 0 21px;
+    max-width: 334px;
+    margin: 0 21px;
     line-height: 50px;
     border: 1px solid $primario;
     border-radius: 27px;
@@ -82,47 +80,14 @@
     font-size: 1rem;
 }
 
-#container-trending{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+div#slider {
+    margin: 32px 82px;
 }
 
-button#back-btn {
-    width: 100%;
-    max-width: 40px;
-    border: 0;
-    background-color: transparent;
-}
-
-#list-gifs {
-    margin-top: 3.5%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button#next-btn {
+#slider img {
     width: 100%;
     height: 100%;
-    max-height: 40px;
-    max-width: 40px;
-    border: 0;
-}
-
-
-#list-gifs img {
-    width: 357px;
-    height: 275px;
-    max-width: 100%;
-    max-height: 100%;
-    padding-left: 15px;
+    max-width: 243px;
+    max-height: 187px;
     margin-bottom: 82px;
 }
-
-
-
-
-
-
-

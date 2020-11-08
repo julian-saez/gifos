@@ -8,57 +8,63 @@
     <title>GIFOS</title>
 </head>
 <body>
-    <header>
-        <div id="color"></div>
-        <div id="barra-header" class="flex-container">
-            <img id="logo" src="assets/logo-mobile.svg" alt="Logo de gifos">
-            <nav id="nav">
-                <ol>
-                    <!-- <li><a href="#">Modo Nocturno</a></li>
-                    <li><a href="#">Favoritos</a></li>  
-                    <li><a href="#">Mis Gifos</a></li>
-                    <li><a href="#"><img src="assets/button-crear-gifo.svg" alt=""></a></li> -->
-                </ol>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section id="home" class="flex-container">
-            <article>
-                <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
-                <img src="assets/ilustra_header.svg" alt="">
-                <input id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
-            </article>
-
-            <article id="trending-categories">
-                <h3>Trending:</h3>
-                <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
-            </article>
-        </section>  
-
-        <section id="trending-gifos">
-            <h2>Trending GIFOS</h2>
-            <p>Mira los últimos gifos de nuestras comunidad.</p>
-
-            <div id="slider" class="flex-container">
-                <img src="assets/gif-1.jpg" alt="">
-                <!-- <img src="assets/gif-2.jpg" alt="">
-                <img src="assets/gif-3.jpg" alt=""> -->
+    <div id="color"></div>
+    <div class="wrapper">
+        <header>
+            <div id="barra-header" class="flex-container">
+                <img id="logo" src="assets/logo bueno.png" alt="Logo de gifos">
+                <nav id="nav">
+                    <ol id="menu">
+                        <li><a href="#">Modo Nocturno</a></li>
+                        <li><a href="#">Favoritos</a></li>  
+                        <li><a href="#">Mis Gifos</a></li>
+                        <li><a href="#"><img src="assets/button-crear-gifo.svg" alt="Crea un gifo"></a></li>
+                    </ol>
+                </nav>
             </div>
-        </section>
-    </main>
-    <footer>
-        <article id="share">
-            <h4>Compartir en:</h4>
-            <img src="assets/icon_facebook.svg" alt="">
-            <img src="assets/icon-tw-normal.svg" alt="">
-            <img src="assets/icon_instagram.svg" alt="">
-        </article>
-        
-        <article>
-            <p>&copy; GIFOS 2020&mdash; All Rights Reserved<p>
-            <div></div>
-        </article>
-    </footer>
+        </header>
+        <main>
+            <section id="home" class="flex-container">
+                <article>
+                    <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
+                    <img src="assets/ilustra_header.svg" alt="">
+                    <input id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
+                </article>
+
+                <article id="trending-categories">
+                    <h3>Trending:</h3>
+                    <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
+                </article>
+            </section>  
+    </div>
+            <section id="trending-gifos">
+                <div class="wrapper">
+                    <h2>Trending GIFOS</h2>
+                    <p>Mira los últimos gifos de nuestras comunidad.</p>
+                    <div id="container-trending">
+                        <button id="back-btn"><img src="assets/button-slider-left.svg" alt="Volver"></button>
+                        <div id="list-gifs" class="flex-container"></div>
+                        <button id="next-btn"><img src="assets/Button-Slider-right-hover.svg" alt="Mirar más Gifs"></button>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <article id="share">
+                <h4>Compartir en:</h4>
+                <img src="assets/icon_facebook.svg" alt="">
+                <img src="assets/icon-tw-normal.svg" alt="">
+                <img src="assets/icon_instagram.svg" alt="">
+            </article>
+            
+            <article>
+                <p>&copy; GIFOS 2020&mdash; All Rights Reserved<p>
+                <div></div>
+            </article>
+        </footer>
+    <!-- </div> -->
+    <script src="menu-hamburguesa.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
