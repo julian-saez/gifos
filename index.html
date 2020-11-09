@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>GIFOS</title>
 </head>
-<body>
+<body class="light" id="fondo">
     <div id="color"></div>
     <div class="wrapper">
         <header>
@@ -15,7 +15,7 @@
                 <img id="logo" src="assets/logo bueno.png" alt="Logo de gifos">
                 <nav id="nav">
                     <ol id="menu">
-                        <li><a href="#">Modo Nocturno</a></li>
+                        <li><button id="mode-btn"><a href="#">Modo Nocturno</a></button></li>
                         <li><a href="#">Favoritos</a></li>  
                         <li><a href="#">Mis Gifos</a></li>
                         <li><a href="#"><img src="assets/button-crear-gifo.svg" alt="Crea un gifo"></a></li>
@@ -37,7 +37,7 @@
                 </article>
             </section>  
     </div>
-            <section id="trending-gifos">
+            <section class="light-trending" id="trending-gifos">
                 <div class="wrapper">
                     <h2>Trending GIFOS</h2>
                     <p>Mira los últimos gifos de nuestras comunidad.</p>
@@ -64,6 +64,7 @@
             </article>
         </footer>
     <!-- </div> -->
+    <script src="dark-mode.js"></script>
     <script src="menu-hamburguesa.js"></script>
     <script src="app.js"></script>
 </body>

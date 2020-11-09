@@ -1,6 +1,10 @@
 
 /**----------------------------------TÍTULO Y BUSCADOR DE GIFS (1ERA SECCIÓN)----------------------------------**/
 
+#mode-btn {
+    border: 0;
+    background-color: transparent;
+}
 
 #home {
     width: 100%;
@@ -63,9 +67,16 @@
 
 /**----------------------------------GIFS EN TENDENCIAS Y RECOMENDACIONES (2DA SECCIÓN)----------------------------------**/
 
+.light-trending {
+    background-color: #F3F5F8;
+}
+
+.dark-trending {
+    background-color: #222326;
+    color: white;
+}
 
 #trending-gifos {
-    background-color: #F3F5F8;
     flex-direction: column;
     justify-content: center;
     text-align: center;
