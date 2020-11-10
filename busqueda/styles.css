@@ -124,6 +124,7 @@ li {
   line-height: 50px;
   border: 1px solid #6742E7;
   border-radius: 27px;
+  padding-left: 50px;
 }
 
 #home input::-webkit-input-placeholder {

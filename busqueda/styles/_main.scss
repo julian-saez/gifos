@@ -37,12 +37,14 @@
     line-height: 50px;
     border: 1px solid $primario;
     border-radius: 27px;
+    padding-left: 50px;
 }
 
 #home input::placeholder {
     font-size: 1rem;
     padding-left: 35px;
 }
+
 
 #trending-categories h3 {
     margin: 31px 0 2px;

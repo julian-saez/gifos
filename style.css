@@ -187,6 +187,7 @@ li {
 }
 
 #home input {
+  font-size: 1rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -195,26 +196,43 @@ li {
   line-height: 50px;
   border: 1px solid #6742E7;
   border-radius: 27px;
+  outline: none;
+  padding-left: 50px;
 }
 
 #home input::-webkit-input-placeholder {
   font-size: 1rem;
-  padding-left: 35px;
 }
 
 #home input:-ms-input-placeholder {
   font-size: 1rem;
-  padding-left: 35px;
 }
 
 #home input::-ms-input-placeholder {
   font-size: 1rem;
-  padding-left: 35px;
 }
 
 #home input::placeholder {
   font-size: 1rem;
-  padding-left: 35px;
+}
+
+input:focus {
+  outline: none;
+}
+
+#home fieldset {
+  border: 0;
+}
+
+#home button {
+  top: -100px;
+  margin-top: -34px;
+  margin-right: 150px;
+  display: block;
+  float: right;
+  z-index: 1;
+  border: none;
+  background-color: transparent;
 }
 
 #trending-categories h3 {
