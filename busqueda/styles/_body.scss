@@ -8,6 +8,15 @@ body {
     width: 100%;
 }
 
+.light {
+    background-color: white;
+}
+
+.dark{
+    background-color: #37383C;
+    color: white;
+}
+
 h1 {
     font-size: 1.56rem;
     color: $primario;
