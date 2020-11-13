@@ -1,44 +1,67 @@
-/**  ---  CREO LAS CAJAS DONDE ESTARÁN LOS GIFS TRENDING  ---  **/
+/**
+ * CREO LOS CONTENEDORES DONDE ESTARÁN LOS GIFS
+ */
 
-
-var arrayTest = ['gifs-test/gif-1.gif', 'gifs-test/gif-2.gif', 'gifs-test/gif-3.gif', 'gifs-test/gif-4.gif', 'gifs-test/gif-5.gif', 'gifs-test/gif-6.gif']
 
 for(let i = 0; i <= 2; ++i){
-
     var gifBox = document.createElement("img")
     var enlace = document.createElement("a")
-
     gifBox.appendChild(enlace)
-
-    gifBox.src = arrayTest[i];
 
     let container = document.getElementById("list-gifs")
     container.appendChild(gifBox)
 }
 
 
+/**
+ * COMUNICACIÓN CON LAS API'S
+ */
+
+const url = "http://giphy.bintray.com/giphy-sdk";
+
+// Función para plasmar los gifs
+
+const getGif = (image) => {
+    gifBox.getAttribute('src', image)
+}
+
+
+// fetch(url)
+// .then(response => response.json())
+// .then(binaryLargeObject => {
+//     const domString = URL.createObjectURL(binaryLargeObject);
+//     getGif(domString)
+// })
+
+fetch(url)
+.then(response => response.json())
+.then(data => {
+    debugger
+    getGif(data.image)
+})
+
 /**  ---   LLAMO LOS BOTONES DEL HTML   ---  **/
 
 
-let btnBack = document.getElementById("back-btn")
-let btnNext = document.getElementById("next-btn")
+// let btnBack = document.getElementById("back-btn")
+// let btnNext = document.getElementById("next-btn")
 
-// btnBack.addEventListener("click", show)
-btnNext.addEventListener("click", show)
+// // btnBack.addEventListener("click", show)
+// btnNext.addEventListener("click", show)
 
 
 
-const show = () => {
-    for(let i = 0; i <= 2; ++i){
+// const show = () => {
+//     for(let i = 0; i <= 2; ++i){
 
-        var gifBox = document.createElement("img")
-        var enlace = document.createElement("a")
+//         var gifBox = document.createElement("img")
+//         var enlace = document.createElement("a")
     
-        gifBox.appendChild(enlace)
+//         gifBox.appendChild(enlace)
     
-        gifBox.src = arrayTest[i];
+//         gifBox.src = arrayTest[i];
     
-        let container = document.getElementById("list-gifs")
-        container.appendChild(gifBox)
-    }
-}
+//         let container = document.getElementById("list-gifs")
+//         container.appendChild(gifBox)
+//     }
+// }
