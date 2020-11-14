@@ -1,5 +1,11 @@
 @charset "UTF-8";
 @media (max-width: 480px) {
+  header #logo {
+    width: 48.8px;
+    height: 48.8px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
   header .hamburger {
     padding: 15px 15px;
     display: inline-block;
@@ -27,8 +33,8 @@
     background-color: #000;
   }
   header .hamburger-box {
-    width: 40px;
-    height: 24px;
+    width: 25px;
+    height: 5px;
     display: inline-block;
     position: relative;
   }
@@ -38,8 +44,8 @@
     margin-top: -2px;
   }
   header .hamburger-inner, header .hamburger-inner::before, header .hamburger-inner::after {
-    width: 40px;
-    height: 4px;
+    width: 25px;
+    height: 3px;
     background-color: #000;
     border-radius: 4px;
     position: absolute;
@@ -102,21 +108,20 @@
     transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
   header .hamburger ol {
-    margin: 55px -15px;
+    margin: 48px -15px;
     background-color: #6742E7;
     width: 360px;
     height: 100vh;
+    top: 0;
+    right: 0;
     position: absolute;
     opacity: 0.9;
   }
-  header .menu ol {
-    padding: 100px 0px 20px 50px;
-    list-style: none;
-  }
   header .menu li {
+    margin-top: 17px;
     color: white;
     display: block;
-    font-size: 25px;
+    font-size: 0.9rem;
     text-decoration: none;
     padding: 10px 50px;
     cursor: pointer;
@@ -127,9 +132,13 @@
     -webkit-transform: translate(0, -800px);
             transform: translate(0, -800px);
   }
-  header span.line {
-    width: 100px;
-    height: 5px;
+  header div.line {
+    margin: 5px auto 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30px;
+    height: 1px;
+    border-radius: 15px;
     background-color: white;
   }
 }
@@ -150,7 +159,12 @@
     max-height: 50px;
     max-width: 55px;
   }
-  header #menu {
+  header #barra-header button {
+    border: 0;
+    outline: none;
+    background-color: transparent;
+  }
+  header ol {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -271,10 +285,6 @@ li {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-
-#nav {
-  margin-right: 26px;
 }
 
 #logo {

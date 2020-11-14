@@ -1,5 +1,11 @@
 @media (max-width: 480px){
     header{
+        #logo {
+            width: 48.8px;
+            height: 48.8px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
         .hamburger {
             padding: 15px 15px;
             display: inline-block;
@@ -17,14 +23,6 @@
             overflow: visible; 
         }
         
-        // .hamburger:hover {
-        //     opacity: 0.7; 
-        // }
-        
-        // .hamburger.is-active:hover {
-        //     opacity: 0.7; 
-        // }
-        
         .hamburger.is-active .hamburger-inner,
         .hamburger.is-active .hamburger-inner::before,
         .hamburger.is-active .hamburger-inner::after {
@@ -32,8 +30,8 @@
         }
           
         .hamburger-box {
-            width: 40px;
-            height: 24px;
+            width: 25px;
+            height: 5px;
             display: inline-block;
             position: relative; 
         }
@@ -45,8 +43,8 @@
         }
         
         .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
-            width: 40px;
-            height: 4px;
+            width: 25px;
+            height: 3px;
             background-color: #000;
             border-radius: 4px;
             position: absolute;
@@ -102,23 +100,21 @@
         }
         
         .hamburger ol {
-            margin: 55px -15px;
+            margin: 48px -15px;
             background-color: $primario;
             width: 360px;
             height: 100vh;
+            top: 0;
+            right: 0;
             position: absolute;
             opacity: 0.9;
         }
         
-        .menu ol {
-            padding: 100px 0px 20px 50px;
-            list-style: none;
-        }
-        
         .menu li {
+            margin-top: 17px;
             color: white;
             display: block;
-            font-size: 25px;
+            font-size: 0.9rem;
             text-decoration: none;
             padding: 10px 50px;
             cursor: pointer;
@@ -129,17 +125,24 @@
             
         // Estilos cuando se aplique javascript
         
+
         .active {
             transform: translate(0, -800px);
         }
 
-        span.line {
-            width: 100px;
-            height: 5px;
+        div.line {
+            margin: 5px auto 0 auto;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30px;
+            height: 1px;
+            border-radius: 15px;
             background-color: white;
         }
     }
 }
+
+
 
 @media (min-width: 900px){
     #color {
@@ -160,12 +163,21 @@
             max-height: 50px;
             max-width: 55px;
         }
+
+        #barra-header button {
+            border: 0;
+            outline: none;
+            background-color: transparent;
+        }
+
+        ol {
+            display: flex;
+            align-items: center; 
+        }
     
         #menu {
-            display: flex;
-            align-items: center;
             &#menu li {
-                margin-top: 1.5%;   
+                margin-top: 1.5%; 
             }
     
             &#menu li a {
