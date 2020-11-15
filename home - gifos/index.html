@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="menu-burguer/burguers.css">
+    <link rel="stylesheet" href="style.css">
+    <title>GIFOS</title>
+</head>
+<body class="light" id="fondo">
+    <div id="color"></div>
+    <div class="wrapper">
+        <header>
+            <div id="barra-header" class="flex-container">
+                <img id="logo" src="assets/logo-desktop.svg" alt="Logo de gifos">
+                <button class="hamburger hamburger--squeeze" type="button">
+                    <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                    <ol class="menu active flex-container">
+                        <li><a id="mode-btn">Modo Nocturno</a></li>
+                        <div class="line"></div>
+                        <li><a href="#">Favoritos</a></li>
+                        <div class="line"></div>
+                        <li><a href="#">Mis Gifos</a></li>
+                        <div class="line"></div>
+                    </ol>
+                    </span>
+                  </button>
+            </div>
+        </header>
+        <main>
+            <section id="home" class="flex-container">
+                <article>
+                    <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
+                    <img src="assets/ilustra_header.svg" alt="">
+                    <form>
+                        <fieldset>
+                            <input id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
+                            <button><img src="assets/icon-search.svg" alt=""></button>
+                        </fieldset>
+                    </form>  
+                </article>
+
+                <article id="trending-categories">
+                    <h3>Trending:</h3>
+                    <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
+                </article>
+            </section>  
+    </div>
+            <section class="light-trending" id="trending-gifos">
+                <div class="wrapper">
+                    <h2>Trending GIFOS</h2>
+                    <p>Mira los últimos gifos de nuestras comunidad.</p>
+                    <div id="container-trending">
+                        <button id="back-btn"><img src="assets/button-slider-left.svg" alt="Volver"></button>
+                        <div id="list-gifs" class="flex-container"></div>
+                        <button id="next-btn"><img src="assets/Button-Slider-right-hover.svg" alt="Mirar más Gifs"></button>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <article id="share">
+                <h4>Compartir en:</h4>
+                <img src="assets/icon_facebook.svg" alt="">
+                <img src="assets/icon-tw-normal.svg" alt="">
+                <img src="assets/icon_instagram.svg" alt="">
+            </article>
+            
+            <article>
+                <p>&copy; GIFOS 2020&mdash; All Rights Reserved<p>
+                <div></div>
+            </article>
+        </footer>
+    <!-- </div> -->
+    <script src="dark-mode.js"></script>
+    <script src="menu-hamburguesa.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
