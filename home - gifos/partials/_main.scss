@@ -104,7 +104,6 @@ input:focus{
 
 #trending-gifos h2{
     padding: 46px 0 7px;
-    
 }
 
 #trending-gifos p{
@@ -114,6 +113,7 @@ input:focus{
 }
 
 #container-trending{
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -127,6 +127,7 @@ button#back-btn {
 }
 
 #list-gifs {
+    
     margin-top: 3.5%;
 }
 

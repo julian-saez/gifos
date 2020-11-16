@@ -426,6 +426,7 @@ input:focus {
 }
 
 #container-trending {
+  width: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
