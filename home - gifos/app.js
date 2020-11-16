@@ -28,7 +28,7 @@ var title;
 var username;
 var idNumber = 0;
 
-let btnAdd = document.getElementById("next-btn").addEventListener("click", function(){
+function loadGifs (){
     for(let i = 0; i <= 2; ++i){
         gifBox = document.createElement("img")
         title = document.createElement("h2")
@@ -41,9 +41,10 @@ let btnAdd = document.getElementById("next-btn").addEventListener("click", funct
         container.appendChild(gifBox)
         idNumber = idNumber + 1;
     }
-})
+}
 
 
+setTimeout(loadGifs, 1000)
 
 
 
