@@ -1,3 +1,7 @@
+/**
+ * COMUNICACIÓN CON LA API
+ */
+
 const urlTrendings = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=10";
 var gifTrendingInfo = [];
 
@@ -5,9 +9,13 @@ var gifTrendingInfo = [];
 fetch(urlTrendings)
 .then(res => res.json() )
 .then(res => {
-res.data.forEach(element => {
-    let valores = element;
-    gifTrendingInfo.push(valores);
+
+    // Recorro los objetos del request
+    res.data.forEach(element => {   
+        let valores = element;
+
+        // Pusheo los objetos al array "gifTrendingInfo"
+        gifTrendingInfo.push(valores);
 })
 })
 .catch(error => {
@@ -33,8 +41,9 @@ var idNumber = 0;
 
 // Función para cargar los gifs trendings
 
-function gifTrending (){
+function getTrending (){
     for(let i = 0; i <= gifTrendingInfo.length; ++i){
+
         // Creo los elementos
         gifBox = document.createElement("img")
         title = document.createElement("h2")
@@ -60,12 +69,7 @@ function gifTrending (){
 }
 
 // Ejecuto la función para mostrar los 3 gifs trendings
-setTimeout(gifTrending, 1000)
-
-
-
-
-
+setTimeout(getTrending, 1500)
 
 
 
@@ -73,15 +77,4 @@ setTimeout(gifTrending, 1000)
  * FUNCIÓN PARA RECARGAR Y CREAR MÁS GIFS
  */
 
-
-// const reload = function () {
-//     for(let i = 0; i <= 9; ++i){
-//         gifBox = document.createElement("img")
-//         enlace = document.createElement("a")
-//         gifBox.appendChild(enlace)
-//         gifBox.id = `gfnumber${idNumber}`;
-    
-//         let container = document.getElementById("list-gifs")
-//         container.appendChild(gifBox)
-//     }
-// }
+var btnNext = document.getElementById("btn-next")
