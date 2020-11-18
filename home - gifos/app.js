@@ -42,7 +42,7 @@ var idNumber = 0;
 // Función para cargar los gifs trendings
 
 function getTrending (){
-    for(let i = 0; i <= gifTrendingInfo.length; ++i){
+    for(let i = 0; i <= 2; ++i){
 
         // Creo los elementos
         gifBox = document.createElement("img")
@@ -74,7 +74,60 @@ setTimeout(getTrending, 1500)
 
 
 /**
- * FUNCIÓN PARA RECARGAR Y CREAR MÁS GIFS
+ * PROGRAMA PARA BUSCAR GIFS
  */
+
+
+// Varible para ir iterando en el offset y así mostrar nuevas imagenes
+var contador = 0;
+
+// Variable para el catch
+var noResults = "Lo que buscabas no se ha encontrado"
+
+// Función para tomar el texto del input y buscarlo en la API (Lo declaro antes del input por la asincronia)
+function getText (x) {
+
+    // Obtengo SÓLO el TEXTO del input y lo almaceno en esta variable global
+    var inputText = x.path[0].value;
+
+    // Busco el texto en la API
+    fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=20&offset=${contador}`)
+    .then(res => res.json()  )
+    .then(res => {
+
+        console.log(res)
+        // Pusheo los resultados para luego mostrarlos
+        var results = [];
+        results.push(res)
+
+        for(let x = 0; x <= 19; ++i){
+            // Creo los elementos a mostrar
+            let boxResult = document.createElement("img");
+            let titleResult = document.createElement("h3")
+            let like = document.createElement("span")
+
+            boxResult.appendChild(titleResult)
+            titleResult.appendChild(like)
+
+            boxResult.src = res[i].images.original.url
+
+            let containerResults = document.getElementById("container-results")
+            containerResults.appendChild(boxResult)
+        }
+
+
+        //Itero el contador por si el usuario luego hace click en "Ver más" y le tengo que mostrar nuevos gifs
+        contador += 1;
+    })
+    .catch((error) => {
+        console.log(noResults ,error);
+    })
+
+}
+
+var input = document.querySelector('input');
+input.addEventListener("keyup", getText)
+
+
 
 var btnNext = document.getElementById("btn-next")
