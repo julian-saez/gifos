@@ -40,19 +40,23 @@
                 <article>
                     <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
                     <img src="assets/ilustra_header.svg" alt="">
-                    <form>
+                    <form onsubmit="return false;">
                         <fieldset>
-                            <input id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
+                            <input onkeyup="onKeyUp(event)" id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
                             <!-- <button><img src="assets/icon-search.svg" alt=""></button> -->
                         </fieldset>
                     </form>
-                    <div id="container-results"></div>  
-                </article>
+                    <div id="trending-categories">
+                        <h3>Trending:</h3>
+                        <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
+                    </div>
+                    <div id="spacebetween"></div>
 
-                <article id="trending-categories">
-                    <h3>Trending:</h3>
-                    <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
-                </article>
+                    <h2 id="search-word"></h2>
+                    <div id="container-results">
+                        
+                    </div>
+
             </section>  
     </div>
             <section class="light-trending" id="trending-gifos">
@@ -82,7 +86,6 @@
     <!-- </div> -->
     <script src="dark-mode.js"></script>
     <script src="menu-hamburguesa.js"></script>
-    <script src="search.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

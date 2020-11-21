@@ -121,6 +121,8 @@
             font-family: $font-principal;
             font-weight: bolder;
         }
+
+
         
             
         // Estilos cuando se aplique javascript
@@ -192,6 +194,10 @@
         li a:hover {
             text-decoration: solid underline;
             text-decoration-color: #5ED7C6;
+        }
+
+        li a:active {
+            color: #9CAFC3;
         }
 
         img {

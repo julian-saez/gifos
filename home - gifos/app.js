@@ -2,27 +2,33 @@
  * COMUNICACIÓN CON LA API
  */
 
+
 const urlTrendings = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=10";
 var gifTrendingInfo = [];
 
+function putTrendings(){
+    fetch(urlTrendings)
+    .then(res => res.json() )
+    .then(res => {
 
-fetch(urlTrendings)
-.then(res => res.json() )
-.then(res => {
-
-    // Recorro los objetos del request
-    res.data.forEach(element => {   
-        let valores = element;
+        // Recorro los objetos del request
+        res.data.forEach(element => {   
+            let valores = element;
 
         // Pusheo los objetos al array "gifTrendingInfo"
         gifTrendingInfo.push(valores);
-})
-})
-.catch(error => {
-    console.log(error + `Error n° ${status}`)
-})
+    })
+    getTrending()
+    })
+    .catch(error => {
+        console.log(error + `Error n° ${status}`)
+    })
 
-console.log(gifTrendingInfo)
+    console.log(gifTrendingInfo)
+}
+
+putTrendings()
+
 
 
 /**
@@ -68,80 +74,98 @@ function getTrending (){
     }
 }
 
-// Ejecuto la función para mostrar los 3 gifs trendings
-setTimeout(getTrending, 1500)
-
 
 
 /**
  * PROGRAMA PARA BUSCAR GIFS
  */
 
+var boxResult;
+var titleResult;
+var creatorResult;
+var like;
+var containerResults = document.getElementById("container-results")
+
+for(let x = 0;x <= 19; x++){
+            
+    // Creo los elementos a mostrar
+    boxResult = document.createElement("img")
+    titleResult= document.createElement("h3")
+    creatorResult= document.createElement("h4")
+    like= document.createElement("span")
+
+    boxResult.appendChild(titleResult)
+    titleResult.appendChild(like)
+    boxResult.appendChild(creatorResult)
+    boxResult.appendChild(like)
+
+    containerResults.appendChild(boxResult)
+}
+
+
+// Evento de la tecla
+
+var input = document.getElementById('buscador')
+input.addEventListener("keyup", function enterCode(e){
+    var enter = e.which || e.keyCode;
+
+    if(enter === 13){
+        input.addEventListener("keyup", getText)
+    }else{
+    }
+})
 
 // Varible para ir iterando en el offset y así mostrar nuevas imagenes
-var contador = 0;
+var contador = 0; 
 
-// Variable para el catch
-var noResults = "Lo que buscabas no se ha encontrado"
-
-
+// Guardo los objetos que me da la API en este array
 var results = [];
+
+// LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
+
+
+var inputText;
+
+// Función para tomar el texto del input y buscarlo en la API
+
+async function getText(x) {
+
+    inputText = x.path[0].value;
+
+    // Nombre de lo que se busca
+
+    let searchWord = document.getElementById("search-word")
+    searchWord.innerHTML = inputText;
+
+    results = [];
+
+    // Creo la linea que separa los resultados con el subtitulo "Trendings"
+
+    let line = document.getElementById("spacebetween");
+    line.className = "line-active";
+
+    let respose = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${contador}`)
+    
+    let responseJSON = await respose.json();
+
+    results.push(responseJSON)
+
+    showResults()
+
+    function showResults(){
+        for(let x = 0; x <= 19; ++i){
+            boxResult.src = results[0].data[x].images.original.url
+            titleResult.innerHTML = results[0].data[x].title
+            creatorResult.innerHTML = results[0].data[x].username
+            // boxResult.id = `${idResult}`
+            // idResult += 1
+        }
+    }
+}    
+
+// Variable para iterarle en el id
 var idResult = 1;
 
-function showResults() {
-    for(let x = 0;x <= 19; x++){
-        // Creo los elementos a mostrar
-        var boxResult= document.createElement("img")
-        var titleResult= document.createElement("h3")
-        var like= document.createElement("span")
-
-        boxResult.appendChild(titleResult)
-        titleResult.appendChild(like)
-
-        boxResult.src = results[0].data[x].images.original.url
-        titleResult.innerHTML = results[0].data[x].title
-        boxResult.id = `${idResult}`
-        idResult += 1
-
-        let containerResults = document.getElementById("container-results")
-        containerResults.appendChild(boxResult)
-    }
-}
-
-
-// Función para tomar el texto del input y buscarlo en la API (Lo declaro antes del input por la asincronia)
-async function getText (x) {
-
-    // Obtengo SÓLO el TEXTO del input y lo almaceno en esta variable global
-    var inputText = x.path[0].value;
-    
-    // Busco el texto en la API
-    await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=20&offset=${contador}`)
-    .then(res => res.json()  )
-    .then(res => {
-
-        // Pusheo los resultados para luego mostrarlos
-        results.push(res)
-
-        // Ejecuto esta función una vez que ya obtengo el fetch
-        showResults()
-
-        //Itero el contador por si el usuario luego hace click en "Ver más" y le tengo que mostrar nuevos gifs
-        contador += 1;
-    })
-    .catch((error) => {
-        console.log(noResults, error);
-    })
-}
-
-var input = document.querySelector('input');
-input.addEventListener("keyup", getText)
 
 
 
-
-
-
-
-
-var btnNext = document.getElementById("btn-next")
