@@ -24,7 +24,7 @@ function putTrendings(){
         console.log(error + `Error n° ${status}`)
     })
 
-    console.log(gifTrendingInfo)
+    // console.log(gifTrendingInfo)
 }
 
 putTrendings()
@@ -84,34 +84,19 @@ var boxResult;
 var titleResult;
 var creatorResult;
 var like;
-var containerResults = document.getElementById("container-results")
+let containerResults = document.getElementById("container-results")
 
-for(let x = 0;x <= 19; x++){
-            
-    // Creo los elementos a mostrar
-    boxResult = document.createElement("img")
-    titleResult= document.createElement("h3")
-    creatorResult= document.createElement("h4")
-    like= document.createElement("span")
 
-    boxResult.appendChild(titleResult)
-    titleResult.appendChild(like)
-    boxResult.appendChild(creatorResult)
-    boxResult.appendChild(like)
-
-    containerResults.appendChild(boxResult)
-}
 
 
 // Evento de la tecla
 
 var input = document.getElementById('buscador')
-input.addEventListener("keyup", function enterCode(e){
+input.addEventListener("keydown", function enterCode(e){
     var enter = e.which || e.keyCode;
 
-    if(enter === 13){
+    if(enter == 13){
         input.addEventListener("keyup", getText)
-    }else{
     }
 })
 
@@ -119,52 +104,94 @@ input.addEventListener("keyup", function enterCode(e){
 var contador = 0; 
 
 // Guardo los objetos que me da la API en este array
-var results = [];
+let results;
 
 // LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
-
-
 var inputText;
+
+let iters = 0;
 
 // Función para tomar el texto del input y buscarlo en la API
 
 async function getText(x) {
-
-    inputText = x.path[0].value;
-
-    // Nombre de lo que se busca
-
-    let searchWord = document.getElementById("search-word")
-    searchWord.innerHTML = inputText;
-
+    
     results = [];
+    inputText = x.path[0].value;
 
     // Creo la linea que separa los resultados con el subtitulo "Trendings"
 
     let line = document.getElementById("spacebetween");
     line.className = "line-active";
 
+    // Nombre de lo que se busca
+
+    let searchWord = document.getElementById("search-word")
+    searchWord.innerHTML = inputText;
+
+
+    // Busco en la API el valor de inputText
     let respose = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${contador}`)
     
     let responseJSON = await respose.json();
+    results = responseJSON.data
 
-    results.push(responseJSON)
-
-    showResults()
-
-    function showResults(){
-        for(let x = 0; x <= 19; ++i){
-            boxResult.src = results[0].data[x].images.original.url
-            titleResult.innerHTML = results[0].data[x].title
-            creatorResult.innerHTML = results[0].data[x].username
-            // boxResult.id = `${idResult}`
-            // idResult += 1
-        }
+    if(iters == 0){
+        iters += 1;
+        showResults()
+    }else(iters != 0);{
+        overwritten()
     }
 }    
 
+
 // Variable para iterarle en el id
-var idResult = 1;
+let id = 1;
+
+function showResults () {
+    for(let x = 0; x <= 11; ++x){
+        boxResult = document.createElement("img")
+        titleResult = document.createElement("h3")
+        creatorResult = document.createElement("h4")
+        like = document.createElement("span")
+    
+        boxResult.appendChild(titleResult)
+        boxResult.appendChild(creatorResult)
+        boxResult.appendChild(like)
+
+        boxResult.src = results[x].images.preview_webp.url
+        titleResult.innerHTML = results[x].title
+        creatorResult.innerHTML = results[x].username
+        boxResult.id = id;
+        id += 1;
+        boxResult.className = "touch-element"
+
+        containerResults.appendChild(boxResult)
+    }
+}
+
+function overwritten (){
+    for(let i = 0; i <= 11; ++i){
+        let imagen = containerResults.children[i];
+        imagen.setAttribute('src', `${results[i].images.preview_webp.url}`)
+    }  
+}
+
+
+// const overwritten = () => {
+//     boxResult.setAttribute("src", `${results[1].images.original.url}`)
+// }
+
+// let elementTouched = document.querySelector(".touch-element");
+
+// elementTouched.addEventListener("onclick", elementSelected)
+
+// const elementSelected = (v) => {
+//     let valueElement = v.path.value;
+//     console.log(valueElement)
+//     console.log("Funcionó")
+// }
+
+
 
 
 
