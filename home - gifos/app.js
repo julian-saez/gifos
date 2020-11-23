@@ -76,20 +76,12 @@ function getTrending (){
 
 
 
+
 /**
  * PROGRAMA PARA BUSCAR GIFS
  */
 
-var boxResult;
-var titleResult;
-var creatorResult;
-var like;
-let containerResults = document.getElementById("container-results")
-
-
-
-
-// Evento de la tecla
+// Evento de la tecla ENTER
 
 var input = document.getElementById('buscador')
 input.addEventListener("keydown", function enterCode(e){
@@ -101,7 +93,10 @@ input.addEventListener("keydown", function enterCode(e){
 })
 
 // Varible para ir iterando en el offset y así mostrar nuevas imagenes
-var contador = 0; 
+let contador = 0; 
+
+// Variable para usarla luego en la condición
+let iters = 0;
 
 // Guardo los objetos que me da la API en este array
 let results;
@@ -109,45 +104,66 @@ let results;
 // LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
 var inputText;
 
-let iters = 0;
+let boxResult;
+let titleResult;
+let creatorResult;
+let like;
+let containerResults = document.getElementById("container-results")
+let btnContainer = document.getElementById("btn-container")
+let btnMore = document.createElement("button")
+
+btnMore.addEventListener("click", moreResults)
+
+async function moreResults () {
+    contador += 11;
+    await runAPI()
+    showResults()
+}
 
 // Función para tomar el texto del input y buscarlo en la API
 
-async function getText(x) {
-    
+async function getText(value) {
+    // Borro los resultados anteriores para subir nuevos
     results = [];
-    inputText = x.path[0].value;
+
+    // Obtengo el valor que coloque por el input
+    inputText = value.path[0].value;
 
     // Creo la linea que separa los resultados con el subtitulo "Trendings"
-
     let line = document.getElementById("spacebetween");
     line.className = "line-active";
 
     // Nombre de lo que se busca
-
     let searchWord = document.getElementById("search-word")
     searchWord.innerHTML = inputText;
 
+    await runAPI()
 
-    // Busco en la API el valor de inputText
-    let respose = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${contador}`)
-    
-    let responseJSON = await respose.json();
-    results = responseJSON.data
-
+    // Pregunto si la variable ITERS es cero, si lo es, ejecuto la función que creará todos los elementos en el HTML, y si es > a 0 solo se ejecutará la función que sobre-escribira los resultados sobre los elementos ya creados.
     if(iters == 0){
         iters += 1;
+        btnContainer.appendChild(btnMore)
+        btnMore.innerHTML = 'Ver más'
         showResults()
     }else(iters != 0);{
         overwritten()
     }
 }    
 
+const runAPI = async () => {
+    // Busco en la API el valor de inputText
+    let respose = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${contador}`)
 
-// Variable para iterarle en el id
-let id = 1;
+    // Paso los objetos a valor Javascript
+    let responseJSON = await respose.json();
 
-function showResults () {
+    //Subo los objetos al array RESULTS
+    results = responseJSON.data
+}
+
+
+// Función para crear los elementos en el HTML y asignarles las URL que obtuve con la API
+const showResults = () => {
     for(let x = 0; x <= 11; ++x){
         boxResult = document.createElement("img")
         titleResult = document.createElement("h3")
@@ -161,25 +177,26 @@ function showResults () {
         boxResult.src = results[x].images.preview_webp.url
         titleResult.innerHTML = results[x].title
         creatorResult.innerHTML = results[x].username
-        boxResult.id = id;
-        id += 1;
         boxResult.className = "touch-element"
 
         containerResults.appendChild(boxResult)
     }
 }
 
-function overwritten (){
+
+// Función para sobre-escribir las URL que obtuve luego de la 2da, 3era, 4ta busqueda, etc.
+const overwritten = () => {
     for(let i = 0; i <= 11; ++i){
-        let imagen = containerResults.children[i];
-        imagen.setAttribute('src', `${results[i].images.preview_webp.url}`)
+        let gif = containerResults.children[i];
+        gif.setAttribute('src', `${results[i].images.preview_webp.url}`)
     }  
 }
 
 
-// const overwritten = () => {
-//     boxResult.setAttribute("src", `${results[1].images.original.url}`)
-// }
+
+
+
+
 
 // let elementTouched = document.querySelector(".touch-element");
 
