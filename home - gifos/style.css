@@ -390,7 +390,7 @@ input:focus {
 }
 
 #search-word {
-  margin-top: 43px;
+  margin-top: 30px;
   font-size: 1.5rem;
   text-align: center;
 }
@@ -420,7 +420,7 @@ input:focus {
 #trending-categories p {
   text-align: center;
   font-size: 0.88rem;
-  margin: 0 75px 45px;
+  margin: 0 75px 35px;
   color: #6742E7;
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
@@ -431,6 +431,7 @@ input:focus {
   padding: 15px 30px;
   border-radius: 25px;
   border: 1px solid #6742E7;
+  font-family: "Montserrat", sans-serif;
   color: white;
   z-index: 3;
   outline: none;

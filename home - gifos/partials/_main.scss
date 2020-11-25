@@ -79,7 +79,7 @@ input:focus{
 }
 
 #search-word {
-    margin-top: 43px;
+    margin-top: 30px;
     font-size: 1.5rem;
     text-align: center;
 }
@@ -107,7 +107,7 @@ input:focus{
 #trending-categories p {
     text-align: center;
     font-size: 0.88rem;
-    margin: 0 75px 45px;
+    margin: 0 75px 35px;
     color: $primario;
     font-family: $font-principal;
     font-weight: normal;
@@ -120,6 +120,7 @@ input:focus{
     padding: 15px 30px;
     border-radius: 25px;
     border: 1px solid $primario;
+    font-family: $font-principal;
     color: white;
     z-index: 3;
     outline: none;

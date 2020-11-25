@@ -2,12 +2,11 @@
  * COMUNICACIÓN CON LA API
  */
 
+const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=10";
+let arrayTrendings = [];
 
-const urlTrendings = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=10";
-var gifTrendingInfo = [];
-
-function putTrendings(){
-    fetch(urlTrendings)
+function getTrendings(){
+    fetch(urlTrending)
     .then(res => res.json() )
     .then(res => {
 
@@ -15,39 +14,31 @@ function putTrendings(){
         res.data.forEach(element => {   
             let valores = element;
 
-        // Pusheo los objetos al array "gifTrendingInfo"
-        gifTrendingInfo.push(valores);
+        // Pusheo los objetos al array "arrayTrendings"
+        arrayTrendings.push(valores);
     })
-    getTrending()
+    printTrendings()
     })
     .catch(error => {
         console.log(error + `Error n° ${status}`)
     })
-
-    // console.log(gifTrendingInfo)
 }
 
-putTrendings()
-
-
-
-/**
- * CREO LOS CONTENEDORES DONDE ESTARÁN LOS GIFS
- */
+getTrendings()
 
 // Declaro el nombre de las variables para luego crear los nombres de los elementos y llamarlos desde cualquier bloque.
 
-var gifBox;
-var title;
-var username;
+let gifBox;
+let title;
+let username;
 
 // Variable para ir iterando sobre los id de las boxes
-var idNumber = 0;
+let idNumber = 0;
 
 
 // Función para cargar los gifs trendings
 
-function getTrending (){
+function printTrendings (){
     for(let i = 0; i <= 2; ++i){
 
         // Creo los elementos
@@ -61,12 +52,12 @@ function getTrending (){
 
         // Le coloco los id a cada caja y les agrego el titulo y la url del gif
         gifBox.id = `gfnumber${idNumber}`
-        title.innerHTML = gifTrendingInfo[i].title
-        username.innerHTML = `Creator: ${gifTrendingInfo[i].username}`
-        gifBox.src = gifTrendingInfo[i].images.original.url
+        title.innerHTML = arrayTrendings[i].title
+        username.innerHTML = `Creator: ${arrayTrendings[i].username}`
+        gifBox.src = arrayTrendings[i].images.original.url
 
         // Declaro a las boxes como hijo de container 
-        var container = document.getElementById("list-gifs")
+        let container = document.getElementById("list-gifs")
         container.appendChild(gifBox)
 
         // Aumento el valor de idNumber para luego iterar nuevamente sobre los id de las boxes
@@ -83,9 +74,11 @@ function getTrending (){
 
 // Evento de la tecla ENTER
 
-var input = document.getElementById('buscador')
+let input = document.getElementById('buscador')
 input.addEventListener("keydown", function enterCode(e){
-    var enter = e.which || e.keyCode;
+    counter = 0;
+    maxResults = 0;
+    let enter = e.which || e.keyCode;
 
     if(enter == 13){
         input.addEventListener("keyup", getText)
@@ -93,16 +86,18 @@ input.addEventListener("keydown", function enterCode(e){
 })
 
 // Varible para ir iterando en el offset y así mostrar nuevas imagenes
-let contador = 0; 
+let counter = 0; 
+
 
 // Variable para usarla luego en la condición
 let iters = 0;
 
 // Guardo los objetos que me da la API en este array
 let results;
+let maxResults;
 
 // LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
-var inputText;
+let inputText;
 
 let boxResult;
 let titleResult;
@@ -115,9 +110,13 @@ let btnMore = document.createElement("button")
 btnMore.addEventListener("click", moreResults)
 
 async function moreResults () {
-    contador += 11;
-    await runAPI()
-    showResults()
+    counter += 11;
+    if(containerResults.children.length <= maxResults){
+        await runAPI()
+        showResults()
+    }else{
+        console.log("Ya no hay más resultados");
+    }
 }
 
 // Función para tomar el texto del input y buscarlo en la API
@@ -135,7 +134,7 @@ async function getText(value) {
 
     // Nombre de lo que se busca
     let searchWord = document.getElementById("search-word")
-    searchWord.innerHTML = inputText;
+    searchWord.innerHTML = inputText[0].toUpperCase() + inputText.slice(1)
 
     await runAPI()
 
@@ -145,22 +144,30 @@ async function getText(value) {
         btnContainer.appendChild(btnMore)
         btnMore.innerHTML = 'Ver más'
         showResults()
+        
     }else(iters != 0);{
         overwritten()
     }
 }    
 
+
+
 const runAPI = async () => {
     // Busco en la API el valor de inputText
-    let respose = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${contador}`)
+    let respose = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${counter}`)
 
     // Paso los objetos a valor Javascript
     let responseJSON = await respose.json();
+
+    maxResults = responseJSON.pagination.total_count;
 
     //Subo los objetos al array RESULTS
     results = responseJSON.data
 }
 
+let id = 1;
+
+let amount = 12;
 
 // Función para crear los elementos en el HTML y asignarles las URL que obtuve con la API
 const showResults = () => {
@@ -177,9 +184,16 @@ const showResults = () => {
         boxResult.src = results[x].images.preview_webp.url
         titleResult.innerHTML = results[x].title
         creatorResult.innerHTML = results[x].username
-        boxResult.className = "touch-element"
+        boxResult.id = id;
+        id += 1;
+        boxResult.className = "touch"
 
         containerResults.appendChild(boxResult)
+        
+        if(containerResults.childElementCount == amount){
+            getValue()
+            amount += 12;
+        }
     }
 }
 
@@ -193,20 +207,29 @@ const overwritten = () => {
 }
 
 
+// Función para obtener los valores de un gif para luego mostrarlo en grande.
+const getValue = () => {
+    for(let i = 1; i <= amount; ++i){
+        // Itero hasta llegar al id del gif que clickee.
+        let element = document.getElementById(`${i}`);
+
+        // Obtengo el valor del gif (title, url, creator).
+        element.addEventListener("click", function clicked(value) {
+        let valueElement = value.target;
+
+        let bigGif = document.createElement("img")
+        bigGif.id = "bigGif"
+        bigGif.src = value.target.src
+    
+        console.log(valueElement)
+        })
+    }
+}
 
 
 
 
 
-// let elementTouched = document.querySelector(".touch-element");
-
-// elementTouched.addEventListener("onclick", elementSelected)
-
-// const elementSelected = (v) => {
-//     let valueElement = v.path.value;
-//     console.log(valueElement)
-//     console.log("Funcionó")
-// }
 
 
 
