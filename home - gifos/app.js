@@ -100,13 +100,11 @@ let maxResults;
 // LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
 let inputText;
 
-let boxResult;
-let titleResult;
-let creatorResult;
-let like;
-let containerResults = document.getElementById("container-results")
 let btnContainer = document.getElementById("btn-container")
 let btnMore = document.createElement("button")
+
+
+// Función para pedir más resultados
 
 btnMore.addEventListener("click", moreResults)
 
@@ -122,7 +120,7 @@ async function moreResults () {
 
 // Función para tomar el texto del input y buscarlo en la API
 
-async function getText(value) {
+const getText = async value => {
     // Borro los resultados anteriores para subir nuevos
     results = [];
 
@@ -170,13 +168,16 @@ let id = 1;
 
 let amount = 12;
 
+
+let containerResults = document.getElementById("container-results") 
+
 // Función para crear los elementos en el HTML y asignarles las URL que obtuve con la API
 const showResults = () => {
     for(let x = 0; x <= 11; ++x){
-        boxResult = document.createElement("img")
-        titleResult = document.createElement("h3")
-        creatorResult = document.createElement("h4")
-        like = document.createElement("span")
+        let boxResult = document.createElement("img")
+        let titleResult = document.createElement("h3")
+        let creatorResult = document.createElement("h4")
+        let like = document.createElement("span")
     
         boxResult.appendChild(titleResult)
         boxResult.appendChild(creatorResult)
@@ -211,23 +212,55 @@ const overwritten = () => {
 // Función para obtener los valores de un gif para luego mostrarlo en grande.
 const getValue = () => {
     for(let i = 1; i <= amount; ++i){
+        
         // Itero hasta llegar al id del gif que clickee.
         let element = document.getElementById(`${i}`);
 
         // Obtengo el valor del gif (title, url, creator).
         element.addEventListener("click", function clicked() {
-        let url = this.getAttribute("src")
-        let title = this.getElementsByTagName("h3")
-        let creator = this.getElementsByTagName("h4")
+            let contenedor = document.getElementById("home")
+            let url = this.getAttribute("src")
+            let title = this.getElementsByTagName("h3")
+            let creator = this.getElementsByTagName("h4")
 
 
-        let bigGif = document.createElement("img")
-        let titleGif = document.createElement("h3")
-        let creatorGif = document.createElement("h4")
-        bigGif.id = "bigGif";
-        bigGif.src = url;
-        titleGif.innerHTML = title[0].innerText;
-        creatorGif.innerHTML = creator[0].innerText;
+            // Creo los elementos
+            let div = document.createElement("div")
+            let bigGif = document.createElement("img")
+            let titleGif = document.createElement("h3")
+            let creatorGif = document.createElement("h4")
+            let btnExit = document.createElement("button")
+            let btnDownloading = document.createElement("button")
+            let btnLike = document.createElement("like")
+            let exitImg = document.createElement("img")
+            
+
+            // Declaro los hijos de los elementos
+            div.appendChild(btnExit)
+            div.appendChild(bigGif)
+            div.appendChild(titleGif)
+            div.appendChild(creatorGif)
+            div.appendChild(btnDownloading)
+            div.appendChild(btnLike)
+            btnExit.appendChild(exitImg)
+            
+
+            // Le asignó los atributos a los elementos creados 
+            div.id = "big-gif"
+            btnExit.id = "btn-exit"
+            bigGif.src = url
+            exitImg.src = "assets/close.svg"
+            titleGif.innerHTML = title[0].innerText;
+            creatorGif.innerHTML = creator[0].innerText;
+
+
+            // Declaro el contenedor donde esta el GIF
+            contenedor.appendChild(div)
+
+            // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
+            btnExit.addEventListener("click", function close(){
+                div.remove(bigGif)
+            })
         })
     }
 }
