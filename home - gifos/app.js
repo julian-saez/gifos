@@ -16,11 +16,12 @@ function getTrendings(){
 
         // Pusheo los objetos al array "arrayTrendings"
         arrayTrendings.push(valores);
+
     })
     printTrendings()
     })
     .catch(error => {
-        console.log(error + `Error n° ${status}`)
+        console.log(error)
     })
 }
 
@@ -38,7 +39,7 @@ let idNumber = 0;
 
 // Función para cargar los gifs trendings
 
-function printTrendings (){
+function printTrendings(){
     for(let i = 0; i <= 2; ++i){
 
         // Creo los elementos
@@ -214,14 +215,19 @@ const getValue = () => {
         let element = document.getElementById(`${i}`);
 
         // Obtengo el valor del gif (title, url, creator).
-        element.addEventListener("click", function clicked(value) {
-        let valueElement = value.target;
+        element.addEventListener("click", function clicked() {
+        let url = this.getAttribute("src")
+        let title = this.getElementsByTagName("h3")
+        let creator = this.getElementsByTagName("h4")
+
 
         let bigGif = document.createElement("img")
-        bigGif.id = "bigGif"
-        bigGif.src = value.target.src
-    
-        console.log(valueElement)
+        let titleGif = document.createElement("h3")
+        let creatorGif = document.createElement("h4")
+        bigGif.id = "bigGif";
+        bigGif.src = url;
+        titleGif.innerHTML = title[0].innerText;
+        creatorGif.innerHTML = creator[0].innerText;
         })
     }
 }
