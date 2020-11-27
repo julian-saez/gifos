@@ -9,18 +9,16 @@ function getTrendings(){
     fetch(urlTrending)
     .then(res => res.json() )
     .then(res => {
-
         // Recorro los objetos del request
         res.data.forEach(element => {   
             let valores = element;
 
         // Pusheo los objetos al array "arrayTrendings"
         arrayTrendings.push(valores);
-
     })
     printTrendings()
     })
-    .catch(error => {
+    .catch((error) => {
         console.log(error)
     })
 }
@@ -65,9 +63,6 @@ function printTrendings(){
         idNumber = idNumber + 1;
     }
 }
-
-
-
 
 /**
  * PROGRAMA PARA BUSCAR GIFS
@@ -167,16 +162,18 @@ const runAPI = async () => {
 let id = 1;
 
 let amount = 12;
-
+let boxResult;
+let titleResult;
+let creatorResult;
 
 let containerResults = document.getElementById("container-results") 
 
 // Función para crear los elementos en el HTML y asignarles las URL que obtuve con la API
 const showResults = () => {
     for(let x = 0; x <= 11; ++x){
-        let boxResult = document.createElement("img")
-        let titleResult = document.createElement("h3")
-        let creatorResult = document.createElement("h4")
+        boxResult = document.createElement("img")
+        titleResult = document.createElement("h3")
+        creatorResult = document.createElement("h4")
         let like = document.createElement("span")
     
         boxResult.appendChild(titleResult)
