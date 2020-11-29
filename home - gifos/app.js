@@ -159,49 +159,61 @@ const runAPI = async () => {
     results = responseJSON.data
 }
 
+
+
 let id = 1;
-
 let amount = 12;
-let boxResult;
-let titleResult;
-let creatorResult;
-
 let containerResults = document.getElementById("container-results") 
 
 // Función para crear los elementos en el HTML y asignarles las URL que obtuve con la API
 const showResults = () => {
-    for(let x = 0; x <= 11; ++x){
-        boxResult = document.createElement("img")
-        titleResult = document.createElement("h3")
-        creatorResult = document.createElement("h4")
-        let like = document.createElement("span")
-    
-        boxResult.appendChild(titleResult)
-        boxResult.appendChild(creatorResult)
-        boxResult.appendChild(like)
-
-        boxResult.src = results[x].images.preview_webp.url
-        titleResult.innerHTML = results[x].title
-        creatorResult.innerHTML = results[x].username
-        boxResult.id = id;
-        id += 1;
-        boxResult.className = "touch"
-
-        containerResults.appendChild(boxResult)
+    for(let i = 0; i <= 11; ++i){
+        let box = document.createElement("div")
+        let gif = document.createElement("img")
+        let title = document.createElement("h3")
+        let creator = document.createElement("h4")
+        let favorite = document.createElement("button")
         
+        containerResults.appendChild(box)
+        box.appendChild(gif)
+        box.appendChild(title)
+        box.appendChild(creator)
+        box.appendChild(favorite)
+
+        gif.src = results[i].images.preview_webp.url
+        title.innerHTML = results[i].title
+        creator.innerHTML = results[i].username
+
+        box.id = id;
+        id += 1;
+        box.className = "touch"
+
+        // Condición para ejecutar la función getValue así el programa detecta cuando el usuario hace click sobre algún gif y lo muestra en grande.
         if(containerResults.childElementCount == amount){
             getValue()
+
+            // Aumento el valor de esta varible para que luego el for de getValue pueda recorrer todos los gif que hay en el containerResults
             amount += 12;
         }
     }
 }
 
 
-// Función para sobre-escribir las URL que obtuve luego de la 2da, 3era, 4ta busqueda, etc.
+// Función para sobrescribir las URL que obtuve luego de la 2da, 3era, 4ta busqueda, etc.
 const overwritten = () => {
     for(let i = 0; i <= 11; ++i){
-        let gif = containerResults.children[i];
+        // Llamo al hijo del contenedor ("box") donde esta el gif, title y creator 
+        let container = containerResults.children[i];
+
+        // Ahora voy llamando a los nietos de container para sobrescribir sus atributos 
+        let gif = container.children[0]
+        let title = container.children[1]
+        let creator = container.children[2]
+
+        // Sobrescribo los valores
         gif.setAttribute('src', `${results[i].images.preview_webp.url}`)
+        title.innerHTML = results[i].title
+        creator.innerHTML = results[i].username
     }  
 }
 
@@ -215,6 +227,7 @@ const getValue = () => {
 
         // Obtengo el valor del gif (title, url, creator).
         element.addEventListener("click", function clicked() {
+            
             let contenedor = document.getElementById("home")
             let url = this.getAttribute("src")
             let title = this.getElementsByTagName("h3")
@@ -227,28 +240,35 @@ const getValue = () => {
             let titleGif = document.createElement("h3")
             let creatorGif = document.createElement("h4")
             let btnExit = document.createElement("button")
-            let btnDownloading = document.createElement("button")
-            let btnLike = document.createElement("like")
             let exitImg = document.createElement("img")
+            let btnDownloading = document.createElement("button")
+            let btnLike = document.createElement("button")
+            let likeImg = document.createElement("img")
+            
             
 
             // Declaro los hijos de los elementos
-            div.appendChild(btnExit)
+            
             div.appendChild(bigGif)
             div.appendChild(titleGif)
             div.appendChild(creatorGif)
+            div.appendChild(btnExit)
             div.appendChild(btnDownloading)
             div.appendChild(btnLike)
+            btnLike.appendChild(likeImg)
             btnExit.appendChild(exitImg)
             
 
             // Le asignó los atributos a los elementos creados 
             div.id = "big-gif"
+            bigGif.id = "gif"
             btnExit.id = "btn-exit"
+            btnLike.id = "btn-like"
             bigGif.src = url
             exitImg.src = "assets/close.svg"
             titleGif.innerHTML = title[0].innerText;
             creatorGif.innerHTML = creator[0].innerText;
+            likeImg.src = "assets/icon-fav.svg"
 
 
             // Declaro el contenedor donde esta el GIF

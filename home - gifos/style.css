@@ -422,19 +422,39 @@ input:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
-#big-gif img {
+#gif {
+  margin-left: auto;
+  margin-right: auto;
   width: 318px;
   height: 318px;
   max-width: 100%;
   max-height: 100%;
+}
+
+#big-gif h3 {
+  width: 50%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: black;
+}
+
+#big-gif h4 {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  color: black;
+}
+
+#btn-like {
+  outline: none;
+  background-color: transparent;
+  border: 0;
+}
+
+#btn-like img {
+  width: 30px;
 }
 
 #btn-exit {
