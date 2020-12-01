@@ -172,18 +172,21 @@ const showResults = () => {
         let gif = document.createElement("img")
         let title = document.createElement("h3")
         let creator = document.createElement("h4")
-        let favorite = document.createElement("button")
         
         containerResults.appendChild(box)
         box.appendChild(gif)
         box.appendChild(title)
         box.appendChild(creator)
-        box.appendChild(favorite)
 
         gif.src = results[i].images.preview_webp.url
         title.innerHTML = results[i].title
         creator.innerHTML = results[i].username
 
+        title.className = "title-gif-results"
+        creator.className = "gif-creator-results"
+        creator.style.display = 'none'
+        title.style.display = 'none'
+        
         box.id = id;
         id += 1;
         box.className = "touch"
@@ -223,49 +226,71 @@ const getValue = () => {
     for(let i = 1; i <= amount; ++i){
         
         // Itero hasta llegar al id del gif que clickee.
-        let element = document.getElementById(`${i}`);
+        let element = document.getElementById(`${i}`)
 
         // Obtengo el valor del gif (title, url, creator).
         element.addEventListener("click", function clicked() {
             
             let contenedor = document.getElementById("home")
-            let url = this.getAttribute("src")
+            let url = element.children[0].getAttribute("src")
             let title = this.getElementsByTagName("h3")
             let creator = this.getElementsByTagName("h4")
 
 
             // Creo los elementos
             let div = document.createElement("div")
+            let divFlex = document.createElement("div")
+            let divFlex2 = document.createElement("div")
+            let btnExit = document.createElement("button")
+            let exitImg = document.createElement("img")
             let bigGif = document.createElement("img")
             let titleGif = document.createElement("h3")
             let creatorGif = document.createElement("h4")
-            let btnExit = document.createElement("button")
-            let exitImg = document.createElement("img")
+
             let btnDownloading = document.createElement("button")
+            let btnDgImg = document.createElement("img")
             let btnLike = document.createElement("button")
             let likeImg = document.createElement("img")
             
             
 
             // Declaro los hijos de los elementos
-            
-            div.appendChild(bigGif)
-            div.appendChild(titleGif)
-            div.appendChild(creatorGif)
-            div.appendChild(btnExit)
-            div.appendChild(btnDownloading)
-            div.appendChild(btnLike)
-            btnLike.appendChild(likeImg)
+            div.appendChild(divFlex)
+            div.appendChild(divFlex2)
+
+            // Boton salir
+            divFlex.appendChild(btnExit)
             btnExit.appendChild(exitImg)
-            
+
+            //Gif
+            divFlex.appendChild(bigGif)
+
+
+            // Titulo del gif y creador
+            divFlex2.appendChild(titleGif)
+            divFlex2.appendChild(creatorGif)
+
+            // Boton like
+            divFlex2.appendChild(btnLike)
+            btnLike.appendChild(likeImg)
+
+            // Boton descarga
+            divFlex2.appendChild(btnDownloading)
+            btnDownloading.appendChild(btnDgImg)
 
             // Le asignó los atributos a los elementos creados 
-            div.id = "big-gif"
+            divFlex.className = "flex-container"
+            divFlex2.className = "flex-container"
+            divFlex.id = "flex-1"
+            divFlex2.id = "flex-2"
+            div.id = "div-container-results"
             bigGif.id = "gif"
             btnExit.id = "btn-exit"
             btnLike.id = "btn-like"
             bigGif.src = url
             exitImg.src = "assets/close.svg"
+            btnDownloading.id = "btn-dg"
+            btnDgImg.src = "assets/icon-download.svg"
             titleGif.innerHTML = title[0].innerText;
             creatorGif.innerHTML = creator[0].innerText;
             likeImg.src = "assets/icon-fav.svg"
