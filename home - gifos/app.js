@@ -2,7 +2,7 @@
  * COMUNICACIÓN CON LA API
  */
 
-const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=10";
+const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=6";
 let arrayTrendings = [];
 
 function getTrendings(){
@@ -36,9 +36,16 @@ let idNumber = 0;
 
 
 // Función para cargar los gifs trendings
+let container = document.getElementById("list-gifs")
 
-function printTrendings(){
-    for(let i = 0; i <= 2; ++i){
+const resize = () => {
+    if(innerWidth > 768) {
+        btnVisibility()
+    }
+}
+
+async function printTrendings(){
+    for(let i = 0; i <= 5; ++i){
 
         // Creo los elementos
         gifBox = document.createElement("img")
@@ -56,13 +63,35 @@ function printTrendings(){
         gifBox.src = arrayTrendings[i].images.original.url
 
         // Declaro a las boxes como hijo de container 
-        let container = document.getElementById("list-gifs")
+
         container.appendChild(gifBox)
 
         // Aumento el valor de idNumber para luego iterar nuevamente sobre los id de las boxes
         idNumber = idNumber + 1;
     }
+
+
+    let btnShowMore = document.createElement("button")
+    let btnImg = document.createElement("img")
+    container.appendChild(btnShowMore)
+    btnShowMore.appendChild(btnImg)
+
+    btnImg.src = "assets/Button-Slider-right.svg"
+    btnShowMore.id = "btn-more-trendings"
+
+    resize()
 }
+
+function btnVisibility(){
+    let btnBack = document.createElement("button")
+    let btnNext = document.createElement("button")
+
+    container.insertBefore(btnBack, container.children[0])
+    container.insertAdjacentElement('beforeend',btnNext)
+    // container.appendChild(btnNext)
+    // container.firstElementChild(btnBack)
+}
+
 
 /**
  * PROGRAMA PARA BUSCAR GIFS
