@@ -25,52 +25,76 @@ function getTrendings(){
 
 getTrendings()
 
-// Declaro el nombre de las variables para luego crear los nombres de los elementos y llamarlos desde cualquier bloque.
-
-let gifBox;
-let title;
-let username;
-
-// Variable para ir iterando sobre los id de las boxes
-let idNumber = 0;
-
-
 // Función para cargar los gifs trendings
 let container = document.getElementById("list-gifs")
 
 const resize = () => {
     if(innerWidth > 768) {
         btnVisibility()
+    }else{
+        btnMobileNext()
     }
 }
-
-async function printTrendings(){
-    for(let i = 0; i <= 5; ++i){
-
+let idTrend = 0;
+function printTrendings(){
+    for(let i = 0; i <= 2; ++i){
         // Creo los elementos
-        gifBox = document.createElement("img")
-        title = document.createElement("h2")
-        username = document.createElement("h3")
+        let gifBox = document.createElement("img")
+        let title = document.createElement("h2")
+        let username = document.createElement("h3")
 
         // Declaro los hijos de la caja de los gifs
         gifBox.appendChild(title)
         gifBox.appendChild(username)
 
-        // Le coloco los id a cada caja y les agrego el titulo y la url del gif
-        gifBox.id = `gfnumber${idNumber}`
-        title.innerHTML = arrayTrendings[i].title
-        username.innerHTML = `Creator: ${arrayTrendings[i].username}`
-        gifBox.src = arrayTrendings[i].images.original.url
+        // Le coloco los idTren a cada caja y les agrego el titulo y la url del gif
+        gifBox.idTrend = `trend${idTrend}`
+        title.innerHTML = arrayTrendings[idTrend].title
+        username.innerHTML = `Creator: ${arrayTrendings[idTrend].username}`
+        gifBox.src = arrayTrendings[idTrend].images.original.url
 
         // Declaro a las boxes como hijo de container 
 
         container.appendChild(gifBox)
 
-        // Aumento el valor de idNumber para luego iterar nuevamente sobre los id de las boxes
-        idNumber = idNumber + 1;
+        // Aumento el valor de idTrend para luego iterar nuevamente sobre los idTrend de las boxes
+        idTrend = idTrend + 1;
     }
+    if(idTrend >= 3){
+        resize()
+    }
+}
 
 
+// Función para mostrar los botones de back y next en DESKTOP
+const btnVisibility = () => {
+    let btnBack = document.createElement("button")
+    let btnBackIMG = document.createElement("img")
+    btnBackIMG.src = 'assets/button-slider-left.svg'
+    btnBack.id = 'btn-back-trendings'
+
+    let btnNext = document.createElement("button")
+    let btnNextIMG = document.createElement("img")
+    btnNextIMG.src = 'assets/Button-Slider-right.svg'
+    btnNext.id = 'btn-more-trendings'
+
+
+    // Posiciono los botones de atras y siguiente
+    // container.insertBefore(btnBack, container.children[0])
+    container.insertAdjacentElement('beforebegin',btnBack)
+    container.insertAdjacentElement('afterend',btnNext)
+
+    btnBack.appendChild(btnBackIMG)
+    btnNext.appendChild(btnNextIMG)
+
+    btnNext.addEventListener("click", () => {
+        printTrendings()
+    })
+}
+
+
+// Función para mostrar el boton de next en MOBILE
+const btnMobileNext = () => {
     let btnShowMore = document.createElement("button")
     let btnImg = document.createElement("img")
     container.appendChild(btnShowMore)
@@ -78,19 +102,9 @@ async function printTrendings(){
 
     btnImg.src = "assets/Button-Slider-right.svg"
     btnShowMore.id = "btn-more-trendings"
-
-    resize()
 }
 
-function btnVisibility(){
-    let btnBack = document.createElement("button")
-    let btnNext = document.createElement("button")
 
-    container.insertBefore(btnBack, container.children[0])
-    container.insertAdjacentElement('beforeend',btnNext)
-    // container.appendChild(btnNext)
-    // container.firstElementChild(btnBack)
-}
 
 
 /**
@@ -113,7 +127,6 @@ input.addEventListener("keydown", function enterCode(e){
 // Varible para ir iterando en el offset y así mostrar nuevas imagenes
 let counter = 0; 
 
-
 // Variable para usarla luego en la condición
 let iters = 0;
 
@@ -121,12 +134,9 @@ let iters = 0;
 let results;
 let maxResults;
 
-// LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
-let inputText;
 
 let btnContainer = document.getElementById("btn-container")
 let btnMore = document.createElement("button")
-
 
 // Función para pedir más resultados
 
@@ -138,9 +148,24 @@ async function moreResults () {
         await runAPI()
         showResults()
     }else{
-        console.log("Ya no hay más resultados");
+
+        // Muestro el icono de "Intenta con otra busqueda" si es que no se encontraron resultados
+
+        let noResult = document.createElement("img")
+        let text = document.createElement("p")
+
+        text.innerHTML = "Intenta con otra busqueda"
+        text.id = "no-results"
+        noResult.src = "assets/icon-busqueda-sin-resultado.svg"
+
+        
+        containerResults.insertAdjacentElement('afterend',text)
+        containerResults.appendChild(noResult)
     }
 }
+
+// LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
+let inputText;
 
 // Función para tomar el texto del input y buscarlo en la API
 
@@ -163,7 +188,7 @@ const getText = async value => {
 
     // Pregunto si la variable ITERS es cero, si lo es, ejecuto la función que creará todos los elementos en el HTML, y si es > a 0 solo se ejecutará la función que sobre-escribira los resultados sobre los elementos ya creados.
     if(iters == 0){
-        iters += 1;
+        iters += 1; 
         btnContainer.appendChild(btnMore)
         btnMore.innerHTML = 'Ver más'
         showResults()
@@ -186,8 +211,16 @@ const runAPI = async () => {
 
     //Subo los objetos al array RESULTS
     results = responseJSON.data
-}
 
+    if(results == 0){
+        let noResult = document.createElement("img")
+        noResult.src = "assets/icon-busqueda-sin-resultado.svg"
+        containerResults.insertAdjacentElement('afterend',noResult)
+
+        // Elimino el boton de ver más ya que no sería necesario
+        btnContainer.remove(btnMore)
+    }
+}
 
 
 let id = 1;
@@ -247,6 +280,31 @@ const overwritten = () => {
         title.innerHTML = results[i].title
         creator.innerHTML = results[i].username
     }  
+}
+
+let likes = []
+
+// Objetos para guardar en el Local Storage
+
+class Likes{
+    constructor(url, name, author){
+        this.url = url;
+        this.name = name;
+        this.author = author;
+    }
+}
+
+let getLikes = JSON.parse(localStorage.getItem("Favorites"))
+
+if(getLikes === null){
+    console.log("No hago nada")
+    
+}else{
+    likes.push(getLikes)
+}
+
+function saveGifs(){
+    localStorage.setItem("Favorites", JSON.stringify(likes))
 }
 
 
@@ -332,9 +390,76 @@ const getValue = () => {
             btnExit.addEventListener("click", function close(){
                 div.remove(bigGif)
             })
+            btnLike.addEventListener("click", function like(){
+                let like = new Likes(url ,creator[0].innerText, title[0].innerText)
+                likes.push(like)
+                setTimeout(saveGifs, 750)
+            })
         })
     }
 }
+
+
+
+
+
+/**
+ * CODIGO DEL MODO DARK EN HOME - GIFOS
+ */
+
+// Llamo el boton del header y los fondos a modificar
+
+var darkBtn = document.getElementById("mode-btn")
+var background = document.getElementById("fondo")
+var backgroundTrending = document.getElementById("trending-gifos")
+
+
+// Almaceno los nombres de las clases
+
+var modeDark = [
+    {mode: "dark"},
+    {mode: "dark-trending"}
+]
+
+var modeLight = [
+    {mode: "light"},
+    {mode: "light-trending"}
+]
+
+// Obtengo los valores que se hayan almacenado con anterioridad en el LocalStorage
+
+let valuesSaved = localStorage.getItem("Mode")
+let valuesJS = JSON.parse(valuesSaved)
+
+// Le asigno las clases del LocalStorage ya en objetos javascript
+
+background.className = valuesJS[0].mode
+backgroundTrending.className = valuesJS[1].mode
+
+
+/**
+ * PROGRAMA DEL DARK-MODE
+ */
+
+// Le asigno un evento al boton de arriba
+
+darkBtn.addEventListener("click", function mode(){
+    if(background.className == "light" && backgroundTrending.className == "light-trending"){
+        background.className = modeDark[0].mode
+        backgroundTrending.className = modeDark[1].mode
+        
+        // Guardo los valores de arriba en el LocalStorage
+        localStorage.setItem("Mode", JSON.stringify(modeDark))
+        
+    }else{
+        background.className = modeLight[0].mode
+        backgroundTrending.className = modeLight[1].mode
+
+        // Elimino los valores anteriores para almacenar unos nuevos
+        localStorage.removeItem("Mode")
+        localStorage.setItem("Mode", JSON.stringify(modeLight))
+    }
+})
 
 
 

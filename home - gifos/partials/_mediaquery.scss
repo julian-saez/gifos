@@ -227,6 +227,36 @@
             justify-content: center;
             margin-left: auto;
             margin-right: auto;
+
+        }
+
+
+    }
+    // #list-gifs{
+    //     width: max-content;
+    //     max-width: 500px;
+    // }
+    #btn-back-trendings{
+        outline: none;
+        border: 0;
+        background-color: transparent;
+        img{
+            width: 100%;
+            min-width: 50px;
+            max-width: 60px;
         }
     }
+
+    #btn-more-trendings{
+        outline: none;
+        border: 0;
+        background: rgb(221, 23, 23);
+
+        img {
+            width: 100%;
+            min-width: 50px;
+            max-width: 60px;
+        }
+    }
+
 }

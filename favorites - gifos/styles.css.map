@@ -1,0 +1,14 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "styles.scss",
+        "partials/_mediaquery.scss",
+        "partials/_body.scss",
+        "partials/_header.scss",
+        "partials/_main.scss",
+        "partials/_footer.scss"
+    ],
+    "names": [],
+    "file": "styles.css"
+}
