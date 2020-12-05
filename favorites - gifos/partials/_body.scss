@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+}
+
+.light {
+    background-color: white;
+}
+
+.dark{
+    background-color: #37383C;
+    color: white;
+}
+
+
+#color {
+    width: 100%;
+    height: 5px;
+    background-color: $primario;
+}
+
+h1 {
+    font-size: 1.56rem;
+    color: $primario;
+    font-family: $font-principal;
+}
+
+h2 {
+    font-size: 1.25rem;
+    color: $primario;
+    font-family: $font-principal;
+}
+
+h3 {
+    font-size: 1rem;
+    font-family: $font-principal;
+    color: $primario;
+}
+
+h4 {
+    font-size: 0.94rem;
+    font-family: $font-secundario;
+}
+
+a {
+    text-decoration: none;
+    font-family: $font-principal;
+    // font-size: 0.81rem;
+}
+
+
+.flex-container {
+    display: flex;
+}
+
+.inline-block {
+    display: inline-block;
+}

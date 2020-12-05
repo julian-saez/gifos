@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>FAVORITES - GIFOS</title>
 </head>
-<body>
+<body class="light" id="fondo">
     <header>
         <div id="barra-header" class="flex-container">
             <img id="logo" src="assets/logo-desktop.svg" alt="Logo de gifos">
@@ -31,17 +32,30 @@
         </div>
     </header>
     <main>
-        <section>
+        
+        <section id="home" class="flex-container">
+            <img id="icon-favorite" src="assets/icon-favoritos.svg" alt="Icono de Favoritos">
             <h1>Favoritos</h1>
             <div id="container-favorites"></div>
+        </section>
+
+        <section class="light-trending" id="trending-gifos">
+            <div class="wrapper">
+                <h2>Trending GIFOS</h2>
+                <p>Mira los últimos gifos de nuestras comunidad.</p>
+                <div id="container-trending">
+                    <div id="list-gifs" class="flex-container"></div>
+                </div>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
         <article id="share">
             <h4>Compartir en:</h4>
-            <img src="assets/icon_facebook.svg" alt="">
-            <img src="assets/icon-tw-normal.svg" alt="">
-            <img src="assets/icon_instagram.svg" alt="">
+            <img src="assets/icon_facebook.svg" alt="Facebook">
+            <img src="assets/icon-tw-normal.svg" alt="Twitter">
+            <img src="assets/icon_instagram.svg" alt="Instagram">
         </article>
         
         <article>
@@ -49,6 +63,8 @@
             <div></div>
         </article>
     </footer>
-    <script src="app.js"></script>
+    <script src="app-favorites.js"></script>
+    <script src="dark-mode-favorites.js"></script>
+    <script src="bgr-menu-favorite.js"></script>
 </body>
 </html>
