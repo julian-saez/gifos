@@ -3,10 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Crea tu propio Gifos - GIFOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Crea tu GIFO - GIFOS</title>
 </head>
-<body>
-    
+<body class="light" id="fondo">
+    <div class="wrapper">
+        <header>
+            <div id="barra-header" class="flex-container">
+                <img id="logo" src="assets/logo-desktop.svg" alt="Logo de gifos">
+                    <ol id="nav">
+                        <li>
+                            <a id="mode-btn">Modo Nocturno</a>
+                        </li>
+                        <li>
+                            <a href="#">Favoritos</a>
+                        </li>
+                        <li>
+                            <a href="#">Mis Gifos</a>
+                        </li>
+                    </ol>
+            </div>
+        </header>
+    </div>
+
+    <main>
+            <section id="making-gifo-container" class="light-making-container">
+                <div class="wrapper" class="flex-container">
+                    <div id="box">
+                        <h1>Aquí podrás crear tus propios <span id="name">GIFOS</span></h1>
+                        <p>¡Crea tus gifos solo en 3 pasos!
+                        (solo necesitas una cámara para grabar un video)</p>
+                        
+                    </div>
+                </div>
+            </section>
+    </main>
+
+    <!-- <footer>
+        <article id="share">
+            <h4>Compartir en:</h4>
+            <img src="assets/icon_facebook.svg" alt="Facebook">
+            <img src="assets/icon-tw-normal.svg" alt="Twitter">
+            <img src="assets/icon_instagram.svg" alt="Instagram">
+        </article>
+        
+        <article>
+            <p>&copy; GIFOS 2020&mdash; All Rights Reserved<p>
+            <div></div>
+        </article>
+    </footer> -->
+    <script src="app-create-gifo.js"></script>
+    <script src="dark-mode-cg.js"></script>
 </body>
 </html>
