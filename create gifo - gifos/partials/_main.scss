@@ -11,28 +11,117 @@
     color: $secundario;
 }
 
-#making-gifo-container {
-    width: 100vw;
-    // height: ;
+main .flex-container {
+    flex-direction: row;
 }
 
 #making-gifo-container .flex-container {
+    margin-top: 4px;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+#cintas{
+    margin-right: 20px;
+}
+
+#camara img {
+    margin-top: -15px;
+    z-index: 1;
+}
+
+@keyframes rotation{
+    from{transform: rotateZ(0deg);}
+
+    to{transform: rotateZ(360deg);}
+}
+
+.cintas{
+    margin-bottom: -10px;
+    animation-name: rotation;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#recuadro-making-gifo {
+    width: 100%;
+    max-width: 750px;
+    margin-left: 3%;
+}
+
 #box {
-    // position: absolute;
-    width: 47.8%;
-    height: 49.5%;
-    height: 390px;
+    min-height: 450px;;
     background: transparent;
     border: 1px solid $primario;
 }
 
-h1 {
+#text-box {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#text-box h1 {
+    text-align: center;
     width: 700px;
-    font-size: 2.18rem;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+#text-box p{
+    font-size: 1.1rem;
+}
+
+#recuadro-below {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#process-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.process-icons {
+    padding-left: 10px;
+    width: 100%;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
+}
+
+#cinta-pelicula img {
+    width: 100%;
+    max-width: 120px;
+    height: 100%;
+    max-height: 120px;
+}
+
+#line-space {
+    width: 100%;
+    max-width: 850px;
+    height: 6.8px;
+    background-color: $primario;
+    border-radius: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn {
+    color: $primario;
+    font-weight: 600;
+    font-family: $font-principal;
+    border: 1px solid $primario;
+    padding: 12px 60px;
+    border-radius: 25px;
+    margin-top: 15px;
+    background-color: transparent;
+    outline: none;
 }
 
 

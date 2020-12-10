@@ -8,17 +8,23 @@ var darkBtn = document.getElementById("mode-btn")
 var background = document.getElementById("fondo")
 var backgroundMakingGif = document.getElementById("making-gifo-container")
 
+// Iconos
+
+let iconsFooter = document.getElementById("icons")
+let imgCintas = document.getElementById("cintas")
+let imgCamara = document.getElementById("camara")
+
 
 // Almaceno los nombres de las clases
 
 var modeDark = [
     {mode: "dark"},
-    {mode: "dark-making-container"}
+    {mode: "dark-making-container flex-container"}
 ]
 
 var modeLight = [
     {mode: "light"},
-    {mode: "light-making-container"}
+    {mode: "light-making-container flex-container"}
 ]
 
 
@@ -29,7 +35,7 @@ var modeLight = [
 // Le asigno un evento al boton de arriba
 
 darkBtn.addEventListener("click", function mode(){
-    if(background.className == "light" && backgroundMakingGif.className == "light-making-container"){
+    if(background.className == "light" && backgroundMakingGif.className == "light-making-container flex-container"){
         background.className = modeDark[0].mode
         backgroundMakingGif.className = modeDark[1].mode
         

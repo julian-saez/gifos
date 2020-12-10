@@ -1,21 +1,25 @@
-#share {
-    margin: 47px 0 24px;
-    text-align: center;
+footer{
+    width: 100vw;
+    height: 116px;
 }
 
-footer img {
-    padding: 22px 19px 0;
-    margin: auto;   
+footer{
+    justify-content: space-between;
+    align-items: center;
+}
+
+#social-media div a {
+    padding-left: 15px;
 }
 
 footer p {
     font-family: $font-secundario;
-    text-align: center;
-    margin-bottom: 28px;
 }
 
-footer div {
+#line-footer {
     width: 100%;
     height: 5px;
     background-color: $primario;
+    bottom: 0;
+    position: absolute;
 }

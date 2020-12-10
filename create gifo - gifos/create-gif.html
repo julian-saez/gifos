@@ -28,32 +28,62 @@
     </div>
 
     <main>
+        <div class="wrapper">
             <section id="making-gifo-container" class="light-making-container">
-                <div class="wrapper" class="flex-container">
-                    <div id="box">
-                        <h1>Aquí podrás crear tus propios <span id="name">GIFOS</span></h1>
-                        <p>¡Crea tus gifos solo en 3 pasos!
-                        (solo necesitas una cámara para grabar un video)</p>
-                        
+                <div id="camara-animation-container" class="flex-container">
+                    <div id="cintas">
+                        <img class="cintas" src="assets/element_cinta1.svg" alt="Cinta pequeña en movimiento">
+                        <img class="cintas" src="assets/element_cinta2.svg" alt="Cinta grande en movimiento">
+                    </div>
+                    <div id="camara">
+                        <img src="assets/element-camara.svg" alt="Camara">
+                    </div>
+                </div>
+                <div id="recuadro-making-gifo">
+                    <div id="box" class="flex-container">
+                        <div id="text-box" class="flex-container">
+                            <h1>Aquí podrás <blockquote></blockquote> crear tus propios <span id="name">GIFOS</span></h1>
+                            <p>¡Crea tus gifos solo en 3 pasos!</p>
+                            <p>(solo necesitas una cámara para grabar un video)</p>
+                        </div>
                     </div>
                 </div>
             </section>
+            <section id="recuadro-below" class="flex-container">
+                <div id="process-container" >
+                    <div id="process-icons">
+                        <img class="process-icons" src="assets/paso-a-paso-1.svg" alt="">
+                        <img class="process-icons" id="paso-2" src="assets/paso-a-paso-2.svg" alt="">
+                        <img class="process-icons" src="assets/paso-a-paso-3.svg" alt=""> 
+                    </div>
+                    <!-- <div id="cinta-pelicula">
+                        <img src="assets/pelicula.svg" alt="Cinta de pelicula">
+                    </div> -->
+                </div>
+                <div id="line-space"></div>
+                <button id="btn" class="btn">COMENZAR</button>
+
+            </section>
+
+        </div>
     </main>
 
-    <!-- <footer>
-        <article id="share">
-            <h4>Compartir en:</h4>
-            <img src="assets/icon_facebook.svg" alt="Facebook">
-            <img src="assets/icon-tw-normal.svg" alt="Twitter">
-            <img src="assets/icon_instagram.svg" alt="Instagram">
-        </article>
-        
-        <article>
-            <p>&copy; GIFOS 2020&mdash; All Rights Reserved<p>
-            <div></div>
-        </article>
-    </footer> -->
-    <script src="app-create-gifo.js"></script>
+    <footer class="flex-container">
+            <div id="social-media" class="wrapper flex-container">
+                <h4>Compartir en:</h4>
+                <div id="icons"> 
+                    <a href=""><img src="assets/icon_facebook.svg" alt="Facebook"></a>
+                    <a href=""><img src="assets/icon-tw-normal.svg" alt="Twitter"></a>
+                    <a href=""><img src="assets/icon_instagram.svg" alt="Instagram"></a>
+                </div>
+            </div>
+            <div class="wrapper">
+                <p>&copy; GIFOS 2020&mdash; All Rights Reserved</p>
+            </div>
+    </footer>
+    <div id="line-footer"></div>
+
+    <script src="app-cg.js"></script>
     <script src="dark-mode-cg.js"></script>
 </body>
 </html>
