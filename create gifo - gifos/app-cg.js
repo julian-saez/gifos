@@ -2,11 +2,14 @@
  * MENSAJES ANTES DE COMENZAR A GRABAR EL GIF
  */
 
+let video = document.querySelector('video');
 let containerCreateGifo = document.getElementById("box")
 let containerChild = document.getElementById("text-box")
 let recuadroBelow = document.getElementById("recuadro-below")
 let processIcons = document.getElementById("process-icons")
 let btn = document.getElementById("btn")
+
+video.style.display = 'none'
 
 
 btn.addEventListener("click", function access() {
@@ -24,13 +27,23 @@ btn.addEventListener("click", function access() {
     nextStep()
 })
 
-const nextStep = () => {
+
+const nextStep = async () => {
+    captureCamera()
+    function captureCamera(callback) {
+        navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+            .then(camera => {
+                callback(camera);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     // ICONO PASO 1
     let passOne = processIcons.children[0]
     let btnStepOne = document.createElement("button")
     recuadroBelow.appendChild(btnStepOne)
-
-
     btnStepOne.innerHTML = "CONTINUAR"
 
     // Le cambio el icono al paso 1
@@ -38,97 +51,74 @@ const nextStep = () => {
     btnStepOne.className = "btn"
 
     btnStepOne.addEventListener("click", function accessAllow() {
-
-        // Borro los textos del medio del recuadro para colocar la vista de la camara encendida
-        containerCreateGifo.removeChild(containerChild)
-
-        // Borro el boton anterior
-        recuadroBelow.removeChild(btnStepOne)
-
-        // Boton nuevo para asignarle una nueva funcionalidad
-        let btnStart = document.createElement("button")
-        recuadroBelow.appendChild(btnStart)
-        btnStart.className = "btn"
-        btnStart.innerHTML = "GRABAR"
-
-        // Tiempo de grabación
-        let timing = document.createElement("p")
-        // timing.innerHTML
-
+        video.style.display = 'flex'
         // Cambio el icono del paso número 2
         let passTwo = processIcons.children[1]
         passTwo.setAttribute("src", "assets/paso-a-paso-2-hover.svg")
 
-        btnStart.addEventListener("click", async () => {
+        // Borro los textos del medio y el boton de comenzar del recuadro para colocar la vista de la camara encendida
+        containerCreateGifo.removeChild(containerChild)
+        recuadroBelow.removeChild(btnStepOne)
 
-            // Obtengo la etiqueta video
-            let video = document.querySelector('video');
-            let recorder;
+        let btnStartRecording = document.createElement("button")
+        recuadroBelow.appendChild(btnStartRecording)
+        btnStartRecording.className = "btn"
+        btnStartRecording.innerHTML = "GRABAR"
 
-            // Borro el boton anterior para que no me vuelta a registrar el nuevo evento
-            recuadroBelow.removeChild(btnStart)
+        // Obtengo la etiqueta video
+        let recorder;
+        let btnStopRec = document.createElement("button")
+        recuadroBelow.appendChild(btnStopRec)
+        btnStopRec.style.display = 'none'
 
-            let btnStartRecording = document.createElement("button")
-            recuadroBelow.appendChild(btnStartRecording)
-            btnStartRecording.className = "btn"
-            btnStartRecording.innerHTML = "GRABAR"
+        let p = document.createElement("p")
+        recuadroBelow.appendChild(p)
 
-            let btnStopRec = document.createElement("button")
-            recuadroBelow.appendChild(btnStopRec)
+        btnStartRecording.addEventListener('click', () => {
+            recuadroBelow.removeChild(btnStartRecording)
+            btnStartRecording.disabled = true;
+            captureCamera(camera => {
+                video.muted = true;
+                video.volume = 0;
+                video.srcObject = camera;
+
+                recorder = RecordRTC(camera, {
+                    type: 'video'
+                });
+
+                recorder.startRecording();
+
+                recorder.camera = camera;
+                btnStopRec.disabled = false;
+            })
+
             btnStopRec.className = "btn"
             btnStopRec.innerHTML = "FINALIZAR"
+            btnStopRec.style.display = 'flex'
+
+            video.addEventListener("timeupdate", () => {
+                p.innerHTML = video.currentTime
+            },true)
+        }) 
 
 
-            captureCamera()
 
-            function captureCamera(callback) {
-                navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-                    .then(camera => {
-                        callback(camera);
-                    })
-
-                    .catch(error => {
-                        alert('Unable to capture your camera. Please check console logs.');
-                        console.error(error);
-                    });
-            }
-
-            btnStartRecording.addEventListener('click', function recording(){
-                btnStart.disabled = true;
-                captureCamera(camera => {
-                    video.muted = true;
-                    video.volume = 0;
-                    video.srcObject = camera;
-
-                    recorder = RecordRTC(camera, {
-                        type: 'video'
-                    });
-
-                    recorder.startRecording();
-
-                    // release camera on stopRecording
-                    recorder.camera = camera;
-
-                    btnStopRec.disabled = false;
-                })
-            }) 
-
-            function stopRecordingCallback() {
-                video.src = video.srcObject = null;
-                video.muted = false;
-                video.volume = 1;
-                video.src = URL.createObjectURL(recorder.getBlob());
-                
-                recorder.camera.stop();
-                recorder.destroy();
-                recorder = null;
-            }
+        function stopRecordingCallback() {
+            console.log(video)
+            video.src = video.srcObject = null;
+            video.muted = false;
+            video.volume = 1;
+            video.src = URL.createObjectURL(recorder.getBlob());
+            
+            recorder.camera.stop();
+            recorder.destroy();
+            recorder = null;
+        }
 
 
-            btnStopRec.addEventListener('click', () => {
-                btnStopRec.disabled = true;
-                recorder.stopRecording(stopRecordingCallback);
-            })
+        btnStopRec.addEventListener('click', () => {
+            btnStopRec.disabled = true;
+            recorder.stopRecording(stopRecordingCallback);
         })
     })
 }
