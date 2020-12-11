@@ -311,6 +311,13 @@ main .flex-container {
   outline: none;
 }
 
+video {
+  width: 100%;
+  max-width: 720px;
+  height: 100%;
+  max-height: 500px;
+}
+
 footer {
   width: 100vw;
   height: 116px;
