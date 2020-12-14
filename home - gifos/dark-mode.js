@@ -12,7 +12,7 @@ let backgroundTrending = document.getElementById("trending-gifos")
 let h1 = document.querySelector("h1")
 let h3 = document.querySelector("h3")
 let h4 = document.querySelector("h4")
-let h2 = document.querySelector(".trending").children[0]
+let h2 = document.querySelector("#trending").children[0]
 // let btnMore = document.getElementById("btn-more-style")
 
 // Almaceno los nombres de las clases
@@ -68,13 +68,13 @@ darkBtn.addEventListener("click", function mode(){
 
 // Obtengo los valores que se hayan almacenado con anterioridad en el LocalStorage
 
-// let valuesSaved = localStorage.getItem("Mode")
-// let valuesJS = JSON.parse(valuesSaved)
+let valuesSaved = localStorage.getItem("Mode")
+let valuesJS = JSON.parse(valuesSaved)
 
 // Le asigno las clases del LocalStorage ya en objetos javascript
 
-// background.className = valuesJS[0].mode
-// backgroundTrending.className = valuesJS[1].mode
+background.className = valuesJS[0].mode
+backgroundTrending.className = valuesJS[1].mode
 
 
 // localStorage.removeItem("Mode")

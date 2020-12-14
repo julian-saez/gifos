@@ -2,11 +2,11 @@
  * COMUNICACIÓN CON LA API
  */
 
-const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=6";
+const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm";
 let arrayTrendings = [];
 
 function getTrendings(){
-    fetch(urlTrending)
+    fetch(`${urlTrending}&limit=15`)
     .then(res => res.json() )
     .then(res => {
         // Recorro los objetos del request
@@ -73,6 +73,8 @@ let iOne = 0;
 let iTwo = 1;
 let iThree = 2;
 
+let btnNextG = document.getElementById("btn-next")
+
 
 // Función para mostrar los botones de back y next en DESKTOP
 const btnVisibility = () => {
@@ -81,7 +83,7 @@ const btnVisibility = () => {
     btnBackIMG.src = 'assets/button-slider-left.svg'
     btnBack.id = 'btn-back-trendings'
 
-    let btnNext = document.createElement("button")
+    btnNext = document.createElement("button")
     let btnNextIMG = document.createElement("img")
     btnNextIMG.src = 'assets/Button-Slider-right.svg'
     btnNext.id = 'btn-more-trendings'
@@ -94,19 +96,27 @@ const btnVisibility = () => {
 
     btnBack.appendChild(btnBackIMG)
     btnNext.appendChild(btnNextIMG)
-
-    btnNext.addEventListener("click", () => {
-        iOne += 3;
-        iTwo += 3;
-        iThree += 3;
-        function overwritten() {
-            container.children[0].setAttribute('src', arrayTrendings[iOne].images.original.url)
-            container.children[1].setAttribute('src', arrayTrendings[iTwo].images.original.url)
-            container.children[2].setAttribute('src', arrayTrendings[iThree].images.original.url)
-        }
-        overwritten()
-    })
 }
+
+btnNextG.addEventListener("click", () => {
+    iOne += 3;
+    iTwo += 3;
+    iThree += 3;
+    function overwritten() {
+        container.children[0].setAttribute('src', '')
+        container.children[1].setAttribute('src', '')
+        container.children[2].setAttribute('src', '')
+
+        let img1 = container.children[0]
+        let img2 = container.children[1]
+        let img3 = container.children[2]
+
+        img1.src = arrayTrendings[iOne].images.preview_webp.url
+        img2.src = arrayTrendings[iTwo].images.preview_webp.url
+        img3.src = arrayTrendings[iThree].images.preview_webp.url
+    }
+    overwritten()
+})
 
 
 // Función para mostrar el boton de next en MOBILE
