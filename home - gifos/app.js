@@ -137,6 +137,7 @@ let maxResults;
 
 let btnContainer = document.getElementById("btn-container")
 let btnMore = document.createElement("button")
+// btnMore.id = "btn-more-style"
 
 // Función para pedir más resultados
 
@@ -166,6 +167,7 @@ async function moreResults () {
 
 // LLamo al input y a través del evento tomo los valores que escribe el usuario y asocio la función GetText
 let inputText;
+let body = document.getElementById("fondo")
 
 // Función para tomar el texto del input y buscarlo en la API
 
@@ -192,12 +194,15 @@ const getText = async value => {
         btnContainer.appendChild(btnMore)
         btnMore.innerHTML = 'Ver más'
         showResults()
-        
+        if(body.className == "dark"){
+            btnMore.className = "dark-text"
+        }else{
+            btnMore.className = "light-text"
+        }
     }else(iters != 0);{
         overwritten()
     }
 }    
-
 
 
 const runAPI = async () => {

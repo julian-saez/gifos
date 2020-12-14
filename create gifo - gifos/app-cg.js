@@ -97,11 +97,17 @@ const nextStep = async () => {
             btnStopRec.style.display = 'flex'
 
             video.addEventListener("timeupdate", () => {
-                p.innerHTML = video.currentTime
+                let videoTiming = Math.ceil(video.currentTime);
+
+                if(videoTiming < 1){
+                    p.innerHTML = `00:00:00`
+                }
+                if(videoTiming <= 9){
+                    videoTiming = `0${videoTiming}`
+                }
+                p.innerHTML = `00:00:${videoTiming}`;
             },true)
         }) 
-
-
 
         function stopRecordingCallback() {
             console.log(video)

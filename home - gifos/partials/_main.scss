@@ -20,6 +20,10 @@
     margin: 0 45px;
 }
 
+#title-h1 {
+    justify-content: center;
+}
+
 #image-home {
     display: block;
     margin-left: auto;
@@ -33,6 +37,7 @@
 #home h1 span {
     color: $secundario;
 }
+
 
 #home input {
     font-size: 1rem;
@@ -189,7 +194,6 @@ input:focus{
     text-align: center;
     font-size: 0.88rem;
     margin: 0 75px 35px;
-    color: $primario;
     font-family: $font-principal;
     font-weight: normal;
 }
@@ -206,7 +210,7 @@ input:focus{
     border-radius: 25px;
     border: 1px solid $primario;
     font-family: $font-principal;
-    color: white;
+    font-weight: 600;
     z-index: 1;
     outline: none;
     background-color: transparent;

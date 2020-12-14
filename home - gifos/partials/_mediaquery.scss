@@ -230,6 +230,20 @@
 
         }
 
+        #container-results {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        #container-results img {
+            width: 100%;
+            min-width: 260px;
+            max-width: 260px;
+            height: 100%;
+            min-height: 240px;
+            max-height: 240px;
+        }
+
 
     }
     // #list-gifs{
