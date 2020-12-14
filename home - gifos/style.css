@@ -261,25 +261,29 @@
     max-width: -moz-max-content;
     max-width: max-content;
   }
-  #btn-back-trendings {
+  #btn-next {
     outline: none;
-    border: 0;
     background-color: transparent;
-  }
-  #btn-back-trendings img {
-    width: 100%;
-    min-width: 50px;
-    max-width: 60px;
-  }
-  #btn-more-trendings {
-    outline: none;
     border: 0;
-    background: #dd1717;
   }
-  #btn-more-trendings img {
+  #btn-next img {
+    margin-left: 15px;
     width: 100%;
-    min-width: 50px;
-    max-width: 60px;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
+  }
+  #btn-back {
+    outline: none;
+    background-color: transparent;
+    border: 0;
+  }
+  #btn-back img {
+    margin-right: 15px;
+    width: 100%;
+    max-width: 40px;
+    height: 100%;
+    max-height: 40px;
   }
 }
 
@@ -662,16 +666,6 @@ input:focus {
 
 #list-gifs:nth-child(1) {
   margin-left: 30px;
-}
-
-#btn-more-trendings {
-  outline: none;
-  background-color: transparent;
-  border: 0;
-}
-
-#btn-more-trendings img {
-  width: 60px;
 }
 
 #share {
