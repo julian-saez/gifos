@@ -233,6 +233,34 @@
     min-height: 240px;
     max-height: 240px;
   }
+  #container-trending {
+    width: 100%;
+    max-width: 1050px;
+  }
+  #container-trending::-webkit-scrollbar {
+    width: 0;
+  }
+  #container-trending::-webkit-scrollbar-thumb {
+    width: 0;
+  }
+  #trending.flex-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #list-gifs {
+    width: 100%;
+    max-width: -webkit-max-content;
+    max-width: -moz-max-content;
+    max-width: max-content;
+  }
   #btn-back-trendings {
     outline: none;
     border: 0;

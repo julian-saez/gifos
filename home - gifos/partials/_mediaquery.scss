@@ -246,10 +246,32 @@
 
 
     }
-    // #list-gifs{
-    //     width: max-content;
-    //     max-width: 500px;
-    // }
+
+    #container-trending {
+        width: 100%;
+        max-width: 1050px;
+    }
+
+    #container-trending::-webkit-scrollbar{
+        width: 0;
+    }
+
+    #container-trending::-webkit-scrollbar-thumb{
+        width: 0;
+    }
+
+    #trending.flex-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #list-gifs{
+        // overflow: hidden;
+        width: 100%;
+        max-width: max-content;
+    }
+
     #btn-back-trendings{
         outline: none;
         border: 0;
