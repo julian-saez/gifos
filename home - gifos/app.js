@@ -199,7 +199,7 @@ const getLikes = async () => {
     let likesLocalStorage = await JSON.parse(localStorage.getItem("Favorites"))
     
     // Si no hay nada, la función no hace nada
-    if(likesLocalStorage == null){
+    if(likesLocalStorage !== null){
         console.log("No hago nada")
     }else{
         likes.push(likesLocalStorage)
@@ -304,6 +304,7 @@ const getValue = () => {
         })
     }
 }
+
 
 
 

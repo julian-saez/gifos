@@ -8,11 +8,13 @@ let darkBtn = document.getElementById("mode-btn")
 let background = document.getElementById("fondo")
 let backgroundTrending = document.getElementById("trending-gifos")
 
+
 // Cambio de color en las fuentes 
 let h1 = document.querySelector("h1")
 let h3 = document.querySelector("h3")
 let h4 = document.querySelector("h4")
 let h2 = document.querySelector("#trending").children[0]
+let a = document.querySelector(".nav-a")
 // let btnMore = document.getElementById("btn-more-style")
 
 // Almaceno los nombres de las clases
@@ -44,10 +46,12 @@ darkBtn.addEventListener("click", function mode(){
         h2.className = modeDark[2].mode
         h3.className = modeDark[2].mode
         h4.className = modeDark[2].mode
+        a.className = modeDark[2].mode
         // btnMore.className = modeDark[2].mode
         
         // Guardo los valores de arriba en el LocalStorage
         localStorage.setItem("Mode", JSON.stringify(modeDark))
+        darkBtn.innerHTML = "Modo Diurno"
         
     }else{
         background.className = modeLight[0].mode
@@ -56,11 +60,13 @@ darkBtn.addEventListener("click", function mode(){
         h2.className = modeLight[2].mode
         h3.className = modeLight[2].mode
         h4.className = modeLight[2].mode
+        a.className = modeLight[2].mode
         // btnMore.className = modeLight[2].mode
 
         // Elimino los valores anteriores para almacenar unos nuevos
         localStorage.removeItem("Mode")
         localStorage.setItem("Mode", JSON.stringify(modeLight))
+        darkBtn.innerHTML = "Modo Nocturno"
     }
 })
 
