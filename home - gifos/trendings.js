@@ -200,13 +200,9 @@ btnBackG.addEventListener("click", () => {
     let img2 = container.children[1]
     let img3 = container.children[2]
 
-    iOne = iOne - restOne;
-    iTwo = iTwo - restOne;
-    iThree = iThree - restOne;
-
-    img1.src = arrayTrendings[iOne].images.preview_webp.url
-    img2.src = arrayTrendings[iTwo].images.preview_webp.url
-    img3.src = arrayTrendings[iThree].images.preview_webp.url
+    img1.src = arrayTrendings[iOne - restOne].images.preview_webp.url
+    img2.src = arrayTrendings[iTwo - restOne].images.preview_webp.url
+    img3.src = arrayTrendings[iThree - restOne].images.preview_webp.url
 
     restOne += 3;
 })
