@@ -3,16 +3,16 @@
  * COMUNICACIÓN CON LA API
  */
 
-// import { getValue } from './app';
-
 const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm";
 let arrayTrendings = [];
 let offset = 15;
+let max;
 
 function getTrendings(){
     fetch(`${urlTrending}&limit=50&offset=${offset}`)
-    .then(res => res.json() )
+    .then(res => res.json() ) 
     .then(res => {
+        max = res.pagination.total_count
         // Recorro los objetos del request
         res.data.forEach(element => {   
             let valores = element;
@@ -38,11 +38,21 @@ const resize = () => {
     }
 }
 
+class aritmetica{
+    constructor(number){
+        this.number = number; 
+    }
+    rest(){
+        return number - 3;
+    }
+}
+
 let contenedor = document.getElementById("home")
 
 // Variable para comprobar si el ancho del viewport es mobile o desktop
 let idTrend = 0;
 let gifBox;
+let idit = 1;
 
 // Función para cargar los gifs trendings
 function printTrendings(){
@@ -50,6 +60,8 @@ function printTrendings(){
         for(let i = 0; i <= 2; ++i){
             // Creo los elementos
             gifBox = document.createElement("img")
+            container.appendChild(gifBox)
+
             let title = document.createElement("h2")
             let username = document.createElement("h3")
     
@@ -58,18 +70,13 @@ function printTrendings(){
             gifBox.appendChild(username)
     
             // Le coloco los idTren a cada caja y les agrego el titulo y la url del gif
-            gifBox.idTrend = `trend${idTrend}`
-            title.innerHTML = arrayTrendings[idTrend].title
-            username.innerHTML = `Creator: ${arrayTrendings[idTrend].username}`
-            gifBox.src = arrayTrendings[idTrend].images.preview_webp.url
-    
-            // Declaro a las boxes como hijo de container 
-    
-            container.appendChild(gifBox)
-    
-            // Aumento el valor de idTrend para luego iterar nuevamente sobre los idTrend de las boxes
-            idTrend = idTrend + 1;
+            gifBox.id = `trend${idit}`
+            title.innerHTML = arrayTrendings[i].title
+            username.innerHTML = `Creator: ${arrayTrendings[i].username}`
+            gifBox.src = arrayTrendings[i].images.preview_webp.url
 
+            idit += 1;
+    
             gifBox.addEventListener("click", e => {
                 let url = e.target.getAttribute('src')
                 let creator = e.target.querySelector("h3").innerText
@@ -133,10 +140,10 @@ function printTrendings(){
 
                 contenedor.appendChild(div)
                 // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
-                btnExit.addEventListener("click", function close(){
+                btnExit.addEventListener("click", () => {
                     div.remove(bigGif)
                 })
-                btnLike.addEventListener("click", function like(){
+                btnLike.addEventListener("click", () => {
                     likesUpload.push(new Likes(url , title[0].innerText, creator[0].innerText))
                     setTimeout(saveGifs, 750)
                     // localStorage.removeItem('Favorites')
@@ -153,58 +160,70 @@ function printTrendings(){
     }
 }
 
-
-let iOne = 0;
-let iTwo = 1;
-let iThree = 2;
-
-let restOne = 3;
+// Llamo los botones
+const btnNextG = document.getElementById("btn-next")
+const btnBackG = document.getElementById("btn-back")
 
 
-let requestCount = 10;
+// Variable para ir iterando el indice y mostrar diferentes gifs
+let position = 2;
 
-let btnNextG = document.getElementById("btn-next")
-let btnBackG = document.getElementById("btn-back")
+// Llamo el elemento donde mostraré el mensaje 'Llegaste al inicio' si ya no hay más gifs anteriores que mostrar
+const messageContent = document.getElementById("message-content")
 
-btnNextG.addEventListener("click", () => {
-    restOne -= 3
-    iOne += 3;
-    iTwo += 3;
-    iThree += 3;
-    function overwritten() {
-        if(iThree >= requestCount){
-            getTrendings()
-            requestCount += 15;
+
+// Boton para ver los gifs siguientes
+btnNextG.addEventListener('click', () => {
+    if(position <= max){
+        // Borro el mensaje de 'LLegaste al inicio' si se tocó alguna vez el boton de 'volver'
+        messageContent.children[0].innerText = ''
+        console.log(arrayTrendings)
+        console.log(arrayTrendings.length)
+        console.log(position)
+
+        // Plasmo los nuevos resultados
+        container.children[0].setAttribute('src', '')
+        container.children[0].setAttribute('src', arrayTrendings[position + 1].images.preview_webp.url)
+
+        container.children[1].setAttribute('src', '')
+        container.children[1].setAttribute('src', arrayTrendings[position + 2].images.preview_webp.url)
+
+        container.children[2].setAttribute('src', '')
+        container.children[2].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
+        btnBackG.children[0].setAttribute('src', 'assets/button-slider-left-hover.svg')
+
+        // Le aumento el valor a la variable por si el usuario vuelve a pedir nuevos resultados o para no olvidar el índice del src
+        position += 3;
+    }else{
+        messageContent.children[0].innerText = 'No hay más resultados'
+        console.log("ya no doy más")
+    }
+})
+
+
+// Boton para ver los gifs anteriores
+btnBackG.addEventListener("click", () => {
+    // Pregunto si el indice del src es == a 0, y si es así, muestro el mensaje...
+    if(container.children[0].src == arrayTrendings[0].images.preview_webp.url){
+        messageContent.children[0].innerText = "¡Volviste al inicio!"
+    }else{
+        // Si es indiferente de 0, itero los resultados anteriores...
+        if(container.children[0].src == arrayTrendings[3].images.preview_webp.url){
+            btnBackG.children[0].setAttribute('src', 'assets/button-slider-left.svg')
         }
+
+        // Plasmo los resultados
         container.children[0].setAttribute('src', '')
         container.children[1].setAttribute('src', '')
         container.children[2].setAttribute('src', '')
-
-        let img1 = container.children[0]
-        let img2 = container.children[1]
-        let img3 = container.children[2]
-
-        img1.src = arrayTrendings[iOne].images.preview_webp.url
-        img2.src = arrayTrendings[iTwo].images.preview_webp.url
-        img3.src = arrayTrendings[iThree].images.preview_webp.url
+    
+        container.children[0].setAttribute('src', arrayTrendings[position - 5].images.preview_webp.url)
+        container.children[1].setAttribute('src', arrayTrendings[position - 4].images.preview_webp.url)
+        container.children[2].setAttribute('src', arrayTrendings[position - 3].images.preview_webp.url)
+    
+        // Resto la posición por si se vulve a tocar el botón de volver atrás
+        position = position - 3;
     }
-    overwritten()
-})
-
-btnBackG.addEventListener("click", () => {
-    container.children[0].setAttribute('src', '')
-    container.children[1].setAttribute('src', '')
-    container.children[2].setAttribute('src', '')
-
-    let img1 = container.children[0]
-    let img2 = container.children[1]
-    let img3 = container.children[2]
-
-    img1.src = arrayTrendings[iOne - restOne].images.preview_webp.url
-    img2.src = arrayTrendings[iTwo - restOne].images.preview_webp.url
-    img3.src = arrayTrendings[iThree - restOne].images.preview_webp.url
-
-    restOne += 3;
 })
 
 
