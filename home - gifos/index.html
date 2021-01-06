@@ -40,17 +40,48 @@
                     <div id="title-h1" class="flex-container">
                         <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
                     </div>
-                    
+                           
                     <img id="image-home" src="assets/ilustra_header.svg" alt="">
                     <form onsubmit="return false;">
-                        <fieldset>
-                            <input id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
+                        <fieldset id="input-container">
+                            <input class="no-text" autocomplete="off" id="buscador" type="search" name="busca gifs" placeholder="Busca GIFOS y más">
+                            <span id="line-suggestions"></span>
+                            <div id="suggestions" class="flex-container suggestions-styles">
+                                <div>
+                                    <div>
+                                        <img src="assets/icon-search.svg" alt="">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <img src="assets/icon-search.svg" alt="">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <img src="assets/icon-search.svg" alt="">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <img src="assets/icon-search.svg" alt="">
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- <button><img src="assets/icon-search.svg" alt=""></button> -->
                         </fieldset>
                     </form>
                     <div id="trending-categories">
                         <h3>Trending:</h3>
-                        <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
                     </div>
                     <div id="spacebetween"></div>
 
@@ -58,7 +89,7 @@
                     <div id="container-results"></div>
                     <div id="btn-container"></div>
 
-            </section>  
+            </section>
     </div>
             <section class="light-trending" id="trending-gifos">
                 <div id="trending" class="wrapper flex-container">

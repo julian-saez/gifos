@@ -2,17 +2,41 @@
  * PROGRAMA PARA BUSCAR GIFS
  */
 
+const ApiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
+const autocompleteURL = 'http://api.giphy.com/v1/gifs/search/tags'
+const searchUrl = 'http://api.giphy.com/v1/gifs/search'
+const suggestions = document.getElementById("suggestions") // Obtengo los span donde pondré las sugerencias
+
+suggestions.style.display = 'none'
+
 // Evento de la tecla ENTER
 
 const input = document.getElementById('buscador')
+input.addEventListener("keydown", autocomplete) // Muestro las sugerencias de busquedas
 input.addEventListener("keydown", e => {
-    const enter = e.which || e.keyCode
-    if(enter == 13) input.addEventListener("keyup", getText)
+    const enter = e.which || e.keyCode  // Tomo el texto que se ingreso
+    if(enter == 13) input.addEventListener("keyup", getText) 
 })
+
+/**
+ * SUGERENCIAS DEBAJO DEL INPUT
+ */
+
+async function autocomplete(value) {
+    suggestions.className = 'flex-container suggestions-styles'
+    let valor = value.path[0].value // Valor ingresado en el input
+    let res = await fetch(`${autocompleteURL}?q=${valor}&api_key=${ApiKey}&limit=4`) // Hago el request
+    let resJS = await res.json()
+    suggestions.style.display = 'flex'
+    input.className = 'text-on'
+
+    for(let i = 0; i <= 3; ++i){
+        suggestions.children[i].children[0].children[1].innerHTML = resJS.data[i].name // Itero sobre los span y escribo los objetos
+    }
+}
 
 // Varible para ir iterando en el offset y así mostrar nuevas imagenes
 let counter = 0; 
-
 // Variable para usarla luego en la condición
 let iters = 0;
 
@@ -52,6 +76,9 @@ const body = document.getElementById("fondo")
 // Función para tomar el texto del input y buscarlo en la API
 
 const getText = async value => {
+    suggestions.className = 'flex-container'
+    input.className = ''
+    input.className = 'no-text'
     // Borro los resultados anteriores para subir nuevos
     results = [];
 
@@ -75,12 +102,16 @@ const getText = async value => {
     }else(iters != 0);{
         overwritten()
     }
+
+    for(let i = 0; i <= 3; ++i){
+        suggestions.children[i].innerHTML = ''
+    }
 }    
 
 
 const runAPI = async () => {
     // Busco en la API el valor de inputText
-    let res = await fetch(`http://api.giphy.com/v1/gifs/search?q=${inputText}&api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm&limit=12&offset=${counter}`)
+    let res = await fetch(`${searchUrl}?q=${inputText}&api_key=${ApiKey}&limit=12&offset=${counter}`)
 
     // Paso los objetos a valor Javascript
     let resJS = await res.json();
@@ -140,6 +171,9 @@ const showResults = () => {
             let url = e.target.getAttribute('src')
             let creator = box.children[2].innerText
             let title = box.children[1].innerText
+            console.log(url)
+            console.log(creator)
+            console.log(title)
         
             // Creo los elementos
             let div = document.createElement("div")
@@ -198,33 +232,19 @@ const showResults = () => {
             titleGif.innerHTML = title
             creatorGif.innerHTML = creator
             likeImg.src = "assets/icon-fav.svg"
-        
-            // function adaptative(){
-            //     if(innerWidth <= 768){
-        
-            //     }else{
-            //         div.addEventListener('click', () => {
-            //             let hover = document.createElement("span")
-            //             let p = document.createElement("p")
-            //             p.innerHTML = "HOLA AMIGUITOS DE IUTUB"
-            //             hover.id = 'div-hover'
-            //             div.appendChild(p)
-            //         })
-            //     }
-            // }
-        
+
             // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
             btnExit.addEventListener("click", function close(){
                 div.remove(bigGif)
             })
-            btnLike.addEventListener("click", function like(){
-                likesUpload.push(new Likes(url , title[0].innerText, creator[0].innerText))
-                setTimeout(saveGifs, 750)
-                // localStorage.removeItem('Favorites')
+
+            btnLike.addEventListener("click", async () => {
+                let like = new Likes(url, title, creator)
+                localStorage.setItem('Likes', JSON.stringify(like))
+                // localStorage.removeItem('Likes')
             })
         })
     }
-    
 }
 
 
@@ -246,8 +266,7 @@ const overwritten = () => {
     }  
 }
 
-let likes = []
-let likesUpload = []
+let likesSaved = []
 
 // Objetos para guardar en el Local Storage
 
@@ -260,27 +279,19 @@ class Likes{
 }
 
 
-// Extraigo el contenido del LocalStorage para saber si hay objetos
+/**
+ * OBTENGO LOS LIKES NI BIEN INICIO EL PROGRAMA
+ */
 
-const getLikes = async () => {
-    likes = []
-    let likesLocalStorage = await JSON.parse(localStorage.getItem("Favorites"))
-    
-    // Si no hay nada, la función no hace nada
-    if(likesLocalStorage !== null){
-        console.log("No hago nada")
-    }else{
-        likes.push(likesLocalStorage)
-    }
+// Extraigo el contenido del LocalStorage para saber si hay objetos
+const getLikes = () => {
+    let likesLocalStorage = localStorage.getItem(JSON.parse("Likes"))
+    likesSaved.push(likesLocalStorage)
 }
 
 // Ejecuto la función enseguida ni bien arranca la aplicación web
 getLikes()
 
-// Guardo los gifs cuando el usuario hace click sobre alguno
-function saveGifs(){
-    localStorage.setItem("Favorites", JSON.stringify(likesUpload))
-}
 
 
 

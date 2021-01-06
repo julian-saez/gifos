@@ -1,15 +1,49 @@
-
 /**
  * COMUNICACIÓN CON LA API
  */
 
-const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm";
+/**
+ * OBTENCIÓN DE LAS CATEGORIAS
+ */
+
+const apiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
+const categoriesUrl = 'http://api.giphy.com/v1/gifs/categories'
+const trendingsCategories = document.getElementById('trending-categories')
+let categories = []
+
+const getCategories = async () => {
+    // Busco en la API el valor de inputText
+    let res = await fetch(`${categoriesUrl}?&api_key=${apiKey}&limit=6`)
+
+    // Paso los objetos a valor Javascript
+    let resJS = await res.json();
+
+    //Subo los objetos
+    categories = resJS.data
+    console.log(categories)
+    printCategories()
+};
+getCategories()
+
+const printCategories = () => {
+    for(let i = 1; i <= 5; ++i){
+        let categorie = categories[i].name
+        let p = trendingsCategories.children[i]
+        p.innerText = categorie[0].toUpperCase() + categorie.slice(1)
+    } 
+}
+
+/**
+ * Obtengo los gifs trendings y los plasmo en el contenedor
+ */
+
+const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm"
 let arrayTrendings = [];
-let offset = 15;
+let offset = 50;
 let max;
 
 function getTrendings(){
-    fetch(`${urlTrending}&limit=50&offset=${offset}`)
+    fetch(`${urlTrending}&limit=50`)
     .then(res => res.json() ) 
     .then(res => {
         max = res.pagination.total_count
@@ -35,15 +69,6 @@ let container = document.getElementById("list-gifs")
 const resize = () => {
     if(innerWidth < 768) {
         btnMobileNext()
-    }
-}
-
-class aritmetica{
-    constructor(number){
-        this.number = number; 
-    }
-    rest(){
-        return number - 3;
     }
 }
 
@@ -160,6 +185,8 @@ function printTrendings(){
     }
 }
 
+
+
 // Llamo los botones
 const btnNextG = document.getElementById("btn-next")
 const btnBackG = document.getElementById("btn-back")
@@ -170,16 +197,12 @@ let position = 2;
 
 // Llamo el elemento donde mostraré el mensaje 'Llegaste al inicio' si ya no hay más gifs anteriores que mostrar
 const messageContent = document.getElementById("message-content")
-
+let limitPosition = 40;
 
 // Boton para ver los gifs siguientes
 btnNextG.addEventListener('click', () => {
-    if(position <= max){
         // Borro el mensaje de 'LLegaste al inicio' si se tocó alguna vez el boton de 'volver'
         messageContent.children[0].innerText = ''
-        console.log(arrayTrendings)
-        console.log(arrayTrendings.length)
-        console.log(position)
 
         // Plasmo los nuevos resultados
         container.children[0].setAttribute('src', '')
@@ -194,11 +217,28 @@ btnNextG.addEventListener('click', () => {
 
         // Le aumento el valor a la variable por si el usuario vuelve a pedir nuevos resultados o para no olvidar el índice del src
         position += 3;
-    }else{
-        messageContent.children[0].innerText = 'No hay más resultados'
-        console.log("ya no doy más")
-    }
+
+        if(position >= limitPosition){
+            getMoreTrendings()
+            limitPosition += 40;
+            offset += 50;
+        }
 })
+
+const getMoreTrendings = () => {
+    fetch(`${urlTrending}&limit=50&offset=${offset}`)
+    .then(res => res.json() ) 
+    .then(res => {
+        // Recorro los objetos del request
+        res.data.forEach(element => {   
+            let gifs = element;
+        // Pusheo los objetos al array "arrayTrendings"
+        arrayTrendings.push(gifs);
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+})}
 
 
 // Boton para ver los gifs anteriores

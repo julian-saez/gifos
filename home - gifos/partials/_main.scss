@@ -38,19 +38,33 @@
     color: $secundario;
 }
 
-
-#home input {
-    font-size: 1rem;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+#input-container{
     width: 89.1%;
     max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#home input {
+    width: 100%;
+    font-size: 1rem;
+    display: block;
     line-height: 50px;
-    border: 1px solid $primario;
-    border-radius: 27px;
+    
     outline: none;
     padding-left: 50px;
+}
+
+.no-text{
+    border-radius: 27px;
+    border: 1px solid $primario;
+}
+
+.text-on{
+    border-radius: 27px 27px 0 0;
+    border: 1px solid $primario;
+    border-bottom: 0;
 }
 
 #home input::placeholder {
@@ -63,6 +77,16 @@ input:focus{
 
 #home fieldset {
     border: 0;
+}
+
+.suggestions-styles {
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    color: rgb(230, 230, 230);
+    height: auto;
+    padding-bottom: 15px;
+    border-radius: 0px 0px 10px 10px;
 }
 
 // #home button {
