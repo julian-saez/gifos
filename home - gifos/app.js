@@ -149,31 +149,31 @@ const showResults = () => {
         box.appendChild(title)
         box.appendChild(creator)
 
-        gif.src = results[i].images.preview_webp.url
-        title.innerHTML = results[i].title
-        creator.innerHTML = results[i].username
-
-        title.className = "title-gif-results"
-        creator.className = "gif-creator-results"
-        creator.style.display = 'none'
-        title.style.display = 'none'
-        
-        box.id = id;
-        id += 1;
-        box.className = "touch"
+        function infoGifs(){
+            gif.src = results[i].images.preview_webp.url
+            title.innerHTML = results[i].title
+            creator.innerHTML = results[i].username
+    
+            title.className = "title-gif-results"
+            creator.className = "gif-creator-results"
+            creator.style.display = 'none'
+            title.style.display = 'none'
+            
+            box.id = id;
+            id += 1;
+            box.className = "touch"
+        }
 
         // Condición para ejecutar la función getValue así el programa detecta cuando el usuario hace click sobre algún gif y lo muestra en grande.
         // if(containerResults.childElementCount == amount){
         box.addEventListener('click', e => {
+            infoGifs()
             const contenedor = document.getElementById("home")
         
             let contenido = e.target
             let url = e.target.getAttribute('src')
             let creator = box.children[2].innerText
             let title = box.children[1].innerText
-            console.log(url)
-            console.log(creator)
-            console.log(title)
         
             // Creo los elementos
             let div = document.createElement("div")
@@ -234,7 +234,7 @@ const showResults = () => {
             likeImg.src = "assets/icon-fav.svg"
 
             // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
-            btnExit.addEventListener("click", function close(){
+            btnExit.addEventListener("click", () => {
                 div.remove(bigGif)
             })
 

@@ -1,52 +1,65 @@
-/**
- * COMUNICACIÓN CON LA API
- */
+/*************     GIFOS TRENDINGS    *************/
 
-/**
- * OBTENCIÓN DE LAS CATEGORIAS
- */
-
+// Almaceno los endpoints que usaré más adelante
 const apiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
 const categoriesUrl = 'http://api.giphy.com/v1/gifs/categories'
-const trendingsCategories = document.getElementById('trending-categories')
+const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm"
+
+// Contenedores del DOM
+const trendingsCategories = document.getElementById('trendings-keywords')
+const container = document.getElementById("list-gifs")
+const contenedor = document.getElementById("home")
+const messageContent = document.getElementById("message-content")
+
+// Botones de GIFOS TRENDING
+const btnNextG = document.getElementById("btn-next")
+const btnBackG = document.getElementById("btn-back")
+
+
+/*************     PROGRAMA PARA OBTENER LAS CATEGORIAS DE GIFS MÁS BUSCADOS     *************/
+
 let categories = []
 
 const getCategories = async () => {
-    // Busco en la API el valor de inputText
-    let res = await fetch(`${categoriesUrl}?&api_key=${apiKey}&limit=6`)
-
-    // Paso los objetos a valor Javascript
+    // Busco las categorias trending
+    let res = await fetch(`${categoriesUrl}?&api_key=${apiKey}&limit=5`)
     let resJS = await res.json();
 
-    //Subo los objetos
-    categories = resJS.data
-    console.log(categories)
-    printCategories()
+    // Pusheo los objetos al array 'categories'
+    resJS.data.forEach(element => {
+        categories.push(element.name)
+    })
+
+    // Muestro las palabras claves por el DOM
+    categories.forEach(element => {
+        let keywordText = document.createElement("p")
+        trendingsCategories.appendChild(keywordText)
+
+        // Si ya la iteracíon va por el último índice del array, entonces no le coloco la coma.
+        if(element === categories[4]){
+            keywordText.innerHTML = element[0].toUpperCase() + element.slice(1)
+        }else{
+            keywordText.innerHTML = `${element[0].toUpperCase() + element.slice(1)},`
+        }
+    })
 };
+
+// Ejecuto la función ni bien comienza el programa
 getCategories()
 
-const printCategories = () => {
-    for(let i = 1; i <= 5; ++i){
-        let categorie = categories[i].name
-        let p = trendingsCategories.children[i]
-        p.innerText = categorie[0].toUpperCase() + categorie.slice(1)
-    } 
-}
 
-/**
- * Obtengo los gifs trendings y los plasmo en el contenedor
- */
 
-const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm"
+/*************     PROGRAMA PARA OBTENER LOS GIFS TRENDINGS Y COLOCARLOS EN LA SECCIÓN 'TRENDING GIFOS'     *************/
+
 let arrayTrendings = [];
 let offset = 50;
-let max;
+let limitResults;
 
-function getTrendings(){
+const getTrendings = () => {
     fetch(`${urlTrending}&limit=50`)
     .then(res => res.json() ) 
     .then(res => {
-        max = res.pagination.total_count
+        limitResults = res.pagination.total_count
         // Recorro los objetos del request
         res.data.forEach(element => {   
             let valores = element;
@@ -64,19 +77,11 @@ function getTrendings(){
 getTrendings()
 
 
-let container = document.getElementById("list-gifs")
-
 const resize = () => {
-    if(innerWidth < 768) {
-        btnMobileNext()
-    }
+    if(innerWidth < 768) btnMobileNext()
 }
 
-let contenedor = document.getElementById("home")
-
-// Variable para comprobar si el ancho del viewport es mobile o desktop
 let idTrend = 0;
-let gifBox;
 let idit = 1;
 
 // Función para cargar los gifs trendings
@@ -84,8 +89,12 @@ function printTrendings(){
     if(container.childElementCount == 0){
         for(let i = 0; i <= 2; ++i){
             // Creo los elementos
-            gifBox = document.createElement("img")
+            
+            let gifBox = document.createElement("img")
+            gifBox.style.visibility = 'visible'
             container.appendChild(gifBox)
+            let hoverColor = document.createElement('div')
+            gifBox.appendChild(hoverColor)
 
             let title = document.createElement("h2")
             let username = document.createElement("h3")
@@ -101,6 +110,11 @@ function printTrendings(){
             gifBox.src = arrayTrendings[i].images.preview_webp.url
 
             idit += 1;
+
+            gifBox.addEventListener('mouseover', () => {
+                hoverColor.style.visibility = 'hidden'
+                hoverColor.style.background = '#6742E7'
+            })
     
             gifBox.addEventListener("click", e => {
                 let url = e.target.getAttribute('src')
@@ -187,16 +201,14 @@ function printTrendings(){
 
 
 
-// Llamo los botones
-const btnNextG = document.getElementById("btn-next")
-const btnBackG = document.getElementById("btn-back")
+
 
 
 // Variable para ir iterando el indice y mostrar diferentes gifs
 let position = 2;
 
 // Llamo el elemento donde mostraré el mensaje 'Llegaste al inicio' si ya no hay más gifs anteriores que mostrar
-const messageContent = document.getElementById("message-content")
+
 let limitPosition = 40;
 
 // Boton para ver los gifs siguientes
