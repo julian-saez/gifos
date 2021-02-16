@@ -114,7 +114,7 @@ darkBtn.addEventListener("click", function mode(){
 })
 
 function check() {
-
+    if(localStorage.getItem("Mode")){
     // Obtengo los valores que se hayan almacenado con anterioridad en el LocalStorage  
     let valuesSaved = []
     valuesSaved = localStorage.getItem("Mode")
@@ -145,6 +145,9 @@ function check() {
     iconFacebook.src = valuesJS[4].socialmedia
     iconTwitter.src = valuesJS[5].socialmedia
     iconInstagram.src = valuesJS[6].socialmedia
+    }else{
+        darkBtn.innerHTML = 'Modo Nocturno'
+    }
 }
 
 check()
