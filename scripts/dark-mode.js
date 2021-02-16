@@ -23,9 +23,9 @@ let modeDark = [
     {mode: "dark-trending"},
     {mode: "dark-text"},
     {text: "Modo Diurno"},
-    {socialmedia: "/home/assets/icon_facebook_noc.svg"},
-    {socialmedia: "/home/assets/icon_twitter_noc.svg"},
-    {socialmedia: "/home/assets/icon_instagram_noc.svg"}
+    {socialmedia: "/assets/icon_facebook_noc.svg"},
+    {socialmedia: "/assets/icon_twitter_noc.svg"},
+    {socialmedia: "/assets/icon_instagram_noc.svg"}
 ]
 
 let modeLight = [
@@ -33,9 +33,9 @@ let modeLight = [
     {mode: "light-trending"},
     {mode: "light-text"},
     {text: "Modo Nocturno"},
-    {socialmedia: "/home/assets/icon_facebook.svg"},
-    {socialmedia: "/home/assets/icon-tw-normal.svg"},
-    {socialmedia: "/home/assets/icon_instagram.svg"}
+    {socialmedia: "/assets/icon_facebook.svg"},
+    {socialmedia: "/assets/icon-tw-normal.svg"},
+    {socialmedia: "/assets/icon_instagram.svg"}
 ]
 
 
