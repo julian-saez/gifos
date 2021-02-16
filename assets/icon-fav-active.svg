@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="20px" height="18px" viewBox="0 0 20 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
-    <title>icon-fav-active</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M275.322322,427 C276.828175,427 278.272313,427.609648 279.336861,428.694752 C280.40162,429.779051 281,431.250383 281,432.784592 C281,434.318801 280.40162,435.790133 279.336716,436.87458 L271.617243,444.739417 C271.27622,445.086861 270.723313,445.086861 270.38229,444.739417 L262.662816,436.87458 C260.445728,434.615742 260.445728,430.953442 262.662816,428.694604 C264.879905,426.435766 268.474516,426.435766 270.691605,428.694604 L270.999766,429.008569 L271.307783,428.694752 C272.372332,427.609648 273.81647,427 275.322322,427 Z" id="path-1"></path>
-    </defs>
-    <g id="GIFOS" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="24-Mobile-Gifo-Max" transform="translate(-261.000000, -427.000000)">
-            <mask id="mask-2" fill="white">
-                <use xlink:href="#path-1"></use>
-            </mask>
-            <use id="icon-fav-active" fill="#572EE5" fill-rule="nonzero" xlink:href="#path-1"></use>
-        </g>
-    </g>
-</svg>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#572ee5;}</style></defs><title>icon-fav-active1</title><g id="GIFOS"><g id="_00-UI-Kit" data-name="00-UI-Kit"><g id="icon-fav-hover"><rect id="Rectangle-Copy-7" class="cls-1" width="32" height="32" rx="6"/><path id="path-1" class="cls-2" d="M16.28,9.5a5.11,5.11,0,1,1,7.22,7.22l-6.94,7a.79.79,0,0,1-1.12,0l-6.94-7A5.11,5.11,0,0,1,15.72,9.5l.28.27ZM16,22l5.56-5.56.83-.83a3.54,3.54,0,1,0-5-5l-.83.83a.79.79,0,0,1-1.12,0l-.83-.83a3.54,3.54,0,0,0-5,5Z"/></g></g></g><g id="GIFOS-2" data-name="GIFOS"><g id="_24-Mobile-Gifo-Max" data-name="24-Mobile-Gifo-Max"><g id="icon-fav-active"><path id="path-1-2" data-name="path-1" class="cls-2" d="M19.89,8A5,5,0,0,1,23.5,9.54a5.33,5.33,0,0,1,0,7.41l-6.94,7.13a.77.77,0,0,1-1.12,0L8.5,17a5.33,5.33,0,0,1,0-7.41,5,5,0,0,1,7.22,0l.28.28.28-.28A5,5,0,0,1,19.89,8Z"/></g></g></g></svg>

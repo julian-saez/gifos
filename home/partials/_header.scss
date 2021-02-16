@@ -1,0 +1,214 @@
+#bar-header {
+    width: 100%;
+    height: 95px;
+    justify-content: space-between;
+}
+
+#logo{
+    margin-left: 22px;
+    margin-top: 22px;
+}
+
+@media screen and (max-width: 480px){
+    header{
+        #logo {
+            width: 48.8px;
+            height: 48.8px;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 22px;
+            margin-top: 22px;
+        }
+
+        
+        .hamburger {
+            position: relative;
+            padding: 15px 15px;
+            display: inline-block;
+            cursor: pointer;
+            transition-property: opacity, filter;
+            transition-duration: 0.15s;
+            transition-timing-function: linear;
+            font: inherit;
+            color: inherit;
+            text-transform: none;
+            background-color: transparent;
+            outline: none;
+            border: 0;
+            margin: 0;
+            overflow: visible; 
+        }
+        
+        .hamburger.is-active .hamburger-inner,
+        .hamburger.is-active .hamburger-inner::before,
+        .hamburger.is-active .hamburger-inner::after {
+            background-color: #000; 
+        }
+          
+        .hamburger-box {
+            width: 25px;
+            height: 5px;
+            display: inline-block;
+            position: relative; 
+        }
+          
+        .hamburger-inner {
+            display: block;
+            top: 50%;
+            margin-top: -2px; 
+        }
+        
+        .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+            width: 25px;
+            height: 3px;
+            background-color: #000;
+            border-radius: 4px;
+            position: absolute;
+            transition-property: transform;
+            transition-duration: 0.15s;
+            transition-timing-function: ease; 
+        }
+        
+        .hamburger-inner::before, .hamburger-inner::after {
+            content: "";
+            display: block; 
+        }
+        
+        .hamburger-inner::before {
+            top: -10px; 
+        }
+        
+        .hamburger-inner::after {
+            bottom: -10px; 
+        }
+        
+        .hamburger--squeeze .hamburger-inner {
+            transition-duration: 0.075s;
+            transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); 
+        }
+        
+        .hamburger--squeeze .hamburger-inner::before {
+            transition: top 0.075s 0.12s ease, opacity 0.075s ease; 
+        }
+        
+        .hamburger--squeeze .hamburger-inner::after {
+            transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19); 
+        }
+        
+        .hamburger--squeeze.is-active .hamburger-inner {
+            transform: rotate(45deg);
+            transition-delay: 0.12s;
+            transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); 
+        }
+        
+        
+        .hamburger--squeeze.is-active .hamburger-inner::before {
+            top: 0;
+            opacity: 0;
+            transition: top 0.075s ease, opacity 0.075s 0.12s ease; 
+        }
+        
+        
+        .hamburger--squeeze.is-active .hamburger-inner::after {
+            bottom: 0;
+            transform: rotate(-90deg);
+            transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); 
+        }
+
+        .hamburger ol{
+            margin: 48px -15px;
+            background-color: $primario;
+            top: 0;
+            right: 0;
+            position: absolute;
+            opacity: 0.9;
+            list-style: none;
+        }
+        
+        .menu a {
+            margin-top: 17px;
+            display: block;
+            font-size: 0.9rem;
+            text-decoration: none;
+            padding: 10px 50px;
+            cursor: pointer;
+            font-family: $font-principal;
+            font-weight: bolder;
+        }
+
+
+        
+            
+        // Estilos cuando se aplique javascript
+        
+
+        .active {
+            transform: translate(0, -50000px);
+        }
+
+        div.line {
+            margin: 5px auto 0 auto;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30px;
+            height: 1px;
+            border-radius: 15px;
+            background-color: white;
+        }
+    }
+}
+
+@media screen and (min-width: 769px){
+    header{
+        #logo {
+            margin-top: 1.5%;
+            width: 100%;
+            height: 100%;
+            max-height: 50px;
+            max-width: 55px;
+        }
+    
+        #bar-header button {
+            border: 0;
+            outline: none;
+            background-color: transparent;
+        }
+    
+        ol {
+            display: flex;
+            align-items: center; 
+        }
+    
+        li {
+            margin-top: 1.5%; 
+            padding-left: 30px;
+            list-style: none;
+        }
+    
+        li a {
+            font-family: $font-principal;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding-left: 50px;
+        }
+    
+        li a:hover {
+            text-decoration: solid underline;
+            text-decoration-color: #5ED7C6;
+        }
+    
+        li a:active {
+            color: #9CAFC3;
+        }
+    
+        img {
+            width: 54px;
+        }
+    }
+}
+
+
+
+
+
+
