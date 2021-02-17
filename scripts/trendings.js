@@ -188,11 +188,53 @@ function trendingRender(){
                 btnExit.addEventListener("click", () => {
                     div.remove(bigGif)
                 })
-                btnLike.addEventListener("click", () => {
-                    likesUpload.push(new Likes(url , title[0].innerText, creator[0].innerText))
-                    setTimeout(saveGifs, 750)
-                    // localStorage.removeItem('Favorites')
+
+                if(results[i].username == ""){
+                    creator.innerHTML = 'Autor desconocido'
+                }else{
+                    creator.innerHTML = results[i].username
+                }
+        
+                let btnLikeActive = false;
+        
+                btnLike.addEventListener('click', async (element) => {
+                    saveFavoritesAtLocalStorage(gifUrl.currentSrc, title.outerText, creator.outerText)
+                    btnLikeImg.style.zIndex = '2'
+                    element.target.src = 'assets/icon-fav-active.svg'
+                    btnLikeActive = true;
                 })
+        
+                btnCopy.addEventListener("copy", () => {
+                    alert("se ha copiado correcctamente")
+                })
+            
+                if(innerWidth > 768){
+                    box.addEventListener("mouseover", () => {
+                        layer.style.display = 'block'
+                        layer.className = 'layerBackground'
+                        title.style.color = '#ffffff'
+                        title.style.opacity = '1'
+                        title.style.zIndex = '4'
+                    })
+        
+                    box.addEventListener("mouseout", () => {
+                        layer.className = ''
+                        layer.style.display = 'none'
+                        console.log(btnLikeActive)
+                    })   
+        
+                    btnLike.addEventListener('mouseover', (element) => {
+                        if(btnLikeActive === false){
+                            element.target.src = 'assets/icon-fav-hover.svg'
+                        }
+                    })
+        
+                    btnLike.addEventListener('mouseout', (element) => {
+                        if(btnLikeActive === false){
+                            element.target.src = 'assets/icon-fav.svg'
+                        }
+                    })
+                }
             })
         }
 
@@ -231,7 +273,7 @@ btnNextG.addEventListener('click', () => {
 
         container.children[2].setAttribute('src', '')
         container.children[2].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
-        btnBackG.children[0].setAttribute('src', 'assets/button-slider-left-hover.svg')
+        btnBackG.children[0].setAttribute('src', '/assets/button-slider-left-hover.svg')
 
         // Le aumento el valor a la variable por si el usuario vuelve a pedir nuevos resultados o para no olvidar el índice del src
         position += 3;

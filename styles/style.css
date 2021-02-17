@@ -676,6 +676,13 @@ input:focus {
   #list-gifs {
     margin-left: 17%;
   }
+  #container-results.flex-container {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
   #list-gifs img {
     width: 243px;
     height: 187px;

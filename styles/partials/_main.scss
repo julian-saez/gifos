@@ -338,6 +338,11 @@ input:focus{
         margin-left: 17%;
     }
 
+    #container-results.flex-container{
+        justify-content: center;
+        @include alignCenter();
+    }
+
     #list-gifs img {
         width: 243px;
         height: 187px;
