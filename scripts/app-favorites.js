@@ -84,9 +84,9 @@ const renderFavoritesGifs = () => {
         titlesBox.appendChild(title)
         layer.style.display = 'none'
 
-        btnDownloadImg.src = '/home/assets/icon-download.svg'
-        btnLikeImg.src = '/home/assets/icon-fav-active.svg'
-        btnCopyImg.src = '/home/assets/icon-max-normal.svg'
+        btnDownloadImg.src = '/assets/icon-download.svg'
+        btnLikeImg.src = '/assets/icon-fav-active.svg'
+        btnCopyImg.src = '/assets/icon-max-normal.svg'
         btnDownload.className = 'icons-buttons-box'
         gif.className = 'gif-url'
         btnLike.className = 'icons-buttons-box'
@@ -114,7 +114,7 @@ const renderFavoritesGifs = () => {
                 btnLikeActive = false
                 saveFavoritesAtLocalStorage(gif.currentSrc, title.innerHTML, creator.innerHTML)
             }else{                
-                btnLikeImg.src = '/home/assets/icon-fav.svg'
+                btnLikeImg.src = '/assets/icon-fav.svg'
                 btnLikeActive = true
                 let gifData = gif.currentSrc
                 removeFavoriteGif(gifData)
@@ -142,13 +142,13 @@ const renderFavoritesGifs = () => {
 
             btnLike.addEventListener('mouseover', (element) => {
                 if(btnLikeActive === false){
-                    element.target.src = '/home/assets/icon-fav-hover.svg'
+                    element.target.src = '/assets/icon-fav-hover.svg'
                 }
             })
 
             btnLike.addEventListener('mouseout', (element) => {
                 if(btnLikeActive === false){
-                    element.target.src = '/home/assets/icon-fav-active.svg'
+                    element.target.src = '/assets/icon-fav-active.svg'
                 }
             })
         }

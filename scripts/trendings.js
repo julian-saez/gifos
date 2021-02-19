@@ -3,12 +3,12 @@
 // Almaceno los endpoints que usaré más adelante
 const apiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
 const categoriesUrl = 'http://api.giphy.com/v1/gifs/categories'
-const urlTrending = "http://api.giphy.com/v1/gifs/trending?api_key=3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm"
+const urlTrending = "http://api.giphy.com/v1/gifs/trending?"
 
 // Contenedores del DOM
-const trendingsCategories = document.getElementById('categories')
-const container = document.getElementById("list-gifs")
-const contenedor = document.getElementById("home")
+const trendingsCategoriesContainer = document.getElementById('categories')
+const trendingsGifsContainer = document.getElementById("list-gifs")
+const homeSectionContainer = document.getElementById("home")
 const messageContent = document.getElementById("message-content")
 
 // Botones de GIFOS TRENDING
@@ -22,9 +22,9 @@ let categories = []
 
 const getCategories = async () => {
     /**
-     * Ahora le pregunto si la variable "trendingsCategories" existe ya que en el archivo Favorites no necesito mostrar las categorias. Si es indiferente de undefined, entonces si renderizo las sugerencias de la api ya que sería para la página Home. 
+     * Ahora le pregunto si la variable "trendingsCategoriesContainer" existe ya que en el archivo Favorites no necesito mostrar las categorias. Si es indiferente de undefined, entonces si renderizo las sugerencias de la api ya que sería para la página Home. 
      */
-    if(trendingsCategories != undefined){
+    if(trendingsCategoriesContainer != undefined){
         // Busco las categorias trending
         let res = await fetch(`${categoriesUrl}?&api_key=${apiKey}&limit=5`)
         let resJS = await res.json();
@@ -37,9 +37,8 @@ const getCategories = async () => {
         // Muestro las palabras claves por el DOM
         categories.forEach(element => {
             let keywordText = document.createElement("p")
-
             
-                trendingsCategories.appendChild(keywordText)
+                trendingsCategoriesContainer.appendChild(keywordText)
                         // Si ya la iteracíon va por el último índice del array, entonces no le coloco la coma.
                 if(element === categories[4]){
                     keywordText.innerHTML = element[0].toUpperCase() + element.slice(1)
@@ -50,7 +49,6 @@ const getCategories = async () => {
     }
 };
 
-// Ejecuto la función ni bien comienza el programa
 getCategories()
 
 
@@ -62,18 +60,14 @@ let offset = 50;
 let limitResults;
 
 const getTrendings = () => {
-    fetch(`${urlTrending}&limit=50`)
+    fetch(`${urlTrending}&api_key=${apiKey}&limit=25`)
     .then(res => res.json() ) 
     .then(res => {
         limitResults = res.pagination.total_count
-        // Recorro los objetos del request
         res.data.forEach(element => {   
-            let valores = element;
-
-        // Pusheo los objetos al array "arrayTrendings"
-        arrayTrendings.push(valores);
-    })
-    trendingRender()
+            arrayTrendings.push(element);
+        })
+        trendingRender()
     })
     .catch((error) => {
         console.log(error)
@@ -83,162 +77,163 @@ const getTrendings = () => {
 getTrendings()
 
 
-const resize = () => {
-    if(innerWidth < 768) btnMobileNext()
-}
+// const resize = () => {
+//     if(innerWidth < 768) btnMobileNext()
+// }
 
 let idTrend = 0;
 let idit = 1;
+let btnNextMobileState = false
+let amountGifsTrendings = 2;
+
 
 // Función para cargar los gifs trendings
 function trendingRender(){
-    if(container.childElementCount == 0){
-        for(let i = 0; i <= 2; ++i){
-            // Creo los elementos
-            
-            let gifBox = document.createElement("img")
-            // gifBox.style.visibility = 'visible'
-            container.appendChild(gifBox)
-            let hoverColor = document.createElement('div')
-            gifBox.appendChild(hoverColor)
+    // if(innerWidth < 480){
+    //     btnNextMobile()
+    // }
+    
+    if(trendingsGifsContainer.childElementCount == 0){
+        for(let i = 0; i <= amountGifsTrendings; ++i){
+            let figureElement = document.createElement("figure")
+            let gifElementImg = document.createElement("img")
+            let layer = document.createElement('div')
+            trendingsGifsContainer.appendChild(figureElement)
+            figureElement.appendChild(gifElementImg)
+            figureElement.appendChild(layer)
 
-            let title = document.createElement("h2")
-            let username = document.createElement("h3")
+            let title = document.createElement("figcaption")
+            let author = document.createElement("figcaption")
     
-            // Declaro los hijos de la caja de los gifs
-            gifBox.appendChild(title)
-            gifBox.appendChild(username)
+            // Division de los contenedores
+            let buttonsBox = document.createElement("div")
+            let titlesBox = document.createElement("div")
+
+            // Botones al pasar el mouse
+            let btnLike = document.createElement("button")
+            let btnDownload = document.createElement("button")
+            let btnExtend = document.createElement("button")
+
+            // Iconos para los botones
+            let btnLikeImg = document.createElement("img")
+            let btnDownloadImg = document.createElement("img")
+            let btnExtendImg = document.createElement("img")
+
+            // Declaro los hijos de...
+            figureElement.appendChild(layer)
+            layer.appendChild(buttonsBox)
+            layer.appendChild(titlesBox)
+            layer.style.display = 'none'
+
+            // Declaro los hijos de los botones
+            buttonsBox.appendChild(btnLike)
+            buttonsBox.appendChild(btnDownload)
+            buttonsBox.appendChild(btnExtend)
+            btnLike.appendChild(btnLikeImg)
+            btnDownload.appendChild(btnDownloadImg)
+            btnExtend.appendChild(btnExtendImg)
+        
+            titlesBox.appendChild(author)
+            titlesBox.appendChild(title)
+            
+
+            // Atributos de los elementos
+            figureElement.classList = "cardGifs"
+            btnDownloadImg.src = 'assets/icon-download.svg'
+            btnLikeImg.src = 'assets/icon-fav.svg'
+            btnExtendImg.src = 'assets/icon-max-normal.svg'
+            btnDownload.classList = 'icons-buttons-box'
+            btnLike.classList = 'icons-buttons-box'
+            btnExtend.classList = 'icons-buttons-box'
+            buttonsBox.classList = 'buttons-box flex-container'
+            titlesBox.classList = 'titles-box'
+            title.classList = "title-gif-results"
+            author.classList = "figcaption-creator"
     
-            // Le coloco los idTren a cada caja y les agrego el titulo y la url del gif
-            gifBox.id = `trend${idit}`
+
+
+            if(arrayTrendings[i].username == ""){
+                author.innerHTML = 'Autor desconocido'
+            }else{
+                author.innerHTML = `${arrayTrendings[i].username}`
+            }
+            gifElementImg.classList = "gifs-trendings"
             title.innerHTML = arrayTrendings[i].title
-            username.innerHTML = `Creator: ${arrayTrendings[i].username}`
-            gifBox.src = arrayTrendings[i].images.preview_webp.url
-
+            gifElementImg.src = arrayTrendings[i].images.preview_webp.url
             idit += 1;
-
-            gifBox.addEventListener('mouseover', () => {
-                hoverColor.style.visibility = 'hidden'
-                hoverColor.style.background = '#6742E7'
-            })
     
-            gifBox.addEventListener("click", e => {
-                let url = e.target.getAttribute('src')
-                let creator = e.target.querySelector("h3").innerText
-                let title = e.target.querySelector("h2").innerText
+            let btnLikeActive = false;
 
-                // Creo los elementos
-                let div = document.createElement("div")
-                let divFlex = document.createElement("div")
-                let divFlex2 = document.createElement("div")
-                let btnExit = document.createElement("button")
-                let exitImg = document.createElement("img")
-                let bigGif = document.createElement("img")
-                let titleGif = document.createElement("h3")
-                let creatorGif = document.createElement("h4")
-            
-                let btnDownloading = document.createElement("button")
-                let btnDgImg = document.createElement("img")
-                let btnLike = document.createElement("button")
-                let likeImg = document.createElement("img")
-
-                // Declaro los hijos de los elementos
-                div.appendChild(divFlex)
-                div.appendChild(divFlex2)
-
-                // Boton salir
-                divFlex.appendChild(btnExit)
-                btnExit.appendChild(exitImg)
-
-                //Gif
-                divFlex.appendChild(bigGif)
-
-
-                // Titulo del gif y creador
-                divFlex2.appendChild(titleGif)
-                divFlex2.appendChild(creatorGif)
-
-                // Boton like
-                divFlex2.appendChild(btnLike)
-                btnLike.appendChild(likeImg)
-
-                // Boton descarga
-                divFlex2.appendChild(btnDownloading)
-                btnDownloading.appendChild(btnDgImg)
-
-                    // Le asignó los atributos a los elementos creados 
-                divFlex.className = "flex-container"
-                divFlex2.className = "flex-container"
-                divFlex.id = "flex-1"
-                divFlex2.id = "flex-2"
-                div.id = "div-container-results"
-                bigGif.id = "gif"
-                btnExit.id = "btn-exit"
-                btnLike.id = "btn-like"
-                bigGif.src = url
-                exitImg.src = "assets/close.svg"
-                btnDownloading.id = "btn-dg"
-                btnDgImg.src = "assets/icon-download.svg"
-                titleGif.innerHTML = title;
-                creatorGif.innerHTML = creator;
-                likeImg.src = "assets/icon-fav.svg"
-
-                contenedor.appendChild(div)
-                // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
-                btnExit.addEventListener("click", () => {
-                    div.remove(bigGif)
-                })
-
-                if(results[i].username == ""){
-                    creator.innerHTML = 'Autor desconocido'
-                }else{
-                    creator.innerHTML = results[i].username
-                }
-        
-                let btnLikeActive = false;
-        
-                btnLike.addEventListener('click', async (element) => {
-                    saveFavoritesAtLocalStorage(gifUrl.currentSrc, title.outerText, creator.outerText)
-                    btnLikeImg.style.zIndex = '2'
-                    element.target.src = 'assets/icon-fav-active.svg'
-                    btnLikeActive = true;
-                })
-        
-                btnCopy.addEventListener("copy", () => {
-                    alert("se ha copiado correcctamente")
-                })
-            
-                if(innerWidth > 768){
-                    box.addEventListener("mouseover", () => {
-                        layer.style.display = 'block'
-                        layer.className = 'layerBackground'
-                        title.style.color = '#ffffff'
-                        title.style.opacity = '1'
-                        title.style.zIndex = '4'
-                    })
-        
-                    box.addEventListener("mouseout", () => {
-                        layer.className = ''
-                        layer.style.display = 'none'
-                        console.log(btnLikeActive)
-                    })   
-        
-                    btnLike.addEventListener('mouseover', (element) => {
-                        if(btnLikeActive === false){
-                            element.target.src = 'assets/icon-fav-hover.svg'
-                        }
-                    })
-        
-                    btnLike.addEventListener('mouseout', (element) => {
-                        if(btnLikeActive === false){
-                            element.target.src = 'assets/icon-fav.svg'
-                        }
-                    })
-                }
+            btnLike.addEventListener('click', async (element) => {
+                saveFavoritesAtLocalStorage(gifElementImg.currentSrc, title.outerText, author.outerText)
+                btnLikeImg.style.zIndex = '2'
+                element.target.src = 'assets/icon-fav-active.svg'
+                btnLikeActive = true;
             })
-        }
+            
+            if(innerWidth > 768){
+                figureElement.addEventListener('mouseover', () => {
+                    layer.style.display = 'block'
+                    layer.classList = 'layerTrendingsBackground'
+                    title.style.color = '#ffffff'
+                    title.style.opacity = '1'
+                    title.style.zIndex = '4'
+                })
+                figureElement.addEventListener("mouseout", () => {
+                    layer.className = ''
+                    layer.style.display = 'none'
+                    console.log(btnLikeActive)
+                })   
 
-    }else(container.childElementCount == 2);{
+                btnExtend.addEventListener("click", () => {
+                    // Creo los elementos
+                    let extendedGifContainer = document.createElement("figure")
+                    let extendedGifTopContainer = document.createElement("div")
+                    let extendedGifBottomContainer = document.createElement("div")
+                    let gifExtend = document.createElement("img")
+                    let exitBtn = document.createElement("button")
+                    let imgExitBtn = document.createElement("img")
+                    let authorExtend = document.createElement("figcaption")
+                    let titleExtend = document.createElement("figcaption")
+    
+                    // Declaro los hijos de los elementos
+                    extendedGifContainer.appendChild(extendedGifTopContainer)
+                    extendedGifContainer.appendChild(extendedGifBottomContainer)
+    
+                    // Boton salir
+                    extendedGifTopContainer.appendChild(exitBtn)
+                    exitBtn.appendChild(imgExitBtn)
+    
+                    //Gif
+                    extendedGifTopContainer.appendChild(gifExtend)
+    
+                    // Titulo del gif y creador
+                    extendedGifBottomContainer.appendChild(authorExtend)
+                    extendedGifBottomContainer.appendChild(titleExtend)
+
+    
+                    // Le asignó los atributos a los elementos creados 
+                    extendedGifTopContainer.className = "flex-container"
+                    extendedGifBottomContainer.className = "flex-container"
+                    extendedGifTopContainer.id = "extended-gif-top-container"
+                    extendedGifBottomContainer.id = "extended-gif-bottom-container"
+                    extendedGifContainer.id = "div-container-results"
+                    gifExtend.src = gifElementImg.currentSrc
+                    imgExitBtn.src = "assets/close.svg"
+                    gifExtend.innerHTML = gifElementImg.currentSrc
+                    authorExtend.innerHTML = author.innerHTML
+                    titleExtend.classList = "title-gif-results"
+                    authorExtend.classList = "figcaption-creator"
+    
+                    homeSectionContainer.appendChild(extendedGifContainer)
+                    // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
+                    exitBtn.addEventListener("click", () => {
+                        extendedGifContainer.remove(gifExtend)
+                    })
+                })
+            }
+        }
+    }else(trendingsGifsContainer.childElementCount == 2);{
         return true;
     }
 
@@ -247,10 +242,21 @@ function trendingRender(){
     }
 }
 
+// 
 
-
-
-
+const btnNextMobile = () => {
+    if(btnNextMobileState === false){
+        btnNextG.style.display = 'none'
+        let btnNext = document.createElement("button")
+        let btnNextImg = document.createElement("img")
+        trendingsGifsContainer.appendChild(btnNext)
+        btnNext.appendChild(btnNextImg)
+        btnNextImg.src = "assets/Button-Slider-right.svg"
+        btnNext.innerHTML = "Ver mas"
+        btnNextMobileState = true
+        console.log("estoy ejecutando la funcion")
+    }
+}
 
 // Variable para ir iterando el indice y mostrar diferentes gifs
 let position = 2;
@@ -265,14 +271,14 @@ btnNextG.addEventListener('click', () => {
         messageContent.children[0].innerText = ''
 
         // Plasmo los nuevos resultados
-        container.children[0].setAttribute('src', '')
-        container.children[0].setAttribute('src', arrayTrendings[position + 1].images.preview_webp.url)
+        trendingsGifsContainer.children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[0].setAttribute('src', arrayTrendings[position + 1].images.preview_webp.url)
 
-        container.children[1].setAttribute('src', '')
-        container.children[1].setAttribute('src', arrayTrendings[position + 2].images.preview_webp.url)
+        trendingsGifsContainer.children[1].setAttribute('src', '')
+        trendingsGifsContainer.children[1].setAttribute('src', arrayTrendings[position + 2].images.preview_webp.url)
 
-        container.children[2].setAttribute('src', '')
-        container.children[2].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
+        trendingsGifsContainer.children[2].setAttribute('src', '')
+        trendingsGifsContainer.children[2].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
         btnBackG.children[0].setAttribute('src', '/assets/button-slider-left-hover.svg')
 
         // Le aumento el valor a la variable por si el usuario vuelve a pedir nuevos resultados o para no olvidar el índice del src
@@ -304,39 +310,27 @@ const getMoreTrendings = () => {
 // Boton para ver los gifs anteriores
 btnBackG.addEventListener("click", () => {
     // Pregunto si el indice del src es == a 0, y si es así, muestro el mensaje...
-    if(container.children[0].src == arrayTrendings[0].images.preview_webp.url){
+    if(trendingsGifsContainer.children[0].src == arrayTrendings[0].images.preview_webp.url){
         messageContent.children[0].innerText = "¡Volviste al inicio!"
     }else{
         // Si es indiferente de 0, itero los resultados anteriores...
-        if(container.children[0].src == arrayTrendings[3].images.preview_webp.url){
+        if(trendingsGifsContainer.children[0].src == arrayTrendings[3].images.preview_webp.url){
             btnBackG.children[0].setAttribute('src', 'assets/button-slider-left.svg')
         }
 
         // Plasmo los resultados
-        container.children[0].setAttribute('src', '')
-        container.children[1].setAttribute('src', '')
-        container.children[2].setAttribute('src', '')
+        trendingsGifsContainer.children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[1].setAttribute('src', '')
+        trendingsGifsContainer.children[2].setAttribute('src', '')
     
-        container.children[0].setAttribute('src', arrayTrendings[position - 5].images.preview_webp.url)
-        container.children[1].setAttribute('src', arrayTrendings[position - 4].images.preview_webp.url)
-        container.children[2].setAttribute('src', arrayTrendings[position - 3].images.preview_webp.url)
+        trendingsGifsContainer.children[0].setAttribute('src', arrayTrendings[position - 5].images.preview_webp.url)
+        trendingsGifsContainer.children[1].setAttribute('src', arrayTrendings[position - 4].images.preview_webp.url)
+        trendingsGifsContainer.children[2].setAttribute('src', arrayTrendings[position - 3].images.preview_webp.url)
     
         // Resto la posición por si se vulve a tocar el botón de volver atrás
         position = position - 3;
     }
 })
-
-
-// Función para mostrar el boton de next en MOBILE
-const btnMobileNext = () => {
-    let btnShowMore = document.createElement("button")
-    let btnImg = document.createElement("img")
-    container.appendChild(btnShowMore)
-    btnShowMore.appendChild(btnImg)
-
-    btnImg.src = "assets/Button-Slider-right.svg"
-    btnShowMore.id = "btn-more-trendings"
-}
 
 
 

@@ -1,4 +1,4 @@
-/**
+ /**
  * CODIGO DEL MODO DARK EN HOME - GIFOS
  */
 
@@ -151,5 +151,3 @@ function check() {
 }
 
 check()
-
-

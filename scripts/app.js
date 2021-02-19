@@ -78,17 +78,17 @@ searchForm.addEventListener("reset", () => {
 
 /*******            Notificación de busqueda sin resultados            *******/
 
-const noResultsFound = () => {
-    let noResult = document.createElement("img")
-    let textElement = document.createElement("p")
-    const message = 'Intenta con otra busqueda'
-    textElement.innerHTML = message
-    textElement.id = "no-results"
-    noResult.src = "assets/icon-busqueda-sin-resultado.svg"
+// const noResultsFound = () => {
+//     let noResult = document.createElement("img")
+//     let textElement = document.createElement("p")
+//     const message = 'Intenta con otra busqueda'
+//     textElement.innerHTML = message
+//     textElement.id = "no-results"
+//     noResult.src = "assets/icon-busqueda-sin-resultado.svg"
 
-    containerResults.insertAdjacentElement('afterend',textElement)
-    containerResults.appendChild(noResult)
-}
+//     containerResults.insertAdjacentElement('afterend',textElement)
+//     containerResults.appendChild(noResult)
+// }
 
 /*******            Acción al tocar el botón VER MÁS            *******/
 
@@ -154,11 +154,9 @@ const searchGifs = async () => {
     results = resJS.data // Almaceno los objetos de los gifs que recibi de la API
 
     // Si no encuentro resultados muestro mensaje por pantalla
-    if(results == 0){
-        noResultsFound()
-    }
-    console.log(results)
-    
+    // if(results == 0){
+    //     noResultsFound()
+    // }
 }
 
 let amount = 12;
@@ -180,7 +178,21 @@ const createContainerResultsChild = () => {
     let newContainer = document.createElement("div")
     containerResults.appendChild(newContainer)
     newContainer.className = 'containerResultsChild'
-    showResults()
+    if(results == 0){
+        let noResult = document.createElement("img")
+        let textElement = document.createElement("p")
+        const message = 'Intenta con otra busqueda'
+        textElement.innerHTML = message
+        textElement.id = "no-results"
+        noResult.src = "assets/icon-busqueda-sin-resultado.svg"
+
+        newContainer.appendChild(noResult)
+        newContainer.appendChild(textElement)
+        // newContainer.insertAdjacentElement('afterend',textElement)
+        
+    }else if(results != 0){
+        showResults()
+    }
 }
 
 
@@ -230,16 +242,16 @@ const showResults =  () => {
         btnDownloadImg.src = 'assets/icon-download.svg'
         btnLikeImg.src = 'assets/icon-fav.svg'
         btnCopyImg.src = 'assets/icon-max-normal.svg'
-        btnDownload.className = 'icons-buttons-box'
-        gifUrl.className = 'gif-url'
-        btnLike.className = 'icons-buttons-box'
-        btnCopy.className = 'icons-buttons-box'
-        buttonsBox.className = 'buttons-box flex-container'
-        titlesBox.className = 'titles-box'
-        title.className = "title-gif-results"
-        creator.className = "figcaption-creator"
-        layer.className = 'layer-hover'
-        box.className = "cardGifs"
+        btnDownload.classList = 'icons-buttons-box'
+        gifUrl.classList = 'gif-url'
+        btnLike.classList = 'icons-buttons-box'
+        btnCopy.classList = 'icons-buttons-box'
+        buttonsBox.classList = 'buttons-box flex-container'
+        titlesBox.classList = 'titles-box'
+        title.classList = "title-gif-results"
+        creator.classList = "figcaption-creator"
+        layer.classList = 'layer-hover'
+        box.classList = "cardGifs"
         
         title.innerHTML = results[i].title
         gifUrl.src = results[i].images.preview_webp.url
@@ -260,7 +272,7 @@ const showResults =  () => {
         })
 
         btnCopy.addEventListener("copy", () => {
-            alert("se ha copiado correcctamente")
+            alert("Se ha copiado correctamente")
         })
     
         if(innerWidth > 768){
