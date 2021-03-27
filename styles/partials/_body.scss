@@ -40,6 +40,16 @@ body {
     color: $primario;
 }
 
+.buttons-styles{
+    outline: none;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+    max-width: 40px;
+    max-height: 40px;
+}
+
 
 #color {
     width: 100%;

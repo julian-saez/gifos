@@ -41,6 +41,16 @@ body {
   color: #6742E7;
 }
 
+.buttons-styles {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  max-width: 40px;
+  max-height: 40px;
+}
+
 #color {
   width: 100%;
   height: 5px;
@@ -345,26 +355,61 @@ a {
   max-width: 550px;
   margin-left: auto;
   margin-right: auto;
+  height: auto;
+  background-color: white;
+  border: 1px solid #6742E7;
+  border-radius: 25px;
+}
+
+#input-container #autocomplete-list div {
+  padding-left: 45px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#input-container #autocomplete-list div img {
+  width: 16px;
+  height: 16px;
+}
+
+#input-container #autocomplete-list span {
+  color: black;
+  cursor: pointer;
+  padding-left: 5px;
 }
 
 #home input {
+  font-family: "Montserrat", sans-serif;
   width: 100%;
+  border-radius: 25px;
   font-size: 1rem;
   display: block;
   line-height: 50px;
   outline: none;
   padding-left: 50px;
+  border: 0;
 }
 
-.no-text {
-  border-radius: 27px;
-  border: 1px solid #6742E7;
+.inactive-items {
+  display: none;
 }
 
-.text-on {
-  border-radius: 27px 27px 0 0;
-  border: 1px solid #6742E7;
-  border-bottom: 0;
+.active-items {
+  font-family: "Montserrat", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  background-color: white;
+  height: auto;
+  padding-bottom: 15px;
+  border: 5px solid #6742E7;
+  border-radius: 0px 0px 10px 10px;
 }
 
 #home input::-webkit-input-placeholder {
@@ -389,19 +434,6 @@ input:focus {
 
 #home fieldset {
   border: 0;
-}
-
-.dropdown-menu {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 100%;
-  background-color: white;
-  color: #e6e6e6;
-  height: auto;
-  padding-bottom: 15px;
-  border-radius: 0px 0px 10px 10px;
 }
 
 .line-active {
@@ -693,6 +725,15 @@ input:focus {
     height: 5px;
     background-color: #6742E7;
   }
+  #bar-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 15px 25px 0 0;
+    outline: none;
+    background-color: transparent;
+    border: 0;
+  }
   .wrapper {
     margin: 0px 156px 0px;
   }
@@ -799,6 +840,13 @@ input:focus {
     height: 100%;
     min-height: 240px;
     max-height: 240px;
+    margin-bottom: 25px;
+  }
+  main #extended-gif-top-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
   main #extended-gif-bottom-container:nth-child(2) {
     margin-left: 100px;

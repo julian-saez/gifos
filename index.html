@@ -42,40 +42,32 @@
                         <h1>Inspírate, busca, guarda, y crea los mejores <span>GIFOS</span></h1>
                     </div>
                     <img id="image-home" src="assets/ilustra_header.svg" alt="">
-                    <form id="searchForm" onsubmit="return false;">
-                        <fieldset id="input-container">
+                    <form id="input-container" onsubmit="return false;">
+                        <fieldset id="input-buscador">
                             <input type="search" autocomplete="off" class="no-text" id="buscador" name="q" placeholder="Busca GIFOS y más">
                             <button type="reset" class="searchBar" id="bar-btn" class="flex-container">
                                 <img id="bar-icon" src="assets/icon-search.svg" alt="Borra el contenido">
                             </button>
                         </fieldset>
+                        <fieldset id="autocomplete-list">
+                            <div class="flex-container">
+                                <img src="assets/icon-search.svg" alt="">
+                                <span class="dropmenu-items-text"></span>
+                            </div>
+                            <div class="flex-container">
+                                <img src="assets/icon-search.svg" alt="">
+                                <span class="dropmenu-items-text"></span>
+                            </div>
+                            <div class="flex-container">
+                                <img src="assets/icon-search.svg" alt="">
+                                <span class="dropmenu-items-text"></span>
+                            </div>
+                            <div class="flex-container">
+                                <img src="assets/icon-search.svg" alt="">
+                                <span class="dropmenu-items-text"></span>
+                            </div>
+                        </fieldset>
                     </form>
-                    <div id="dropdown-menu" class="flex-container dropdown-menu">
-                        <div>
-                            <div>
-                                <img src="assets/icon-search.svg" alt="">
-                                <p></p>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <img src="assets/icon-search.svg" alt="">
-                                <p></p>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <img src="assets/icon-search.svg" alt="">
-                                <p></p>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <img src="assets/icon-search.svg" alt="">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
                     <div id="trending-categories">
                         <h3>Trending:</h3>
                         <div id="categories" class="flex-container"></div>
@@ -84,7 +76,7 @@
                     <h2 id="search-word"></h2>
                     <div id="container-results" class="flex-container"></div>
                     <div id="moreResultsBtnContainer" class="flex-container">
-                        <button id="moreBtn">Ver más</button>
+                        <button id="moreBtn" style="display: none;">Ver más</button>
                     </div>
             </section>
             </div>
@@ -119,6 +111,6 @@
     <script src="scripts/dark-mode.js"></script>
     <script src="scripts/menu-hamburguesa.js"></script>
     <script src="scripts/trendings.js"></script>
-    <script src="scripts/app.js"></script>
+    <script src="scripts/search.js"></script>
 </body>
 </html>

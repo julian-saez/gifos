@@ -67,6 +67,7 @@ const getTrendings = () => {
         res.data.forEach(element => {   
             arrayTrendings.push(element);
         })
+        // console.log(res)
         trendingRender()
     })
     .catch((error) => {
@@ -139,9 +140,9 @@ function trendingRender(){
 
             // Atributos de los elementos
             figureElement.classList = "cardGifs"
-            btnDownloadImg.src = 'assets/icon-download.svg'
-            btnLikeImg.src = 'assets/icon-fav.svg'
-            btnExtendImg.src = 'assets/icon-max-normal.svg'
+            btnDownloadImg.src = '/assets/icon-download.svg'
+            btnLikeImg.src = '/assets/icon-fav.svg'
+            btnExtendImg.src = '/assets/icon-max-normal.svg'
             btnDownload.classList = 'icons-buttons-box'
             btnLike.classList = 'icons-buttons-box'
             btnExtend.classList = 'icons-buttons-box'
@@ -150,6 +151,7 @@ function trendingRender(){
             title.classList = "title-gif-results"
             author.classList = "figcaption-creator"
     
+
 
 
             if(arrayTrendings[i].username == ""){
@@ -167,8 +169,20 @@ function trendingRender(){
             btnLike.addEventListener('click', async (element) => {
                 saveFavoritesAtLocalStorage(gifElementImg.currentSrc, title.outerText, author.outerText)
                 btnLikeImg.style.zIndex = '2'
-                element.target.src = 'assets/icon-fav-active.svg'
+                element.target.src = 'assets/corazonsito.svg'
                 btnLikeActive = true;
+            })
+
+            btnLike.addEventListener('mouseover', (element) => {
+                if(btnLikeActive === false){
+                    element.target.src = 'assets/icon-fav-js.svg'
+                }
+            })
+
+            btnLike.addEventListener('mouseout', (element) => {
+                if(btnLikeActive === false){
+                    element.target.src = 'assets/icon-fav.svg'
+                }
             })
             
             if(innerWidth > 768){
@@ -219,11 +233,12 @@ function trendingRender(){
                     extendedGifBottomContainer.id = "extended-gif-bottom-container"
                     extendedGifContainer.id = "div-container-results"
                     gifExtend.src = gifElementImg.currentSrc
-                    imgExitBtn.src = "assets/close.svg"
+                    imgExitBtn.src = "/assets/close.svg"
                     gifExtend.innerHTML = gifElementImg.currentSrc
                     authorExtend.innerHTML = author.innerHTML
                     titleExtend.classList = "title-gif-results"
                     authorExtend.classList = "figcaption-creator"
+                    exitBtn.classList = "buttons-styles"
     
                     homeSectionContainer.appendChild(extendedGifContainer)
                     // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
@@ -271,15 +286,15 @@ btnNextG.addEventListener('click', () => {
         messageContent.children[0].innerText = ''
 
         // Plasmo los nuevos resultados
-        trendingsGifsContainer.children[0].setAttribute('src', '')
-        trendingsGifsContainer.children[0].setAttribute('src', arrayTrendings[position + 1].images.preview_webp.url)
+        trendingsGifsContainer.children[0].children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[0].children[0].setAttribute('src', arrayTrendings[position + 1].images.preview_webp.url)
 
-        trendingsGifsContainer.children[1].setAttribute('src', '')
-        trendingsGifsContainer.children[1].setAttribute('src', arrayTrendings[position + 2].images.preview_webp.url)
+        trendingsGifsContainer.children[1].children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[1].children[0].setAttribute('src', arrayTrendings[position + 2].images.preview_webp.url)
 
-        trendingsGifsContainer.children[2].setAttribute('src', '')
-        trendingsGifsContainer.children[2].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
-        btnBackG.children[0].setAttribute('src', '/assets/button-slider-left-hover.svg')
+        trendingsGifsContainer.children[2].children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[2].children[0].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
+        btnBackG.children[0].setAttribute('src', 'assets/button-slider-left-hover.svg')
 
         // Le aumento el valor a la variable por si el usuario vuelve a pedir nuevos resultados o para no olvidar el índice del src
         position += 3;
@@ -310,7 +325,7 @@ const getMoreTrendings = () => {
 // Boton para ver los gifs anteriores
 btnBackG.addEventListener("click", () => {
     // Pregunto si el indice del src es == a 0, y si es así, muestro el mensaje...
-    if(trendingsGifsContainer.children[0].src == arrayTrendings[0].images.preview_webp.url){
+    if(trendingsGifsContainer.children[0].children[0].src == arrayTrendings[0].images.preview_webp.url){
         messageContent.children[0].innerText = "¡Volviste al inicio!"
     }else{
         // Si es indiferente de 0, itero los resultados anteriores...
@@ -319,13 +334,13 @@ btnBackG.addEventListener("click", () => {
         }
 
         // Plasmo los resultados
-        trendingsGifsContainer.children[0].setAttribute('src', '')
-        trendingsGifsContainer.children[1].setAttribute('src', '')
-        trendingsGifsContainer.children[2].setAttribute('src', '')
+        trendingsGifsContainer.children[0].children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[1].children[0].setAttribute('src', '')
+        trendingsGifsContainer.children[2].children[0].setAttribute('src', '')
     
-        trendingsGifsContainer.children[0].setAttribute('src', arrayTrendings[position - 5].images.preview_webp.url)
-        trendingsGifsContainer.children[1].setAttribute('src', arrayTrendings[position - 4].images.preview_webp.url)
-        trendingsGifsContainer.children[2].setAttribute('src', arrayTrendings[position - 3].images.preview_webp.url)
+        trendingsGifsContainer.children[0].children[0].setAttribute('src', arrayTrendings[position - 5].images.preview_webp.url)
+        trendingsGifsContainer.children[1].children[0].setAttribute('src', arrayTrendings[position - 4].images.preview_webp.url)
+        trendingsGifsContainer.children[2].children[0].setAttribute('src', arrayTrendings[position - 3].images.preview_webp.url)
     
         // Resto la posición por si se vulve a tocar el botón de volver atrás
         position = position - 3;

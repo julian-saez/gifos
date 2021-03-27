@@ -1,102 +1,52 @@
 /**
- * PROGRAMA PARA BUSCAR GIFS
+ * BUSCADOR DE GIFS
  */
 
+const body = document.getElementById("fondo")
 const ApiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
 const autocompleteURL = 'http://api.giphy.com/v1/gifs/search/tags'
 const searchUrl = 'http://api.giphy.com/v1/gifs/search'
-const dropdownMenuContainer = document.getElementById("dropdown-menu")
-const input = document.getElementById('buscador')
-const moreResultsBtnContainer = document.getElementById("moreResultsBtnContainer")
-const body = document.getElementById("fondo")
-const containerResults = document.getElementById("container-results") 
 const contenedorElementsGif = document.getElementById("home")
 const btnMore = document.getElementById("moreBtn")
 const barBtn = document.getElementById("bar-btn")
 const barIcon = document.getElementById("bar-icon")
-const searchForm = document.getElementById("searchForm")
 const elementsAmount = 11;
 const lastInputValue = ''
+const autocompleteList = document.getElementById("autocomplete-list")
+autocompleteList.classList = "inactive-items"
+const itemsDropmenu = document.querySelectorAll("#autocomplete-list span")
+const dropmenu = document.querySelectorAll("#autocomplete-list div")
 
-/*******            Sugerencias debajo del input            *******/
-
-
-dropdownMenuContainer.style.display = 'none'
-const dropdownMenu = async (value) => {
-    dropdownMenuContainer.className = 'flex-container suggestions-styles'
-    let valor = value.path[0].value
-    let res = await fetch(`${autocompleteURL}?q=${valor}&api_key=${ApiKey}&limit=4`)
-    let resJS = await res.json()
-    dropdownMenuContainer.style.display = 'flex'
-    input.className = 'text-on'
-
-    for(let i = 0; i <= 3; ++i){
-        dropdownMenuContainer.children[i].children[0].children[1].innerHTML = resJS.data[i].name // Itero sobre los span y escribo los objetos
-    }
-}
-
-const clearSuggestions = () => {
-    const drowdownMenuItems = 3;
-    for(let i = 0; i <= drowdownMenuItems; ++i){
-        dropdownMenuContainer.children[i].innerHTML = ''
-    }
-}
-
-/*******            Evento de la tecla ENTER            *******/
-
-const removeItems = () => {
-    const containerResultsChild = document.querySelector(".containerResultsChild")
-    if(containerResultsChild){
-        containerResults.removeChild(containerResultsChild)
-        console.log("Borre el contenido")
-    } 
-}
-
-input.addEventListener("keydown", dropdownMenu) // Muestro las sugerencias de busquedas
-input.addEventListener("focusin", e => {
-    barIcon.src = 'assets/close.svg'
-    barIcon.style.padding = '3px 0 0 0'
-})
-
-input.addEventListener("keydown", e => {
-    const enter = e.which || e.keyCode  // Tomo el texto que se ingreso
-    if(enter == 13 && inputValue != input.value){
-        removeItems()
-        getText()
-    } 
-})
-
-input.addEventListener("focusout", () => {
-    barIcon.src = 'assets/icon-search.svg'
-    barIcon.style.padding = ''
-})
-
-searchForm.addEventListener("reset", () => {
-    console.log("Borre el contenido")
+itemsDropmenu.forEach(element => {
+    element.addEventListener("click", () => {
+        removeItemsFromResults()
+        initializeSearch(element.innerHTML)
+        autocompleteList.classList = "inactive-items"
+    })
 })
 
 
 /*******            Notificación de busqueda sin resultados            *******/
 
-// const noResultsFound = () => {
-//     let noResult = document.createElement("img")
-//     let textElement = document.createElement("p")
-//     const message = 'Intenta con otra busqueda'
-//     textElement.innerHTML = message
-//     textElement.id = "no-results"
-//     noResult.src = "assets/icon-busqueda-sin-resultado.svg"
+const noResultsFound = () => {
+    let noResult = document.createElement("img")
+    let textElement = document.createElement("p")
+    const message = 'Intenta con otra busqueda'
+    textElement.innerHTML = message
+    textElement.id = "no-results"
+    noResult.src = "assets/icon-busqueda-sin-resultado.svg"
 
-//     containerResults.insertAdjacentElement('afterend',textElement)
-//     containerResults.appendChild(noResult)
-// }
+    containerResults.insertAdjacentElement('afterend',textElement)
+    containerResults.appendChild(noResult)
+}
 
 /*******            Acción al tocar el botón VER MÁS            *******/
 
 
 let counter = 0;
-let results;
+let results = new Array()
 let maxResults;
-
+const moreResultsBtnContainer = document.getElementById("moreResultsBtnContainer")
 
 const moreResults = async () => {
     counter += 12;
@@ -109,55 +59,109 @@ const moreResults = async () => {
 btnMore.addEventListener("click", moreResults)
 
 let inputValue;
-let verMasButton = 'OFF'
-btnMore.style.display = "none"
+let verMasButton = false
 
-const getText = async value => {
-    dropdownMenuContainer.className = 'flex-container'
+const initializeSearch = async (value) => {
+    autocompleteList.classList = "inactive-items"
+
     input.className = ''
     input.className = 'no-text'
 
     results = [];
 
-    inputValue = input.value
-
     // Linea de seaparación
     document.getElementById("spacebetween").className = "line-active";
 
     // Palabra clave de lo que se busca
-    document.getElementById("search-word").innerHTML = inputValue[0].toUpperCase() + inputValue.slice(1)
+    document.getElementById("search-word").innerHTML = value[0].toUpperCase() + value.slice(1)
 
-    await searchGifs()
+    await searchGifs(value)
     
     // Pregunto si ya existe el botón VER MÁS
-    if(verMasButton === 'OFF'){
+    if(verMasButton === false){
         btnMore.style.display = "block"
-        verMasButton = 'ON'
-        moreResultsBtnContainer.appendChild(btnMore)
-        btnMore.innerHTML = 'Ver más'
-        btnMore.id = 'moreBtn'
+        verMasButton = true
         createContainerResultsChild()
-        clearSuggestions()
     }else{
         createContainerResultsChild()
-        clearSuggestions()
     }
 }
 
 /*******           Buscador de GIFS            *******/
 
-const searchGifs = async () => {
-    let res = await fetch(`${searchUrl}?q=${inputValue}&api_key=${ApiKey}&limit=12&offset=${counter}`)
+const searchGifs = async (value) => {
+    let res = await fetch(`${searchUrl}?q=${value}&api_key=${ApiKey}&limit=12&offset=${counter}`)
     let resJS = await res.json();
 
     maxResults = resJS.pagination.total_count // Almaceno la cantidad de gifs máximo por resultado que puedo mostrar como resultados
     results = resJS.data // Almaceno los objetos de los gifs que recibi de la API
 
     // Si no encuentro resultados muestro mensaje por pantalla
-    // if(results == 0){
-    //     noResultsFound()
-    // }
+    if(results == 0){
+        noResultsFound()
+    }
 }
+
+/*******            
+ * 
+ * LISTA AUTOCOMPLETADO
+ *             
+ ********/
+
+ const inputContainer = document.getElementById("input-buscador")
+
+ const runUpDropmenu = async value => {
+     let items = value 
+     autocompleteList.classList = "active-items"
+     for(let i = 0; i <= 3; ++i){
+         itemsDropmenu[i].innerHTML = items[i].name
+     }
+ }
+ 
+ const fetchDropmenu = async () => {
+     // Styles
+     inputContainer.classList = 'flex-container suggestions-styles'
+     input.className = 'text-on'
+ 
+     // Fetch
+     let keyword = input.value
+     let res = await fetch(`${autocompleteURL}?q=${keyword}&api_key=${ApiKey}&limit=4`)
+     let resJS = await res.json()
+     runUpDropmenu(resJS.data)
+ }
+ 
+ 
+ /*******            
+  * 
+  * EVENTO DE LA TECLA ENTER DEL INPUT
+  *             
+  ********/
+ 
+ const input = document.getElementById("buscador")
+ 
+ input.addEventListener("keydown", fetchDropmenu) // Muestro las sugerencias de busquedas
+ input.addEventListener("focusin", e => {
+     barIcon.src = 'assets/close.svg'
+     barIcon.style.padding = "18px 25px 0 0"
+ })
+ 
+ input.addEventListener("keydown", e => {
+     const enter = e.which || e.keyCode  // Tomo el texto que se ingreso
+     if(enter == 13 && inputValue != input.value){
+        removeItemsFromResults()
+        initializeSearch(input.value)
+        autocompleteList.classList = "inactive-items"
+     } 
+ })
+ 
+ input.addEventListener("focusout", () => {
+     barIcon.src = 'assets/icon-search.svg'
+     barIcon.style.padding = ''
+ })
+ 
+//  searchForm.addEventListener("reset", () => {
+//      console.log("Borre el contenido")
+//  })
 
 let amount = 12;
 
@@ -171,8 +175,13 @@ const uploadToLocalStorage = () => {
 }
 
 
-
-
+const removeItemsFromResults = () => {
+    const containerResultsChild = document.querySelector(".containerResultsChild")
+    if(containerResultsChild){
+        containerResults.removeChild(containerResultsChild)
+    } 
+}
+const containerResults = document.getElementById("container-results") 
 
 const createContainerResultsChild = () => {
     let newContainer = document.createElement("div")
@@ -267,7 +276,7 @@ const showResults =  () => {
         btnLike.addEventListener('click', async (element) => {
             saveFavoritesAtLocalStorage(gifUrl.currentSrc, title.outerText, creator.outerText)
             btnLikeImg.style.zIndex = '2'
-            element.target.src = 'assets/icon-fav-active.svg'
+            element.target.src = 'assets/corazonsito.svg'
             btnLikeActive = true;
         })
 
@@ -292,7 +301,7 @@ const showResults =  () => {
 
             btnLike.addEventListener('mouseover', (element) => {
                 if(btnLikeActive === false){
-                    element.target.src = 'assets/icon-fav-hover.svg'
+                    element.target.src = 'assets/icon-fav-js.svg'
                 }
             })
 

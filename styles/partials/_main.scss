@@ -40,27 +40,54 @@
     width: 89.1%;
     max-width: 550px;
     @include alignCenter();
+    height: auto;
+    background-color: white;
+    border: 1px solid $primario;
+    border-radius: 25px;
 }
 
+#input-container #autocomplete-list div {
+    padding-left: 45px;
+    align-items: center;
+}
+
+#input-container #autocomplete-list div img {
+    width: 16px;
+    height: 16px;
+}
+
+#input-container #autocomplete-list span {
+    color: black;
+    cursor: pointer;
+    padding-left: 5px;
+}
 
 #home input {
+    font-family: $font-principal;
     width: 100%;
+    border-radius: 25px;
     font-size: 1rem;
     display: block;
     line-height: 50px;
     outline: none;
     padding-left: 50px;
+    border: 0;
 }
 
-.no-text{
-    border-radius: 27px;
-    border: 1px solid $primario;
+.inactive-items {
+    display: none;
 }
 
-.text-on{
-    border-radius: 27px 27px 0 0;
-    border: 1px solid $primario;
-    border-bottom: 0;
+.active-items {
+    font-family: $font-principal;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    height: auto;
+    padding-bottom: 15px;
+    border: 5px solid $primario;
+    border-radius: 0px 0px 10px 10px;
 }
 
 #home input::placeholder {
@@ -73,16 +100,6 @@ input:focus{
 
 #home fieldset {
     border: 0;
-}
-
-.dropdown-menu {
-    flex-direction: column;
-    width: 100%;
-    background-color: white;
-    color: rgb(230, 230, 230);
-    height: auto;
-    padding-bottom: 15px;
-    border-radius: 0px 0px 10px 10px;
 }
 
 .line-active {
@@ -136,14 +153,6 @@ input:focus{
     width: 15px;
     height: 15px;
 }
-
-// #gif {
-//     @include alignCenter();
-//     width: 318px;
-//     height: 318px;
-//     max-width: 100%;
-//     max-height: 100%;
-// }
 
 #flex-2 {
     justify-content: space-between;
@@ -218,7 +227,6 @@ input:focus{
     @include flexCenter()
 }
 
-
 /**----------------------------------GIFS EN TENDENCIAS Y RECOMENDACIONES (2DA SECCIÓN)----------------------------------**/
 
 .light-trending {
@@ -267,6 +275,10 @@ input:focus{
     overflow: auto;
     margin-top: 3.5%;
 }
+
+
+
+
 
 /*************                                   Diseño responsive para DESKTOP                                     *************/
 
@@ -361,6 +373,16 @@ input:focus{
         width: 100%;
         height: 5px;
         background-color: $primario;
+    }
+
+    #bar-icon{
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 15px 25px 0 0;
+        outline: none;
+        background-color: transparent;
+        border: 0;
     }
 
     .wrapper {
@@ -470,14 +492,12 @@ input:focus{
             height: 100%;
             min-height: 240px;
             max-height: 240px;
+            margin-bottom: 25px;
         }
 
-        // #gif{
-        //     width: 100%;
-        //     max-width: 550px;
-        //     height: 100%;
-        //     max-height: 550px;
-        // }
+        #extended-gif-top-container{
+            flex-direction: column;
+        }
 
         #extended-gif-bottom-container:nth-child(2){
             margin-left: 100px;
