@@ -104,26 +104,34 @@ input:focus{
 
 .line-active {
     @include alignCenter();
-    width: 147px;
+    width: 125px;
     height: 0.5px;
+    margin-top: 15px;
     background-color: rgb(235, 235, 235);
 }
 
 #search-word {
-    margin-top: 15px;
+    margin-top: 8px;
     margin-bottom: 15px;
     font-size: 1.5rem;
     text-align: center;
 }
 
-.containerResultsChild img{
+.container_results_child img{
     width: 156px;
     max-width: 100%;
     height: 120px;
     max-height: 100%;
 }
 
-.containerResultsChild figure{
+.no-results-container {
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container_results_child figure{
     margin: 2.3% 4%; 
 }
 
@@ -200,7 +208,7 @@ input:focus{
 
 #categories p {
     text-align: center;
-    font-size: 0.88rem;
+    font-size: 0.90rem;
     font-family: $font-principal;
     font-weight: normal;
 }
@@ -276,10 +284,6 @@ input:focus{
     margin-top: 3.5%;
 }
 
-
-
-
-
 /*************                                   Diseño responsive para DESKTOP                                     *************/
 
 @media screen and (max-width: 480px){
@@ -310,19 +314,20 @@ input:focus{
         display: block;
     }
 
-    .containerResultsChild {
+    .container_results_child {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 
     #categories p{
+        margin-top: 5px;
         width: 100%;
         height: auto;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         margin-left: 5px;
     }
 
-    #container-trending button{
+    #container-trending #btn-back{
         display: none;
     }
 
@@ -353,20 +358,115 @@ input:focus{
         margin-bottom: 30px;
     }
 
-    // img.gifs-trendings{
+    // #extended-gif-top-container{
     //     width: 100%;
     //     height: 100%;
-    //     max-width: 247px;
-    //     min-width: 150px;
-    //     max-height: 110px;
-    //     min-height: 110px;
-    //     margin-right: 10px;
     // }
 
+    #extended-gif-bottom-container {
+        justify-content: space-between;
+        height: 100%;
+        max-width: 300px;
+        max-height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
+    #extended-gif-top-container #gif-extend-img {
+        width: 100%;
+        height: 100%;
+        max-width: 300px;
+        max-height: 300px;
+        margin-top: 300px;
+    }
+
+    #extended-gif-top-container .buttons-styles img {
+        right: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        max-height: 25px;
+        max-width: 25px;
+        margin-top: 200px;
+        margin-right: 40px;
+    }
+
+    #left-section-from-bc {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #left-section-from-bc .figcaption-creator {
+        font-weight: 200;
+        color: black;
+        font-size: 0.85rem;
+        margin-left: 5px;
+    }
+
+    #left-section-from-bc .title-gif-results {
+        width: 100%;
+        max-width: 175px;
+        color: black;
+        font-size: 1.1rem;
+        margin-left: 5px;
+    }
+
+    #right-section-from-bc {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #right-section-from-bc button {
+        outline: none;
+        border: 0;
+    }
+
+    #right-section-from-bc img {
+        width: 100%;
+        height: 100%;
+        min-width: 40px;
+        min-height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+        margin: 5px;
+    }
+
+
+    // Estilos para la sección de Favoritos
+
+    #favorites-heading-title{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #favorites-heading-title h1 {
+        margin-top: 5%;
+    }
+
+    #favorites-container{
+        margin-top: 10%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: .8em;
+    }
+
+    #favorites-container figure{
+        width: 100%;
+        max-width: 200px;
+        // margin: 5px;
+    }
+
+    #favorites-container figure img{
+        width: 100%;
+        height: 100%;
+        min-width: 150px;
+        min-height: 125px;
+        max-width: 150px;
+        max-height: 125px; 
+    }
 }
-
-
 
 @media screen and (min-width: 769px){
     #color {
@@ -388,6 +488,7 @@ input:focus{
     .wrapper {
         margin: 0px 156px 0px;
     }
+
     main{
         // Favorites elements container
         #favorites-heading-title{
@@ -473,9 +574,13 @@ input:focus{
             @include alignCenter();
         }
 
-        .containerResultsChild {
+        .container-results-child {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+        }
+
+        .container-results-child figure {
+            padding: 5px;
         }
         
         #favorites-container{
@@ -492,7 +597,6 @@ input:focus{
             height: 100%;
             min-height: 240px;
             max-height: 240px;
-            margin-bottom: 25px;
         }
 
         #extended-gif-top-container{
@@ -517,6 +621,23 @@ input:focus{
             opacity: 0.8;
             z-index: 3;
         }
+
+        #container-results.flex-container{
+            @include alignCenter();
+        }
+
+        .no-results-container {
+            width: 100%;
+            margin: 50px 0;
+            flex-direction: column;
+            align-items: center;
+            font-family: $font-principal;
+        }
+
+        .no-results-container p {
+            margin: 25px 0 30px;
+        }
+        
     }
 
     div #categories{

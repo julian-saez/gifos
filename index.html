@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <title>GIFOS</title>
 </head>
-<body class="light" id="background-body">
+<body class="light">
     <div id="color"></div>
     <div class="wrapper">
         <header>
@@ -19,15 +19,15 @@
                     <span class="hamburger-inner"></span>
                     <ol class="menu active flex-container" id="menu">
                         <li>
-                            <a id="mode-btn" class="primary-color"></a>
+                            <a id="mode-btn"></a>
                         </li>
                         <div class="line"></div>
                         <li>
-                            <a id="nav1" class="primary-color" href="/docs/favorites.html">Favoritos</a>
+                            <a class="nav-items primary-color" href="/docs/favorites.html">Favoritos</a>
                         </li>
                         <div class="line"></div>
                         <li>
-                            <a id="nav2" class="primary-color" href="#">Mis Gifos</a>
+                            <a class="nav-items primary-color" href="#">Mis Gifos</a>
                         </li>
                         <div class="line"></div>
                     </ol>
@@ -70,7 +70,9 @@
                     </form>
                     <div id="trending-categories">
                         <h3>Trending:</h3>
-                        <div id="categories" class="flex-container"></div>
+                        <div id="categories">
+                            <p>Actions, Adjectives, Animals, Anime, Art & Design</p>
+                        </div>
                     </div>
                     <div id="spacebetween"></div>
                     <h2 id="search-word"></h2>
@@ -85,9 +87,13 @@
                     <h2>Trending GIFOS</h2>
                     <p>Mira los últimos gifos de nuestras comunidad</p>
                     <div id="container-trending" class="flex-container">
-                        <button id="btn-back"><img src="assets/button-slider-left.svg" alt="Boton para volver"></button>
+                        <button id="btn-back">
+                            <img src="assets/button-slider-left.svg" alt="Boton para volver">
+                        </button>
                         <div id="list-gifs" class="flex-container"></div>
-                        <button id="btn-next"><img src="assets/button-slider-right-hover.svg" alt="Boton para ver más"></button>
+                        <button id="btn-next">
+                            <img src="assets/button-slider-right-hover.svg" alt="Boton para ver más">
+                        </button>
                     </div>
                     <div id="message-content">
                         <p></p>

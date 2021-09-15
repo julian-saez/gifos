@@ -1,153 +1,125 @@
- /**
- * CODIGO DEL MODO DARK EN HOME - GIFOS
- */
+/*
+    ------- RESUMEN -------
 
-// Llamo el boton del header, nav, iconos y los fondos a modificar
-let darkBtn = document.getElementById("mode-btn")
-let background = document.getElementById("background-body")
-let backgroundTrending = document.getElementById("trending-gifos")
-let h1 = document.querySelector("h1")
-let h3 = document.querySelector("h3")
-let h4 = document.querySelector("h4")
-let h2 = document.querySelector("#trending").children[0]
-let nav1 = document.getElementById("nav1")
-let nav2 = document.getElementById("nav2")
-let iconFacebook = document.getElementById("icon-facebook")
-let iconTwitter = document.getElementById("icon-twitter")
-let iconInstagram = document.getElementById("icon-instagram")
+    Este programa cambia el tema de la página alterando las clases de cada elemento.
+    Las clases ya están definidas en los archivos .scss
+    El navegador cuando vuelvas a ingresar a la página recordará el modo que elegiste mediante el localstorage.
+*/
+
+
+const change_mode_btn = document.getElementById("mode-btn")
+const body = document.querySelector("body")
+const backgroundTrending = document.getElementById("trending-gifos")
+const titles = [
+    document.querySelector("h1"),
+    document.querySelectorAll("h2"),
+    document.querySelectorAll("h3"),
+    document.querySelectorAll("h4")
+]
+
+const nav = document.querySelectorAll(".nav-items")
+let icon_facebook = document.getElementById("icon-facebook")
+let icon_twitter = document.getElementById("icon-twitter")
+let icon_instagram = document.getElementById("icon-instagram")
 let moreBtn = document.getElementById("moreBtn")
 
-// Nombres de las clases
-let modeDark = [
+const utils_dark_theme = [
     {mode: "dark"},
     {mode: "dark-trending"},
     {mode: "dark-text"},
     {text: "Modo Diurno"},
-    {socialmedia: "assets/icon_facebook_noc.svg"},
-    {socialmedia: "assets/icon_twitter_noc.svg"},
-    {socialmedia: "assets/icon_instagram_noc.svg"}
+    {socialmedia: "/assets/icon_facebook_noc.svg"},
+    {socialmedia: "/assets/icon_twitter_noc.svg"},
+    {socialmedia: "/assets/icon_instagram_noc.svg"}
 ]
 
-let modeLight = [
+const utils_light_theme = [
     {mode: "light"},
     {mode: "light-trending"},
     {mode: "light-text"},
     {text: "Modo Nocturno"},
-    {socialmedia: "assets/icon_facebook.svg"},
-    {socialmedia: "assets/icon-tw-normal.svg"},
-    {socialmedia: "assets/icon_instagram.svg"}
+    {socialmedia: "/assets/icon_facebook.svg"},
+    {socialmedia: "/assets/icon-tw-normal.svg"},
+    {socialmedia: "/assets/icon_instagram.svg"}
 ]
 
 
-/**
- * PROGRAMA DEL DARK-MODE
- */
+change_mode_btn.addEventListener("click", () => {
+    if(body.className == "light"){
+        body.className = utils_dark_theme[0].mode
+        backgroundTrending.className = utils_dark_theme[1].mode
 
-// Le asigno un evento al boton de arriba
+        titles[0].className = utils_dark_theme[2].mode
+        titles[1].className = utils_dark_theme[2].mode
+        titles[2].className = utils_dark_theme[2].mode
+        titles[3].className = utils_dark_theme[2].mode
 
-darkBtn.addEventListener("click", function mode(){
-    if(background.className == "light"){
-        // Backgrounds
-        background.className = modeDark[0].mode
-        backgroundTrending.className = modeDark[1].mode
+        change_mode_btn.innerHTML = utils_dark_theme[3].text
+        change_mode_btn.className = utils_dark_theme[2].mode
+        nav[0].className = `nav-items ${utils_dark_theme[2].mode}`
+        nav[1].className = `nav-items ${utils_dark_theme[2].mode}`
 
-        // Titulos
-        h1.className = modeDark[2].mode
-        h2.className = modeDark[2].mode
-        h3.className = modeDark[2].mode
-        h4.className = modeDark[2].mode
+        if(moreBtn) moreBtn.className = utils_dark_theme[2].mode
 
-        // Nav
-        darkBtn.innerHTML = modeDark[3].text
-        darkBtn.className = modeDark[2].mode
-        nav1.className = modeDark[2].mode
-        nav2.className = modeDark[2].mode
+        icon_facebook.src = utils_dark_theme[4].socialmedia
+        icon_twitter.src = utils_dark_theme[5].socialmedia
+        icon_instagram.src = utils_dark_theme[6].socialmedia
 
-        // Botones
-        moreBtn.className = modeDark[2].mode
-
-        // Cambio los iconos
-        iconFacebook.src = modeDark[4].socialmedia
-        iconTwitter.src = modeDark[5].socialmedia
-        iconInstagram.src = modeDark[6].socialmedia
-
-        // Guardo los valores de arriba en el LocalStorage
-        localStorage.setItem("Mode", JSON.stringify(modeDark))
-
-        // Ejecuto la función para que se aplique
-        check()
-        
+        localStorage.setItem("Mode", JSON.stringify(utils_dark_theme))
+        verifyLastTheme()
     }else{
-        // Backgrounds
-        background.className = modeLight[0].mode
-        backgroundTrending.className = modeLight[1].mode
+        body.className = utils_light_theme[0].mode
+        backgroundTrending.className = utils_light_theme[1].mode
 
-        // Titulos
-        h1.className = modeLight[2].mode  
-        h2.className = modeLight[2].mode
-        h3.className = modeLight[2].mode
-        h4.className = modeLight[2].mode
+        titles[0].className = utils_light_theme[2].mode  
+        titles[1].className = utils_light_theme[2].mode
+        titles[2].className = utils_light_theme[2].mode
+        titles[3].className = utils_light_theme[2].mode
 
-        // Nav
-        darkBtn.innerHTML = modeLight[3].text
-        darkBtn.className = modeLight[2].mode
-        nav1.className = modeLight[2].mode
-        nav2.className = modeLight[2].mode
+        change_mode_btn.innerHTML = utils_light_theme[3].text
+        change_mode_btn.className = utils_light_theme[2].mode
+        nav[0].className = `nav-items ${utils_light_theme[2].mode}`
+        nav[1].className = `nav-items ${utils_light_theme[2].mode}`
 
-        // Botones
-        moreBtn.className = modeLight[2].mode
+        if(moreBtn) moreBtn.className = utils_light_theme[2].mode
 
-        // Cambio los iconos
-        iconFacebook.src = modeLight[4].socialmedia
-        iconTwitter.src = modeLight[5].socialmedia
-        iconInstagram.src = modeLight[6].socialmedia
+        icon_facebook.src = utils_light_theme[4].socialmedia
+        icon_twitter.src = utils_light_theme[5].socialmedia
+        icon_instagram.src = utils_light_theme[6].socialmedia
 
-        // Elimino los valores anteriores para almacenar unos nuevos
         localStorage.removeItem("Mode")
-
-        // Almaceno las nuevas clases
-        localStorage.setItem("Mode", JSON.stringify(modeLight))
+        localStorage.setItem("Mode", JSON.stringify(utils_light_theme))
         
-        // Compruebo el cambio
-        check()
+        verifyLastTheme()
     }
 })
 
-function check() {
+function verifyLastTheme() {
     if(localStorage.getItem("Mode")){
-    // Obtengo los valores que se hayan almacenado con anterioridad en el LocalStorage  
-    let valuesSaved = []
-    valuesSaved = localStorage.getItem("Mode")
-    let valuesJS = JSON.parse(valuesSaved)
+        let data = []
+        data = localStorage.getItem("Mode")
+        let json = JSON.parse(data)
 
-    // Le asigno las clases del LocalStorage ya en objetos javascript
-    background.className = valuesJS[0].mode
-    backgroundTrending.className = valuesJS[1].mode
+        body.className = json[0].mode
+        backgroundTrending.className = json[1].mode
 
-    // Color de los titulos y subtitulos
-    h1.className = valuesJS[2].mode  
-    h2.className = valuesJS[2].mode
-    h3.className = valuesJS[2].mode
-    h4.className = valuesJS[2].mode
+        titles[1].className = json[2].mode
+        titles[2].className = json[2].mode
+        titles[3].className = json[2].mode
 
-    // Navegación y boton
-    darkBtn.innerHTML = valuesJS[3].text
-    darkBtn.className = valuesJS[2].mode
-    nav1.className = valuesJS[2].mode
-    nav2.className = valuesJS[2].mode
+        change_mode_btn.innerHTML = json[3].text
+        change_mode_btn.className = json[2].mode
+        nav[0].className = `nav-items ${json[2].mode}`
+        nav[1].className = `nav-items ${json[2].mode}`
 
-    // Botones
-    if(moreBtn){
-        moreBtn.className = valuesJS[2].mode
-    }
+        if(moreBtn) moreBtn.className = json[2].mode
 
-    // Iconos
-    iconFacebook.src = valuesJS[4].socialmedia
-    iconTwitter.src = valuesJS[5].socialmedia
-    iconInstagram.src = valuesJS[6].socialmedia
+        icon_facebook.src = json[4].socialmedia
+        icon_twitter.src = json[5].socialmedia
+        icon_instagram.src = json[6].socialmedia
     }else{
         darkBtn.innerHTML = 'Modo Nocturno'
     }
 }
 
-check()
+verifyLastTheme()

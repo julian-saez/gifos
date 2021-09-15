@@ -25,7 +25,6 @@
             position: relative;
             padding: 15px 15px;
             display: inline-block;
-            cursor: pointer;
             transition-property: opacity, filter;
             transition-duration: 0.15s;
             transition-timing-function: linear;
@@ -135,13 +134,8 @@
             font-family: $font-principal;
             font-weight: bolder;
         }
-
-
-        
             
         // Estilos cuando se aplique javascript
-        
-
         .active {
             transform: translate(0, -50000px);
         }

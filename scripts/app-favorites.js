@@ -137,7 +137,6 @@ const renderFavoritesGifs = () => {
             figure.addEventListener("mouseout", () => {
                 layer.className = ''
                 layer.style.display = 'none'
-                // console.log(btnLikeActive)
             })   
 
             btnLike.addEventListener('mouseover', (element) => {

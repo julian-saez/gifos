@@ -2,10 +2,9 @@
  * BUSCADOR DE GIFS
  */
 
-const body = document.getElementById("fondo")
-const ApiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
-const autocompleteURL = 'http://api.giphy.com/v1/gifs/search/tags'
-const searchUrl = 'http://api.giphy.com/v1/gifs/search'
+const api_key = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
+const autocomplete_url = 'http://api.giphy.com/v1/gifs/search/tags'
+const search_url = 'http://api.giphy.com/v1/gifs/search'
 const contenedorElementsGif = document.getElementById("home")
 const btnMore = document.getElementById("moreBtn")
 const barBtn = document.getElementById("bar-btn")
@@ -16,6 +15,58 @@ const autocompleteList = document.getElementById("autocomplete-list")
 autocompleteList.classList = "inactive-items"
 const itemsDropmenu = document.querySelectorAll("#autocomplete-list span")
 const dropmenu = document.querySelectorAll("#autocomplete-list div")
+const moreBtnContainer = document.getElementById("moreResultsBtnContainer")
+
+/*******           Buscador de GIFS            *******/
+
+const searchGifs = async value => {
+    results = [];
+    let res = await fetch(`${search_url}?q=${value}&api_key=${api_key}&limit=12&offset=${counter}`)
+    let json = await res.json();
+
+    maxResults = json.pagination.total_count
+    results = json.data
+    if(value === inputValue){
+        counter += 11
+    }
+
+    if(json.data.length === 0){
+        noResultsMessage()
+    }else{
+        let div = document.createElement("div")
+        div.className = "container-results-child"
+        containerResults.appendChild(div)
+        showResults()
+    }
+}
+
+const removeItemsFromResults = () => {
+    const containerResultsChild = document.querySelector(".container-results-child")
+    if(containerResultsChild){
+        containerResults.removeChild(containerResultsChild)
+    } 
+    btnMore.style.display = 'none'
+}
+
+const noResultsMessage = () => {
+    if(containerResults.children.length < 1){
+        let message_container = document.createElement("div")
+        containerResults.appendChild(message_container)
+        message_container.className = 'flex-container no-results-container'
+        message_container.id = 'no-results-container'
+        if(results == 0){
+            let noResult = document.createElement("img")
+            let textElement = document.createElement("p")
+            const message = 'Intenta con otra busqueda'
+            textElement.innerHTML = message
+            textElement.id = "no-results"
+            noResult.src = "assets/icon-busqueda-sin-resultado.svg"
+    
+            message_container.appendChild(noResult)
+            message_container.appendChild(textElement)
+        }
+    }
+}
 
 itemsDropmenu.forEach(element => {
     element.addEventListener("click", () => {
@@ -42,21 +93,14 @@ const noResultsFound = () => {
 
 /*******            Acción al tocar el botón VER MÁS            *******/
 
-
 let counter = 0;
 let results = new Array()
 let maxResults;
 const moreResultsBtnContainer = document.getElementById("moreResultsBtnContainer")
 
-const moreResults = async () => {
-    counter += 12;
-    if(containerResults.children.length <= maxResults){
-        await searchGifs()
-        showResults()
-    }
-}
-
-btnMore.addEventListener("click", moreResults)
+btnMore.addEventListener("click", () => {
+    searchGifs(inputValue)
+})
 
 let inputValue;
 let verMasButton = false
@@ -68,146 +112,99 @@ const initializeSearch = async (value) => {
     input.className = 'no-text'
 
     results = [];
-
-    // Linea de seaparación
+    inputValue = value
     document.getElementById("spacebetween").className = "line-active";
 
     // Palabra clave de lo que se busca
     document.getElementById("search-word").innerHTML = value[0].toUpperCase() + value.slice(1)
 
     await searchGifs(value)
-    
-    // Pregunto si ya existe el botón VER MÁS
-    if(verMasButton === false){
-        btnMore.style.display = "block"
-        verMasButton = true
-        createContainerResultsChild()
-    }else{
-        createContainerResultsChild()
-    }
-}
-
-/*******           Buscador de GIFS            *******/
-
-const searchGifs = async (value) => {
-    let res = await fetch(`${searchUrl}?q=${value}&api_key=${ApiKey}&limit=12&offset=${counter}`)
-    let resJS = await res.json();
-
-    maxResults = resJS.pagination.total_count // Almaceno la cantidad de gifs máximo por resultado que puedo mostrar como resultados
-    results = resJS.data // Almaceno los objetos de los gifs que recibi de la API
-
-    // Si no encuentro resultados muestro mensaje por pantalla
-    if(results == 0){
-        noResultsFound()
-    }
 }
 
 /*******            
  * 
- * LISTA AUTOCOMPLETADO
+ * LISTA AUTOCOMPLETADO 
  *             
  ********/
 
- const inputContainer = document.getElementById("input-buscador")
+const inputContainer = document.getElementById("input-buscador")
 
- const runUpDropmenu = async value => {
-     let items = value 
-     autocompleteList.classList = "active-items"
-     for(let i = 0; i <= 3; ++i){
-         itemsDropmenu[i].innerHTML = items[i].name
-     }
- }
- 
- const fetchDropmenu = async () => {
-     // Styles
+const runUpDropmenu = async value => {
+    let items = value 
+    autocompleteList.classList = "active-items"
+    for(let i = 0; i <= 3; ++i){
+        if(items[i].name) itemsDropmenu[i].innerHTML = items[i].name
+    }
+}
+
+ const fetchDropmenu = async e => {
      inputContainer.classList = 'flex-container suggestions-styles'
      input.className = 'text-on'
- 
-     // Fetch
      let keyword = input.value
-     let res = await fetch(`${autocompleteURL}?q=${keyword}&api_key=${ApiKey}&limit=4`)
+     let res = await fetch(`${autocomplete_url}?q=${keyword}&api_key=${api_key}&limit=4`)
      let resJS = await res.json()
      runUpDropmenu(resJS.data)
  }
  
+
+ /*******           Evento de la tecla ENTER              *******/
  
- /*******            
-  * 
-  * EVENTO DE LA TECLA ENTER DEL INPUT
-  *             
-  ********/
+const input = document.getElementById("buscador")
+
+input.addEventListener('keydown', e => {
+    if(e.key !== 'Enter') fetchDropmenu()
+})
+
+input.addEventListener("focusin", e => {
+    barIcon.src = 'assets/close.svg'
+    barIcon.style.padding = "18px 25px 0 0"
+})
+
+const removeItems = () => {
+    var nested = document.querySelector("#no-results-container");
+    nested.remove()
+}
  
- const input = document.getElementById("buscador")
- 
- input.addEventListener("keydown", fetchDropmenu) // Muestro las sugerencias de busquedas
- input.addEventListener("focusin", e => {
-     barIcon.src = 'assets/close.svg'
-     barIcon.style.padding = "18px 25px 0 0"
- })
- 
- input.addEventListener("keydown", e => {
-     const enter = e.which || e.keyCode  // Tomo el texto que se ingreso
-     if(enter == 13 && inputValue != input.value){
+input.addEventListener("keydown", e => {
+    if(e.key === 'Enter'){
+        input.className = 'no-text'
         removeItemsFromResults()
         initializeSearch(input.value)
         autocompleteList.classList = "inactive-items"
-     } 
- })
- 
- input.addEventListener("focusout", () => {
-     barIcon.src = 'assets/icon-search.svg'
-     barIcon.style.padding = ''
- })
- 
-//  searchForm.addEventListener("reset", () => {
-//      console.log("Borre el contenido")
-//  })
-
-let amount = 12;
-
-/*******           Función para crear los elementos necesarios para mostrar los GIFS            *******/
-
-let favoritesGifsArray = []
-
-const uploadToLocalStorage = () => {
-    // localStorage.removeItem("FavoritesGifs")
-    localStorage.setItem("FavoritesGifs", JSON.stringify(favoritesGifsArray))
-}
-
-
-const removeItemsFromResults = () => {
-    const containerResultsChild = document.querySelector(".containerResultsChild")
-    if(containerResultsChild){
-        containerResults.removeChild(containerResultsChild)
+        if(document.querySelector("#no-results-container")) removeItems()
     } 
-}
+})
+ 
+input.addEventListener("focusout", () => {
+    barIcon.src = 'assets/icon-search.svg'
+    barIcon.style.padding = ''
+})
+
+
+
+/*******           Función para mostrar los GIFS            *******/
+
 const containerResults = document.getElementById("container-results") 
 
-const createContainerResultsChild = () => {
-    let newContainer = document.createElement("div")
-    containerResults.appendChild(newContainer)
-    newContainer.className = 'containerResultsChild'
-    if(results == 0){
-        let noResult = document.createElement("img")
-        let textElement = document.createElement("p")
-        const message = 'Intenta con otra busqueda'
-        textElement.innerHTML = message
-        textElement.id = "no-results"
-        noResult.src = "assets/icon-busqueda-sin-resultado.svg"
-
-        newContainer.appendChild(noResult)
-        newContainer.appendChild(textElement)
-        // newContainer.insertAdjacentElement('afterend',textElement)
-        
-    }else if(results != 0){
-        showResults()
+// Función para saber cuanto será la cantidad de iteraciones a la que deberá realizar el programa de showResults según los elementos que obtuvo de la API
+let countElementToRender = 0
+const getCountElements = valor => {
+    if(maxResults < 11){
+        btnMore.style.display = "none"
+        return maxResults - 1
+    }else if(valor == 12){
+        btnMore.style.display = "block"
+        return 11
+    }else if(valor <= 12){
+        btnMore.style.display = "none"
+        return valor - 1
     }
 }
 
-
-const showResults =  () => {
-    const containerResultsChild = document.querySelector(".containerResultsChild")
-    for(let i = 0; i <= elementsAmount; ++i){
+const showResults = () => {
+    countElementToRender = getCountElements(results.length)
+    const containerResultsChild = document.querySelector(".container-results-child")
+    for(let i = 0; i <= countElementToRender; ++i){
         // Elementos principales
         let box = document.createElement("figure")
         containerResultsChild.appendChild(box)
@@ -263,7 +260,7 @@ const showResults =  () => {
         box.classList = "cardGifs"
         
         title.innerHTML = results[i].title
-        gifUrl.src = results[i].images.preview_webp.url
+        gifUrl.src = results[i].images.original.url
 
         if(results[i].username == ""){
             creator.innerHTML = 'Autor desconocido'
@@ -296,7 +293,6 @@ const showResults =  () => {
             box.addEventListener("mouseout", () => {
                 layer.className = ''
                 layer.style.display = 'none'
-                console.log(btnLikeActive)
             })   
 
             btnLike.addEventListener('mouseover', (element) => {
@@ -314,8 +310,11 @@ const showResults =  () => {
     }
 }
 
-let favoritesGifs = []
+/**
+ * Sección para guardar las propiedades y valores de los gifs que el usuario guarda
+ */
 
+ let favoritesGifs = []
 const saveFavoritesAtLocalStorage = async (url, name, author) => {
     let favorite = {
         enlace: url,
@@ -326,6 +325,7 @@ const saveFavoritesAtLocalStorage = async (url, name, author) => {
     localStorage.setItem("Favorites", JSON.stringify(favoritesGifs))
 }
 
+// Obtengo los gifs ya guardado para guardarlos en el array de favoritesGifs, asignarles un indice y luego subir todo junto. 
 const getFavoritesFromLocalStorage = () => {
     let items = JSON.parse(localStorage.getItem("Favorites"))
     if(items != null){
@@ -335,7 +335,6 @@ const getFavoritesFromLocalStorage = () => {
     }
 }
 
-// Ejecuto la función enseguida ni bien arranca la aplicación web
 getFavoritesFromLocalStorage()
 
 
