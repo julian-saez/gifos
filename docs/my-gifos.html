@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Mis Gifos</title>
+</head>
+<body>
+    <span id="line-upper-header"></span>
+    <main>
+        <div class="wrapper">
+            <header>
+                <div id="bar-header" class="flex-container">
+                    <a href="../index.html">
+                        <img id="logo" src="../assets/logo-desktop.svg" alt="Logo de gifos">
+                    </a>
+                    <ol id="menu flex-container" id="menu">
+                        <li>
+                            <a id="mode-btn">Modo Nocturno</a>
+                        </li>
+                        <li>
+                            <a href="../docs/favorites.html" class="nav-items primary-color">Favoritos</a>
+                        </li>
+                        <li>
+                            <a href="../docs/my-gifos.html" class="nav-items primary-color">Mis Gifos</a>
+                        </li>
+                        <li>
+                            <a href="../docs/create-gif.html">
+                                <img id="create-gifo-button" src="../assets/button-crear-gifo.svg" alt="">
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+            </header>
+        </div>
+        <section id="my-gifos-container" class="flex-container wrapper">
+            <img src="" alt="">
+            <h2>Mis GIFOS</h2>
+            <div id="targets-container"></div>
+        </section>
+        <section class="light-trending" id="trending-gifos">
+            <div id="trending" class="wrapper flex-container">
+                <h2>Trending GIFOS</h2>
+                <p>Mira los últimos gifos de nuestras comunidad</p>
+                <div id="container-trending" class="flex-container">
+                    <button id="btn-back">
+                        <img src="../assets/button-slider-left.svg" alt="Boton para volver">
+                    </button>
+                    <div id="list-gifs" class="flex-container"></div>
+                    <button id="btn-next">
+                        <img src="../assets/button-slider-right-hover.svg" alt="Boton para ver más">
+                    </button>
+                </div>
+                <div id="message-content">
+                    <p></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="flex-container wrapper">
+        <section class="flex-container">
+            <h4>Compartir en:</h4>
+            <a href="https://es-la.facebook.com">
+                <img id="icon-facebook" alt="Icono de facebook">
+            </a>
+            <a href="https://twitter.com">
+                <img id="icon-twitter" alt="Icono de twitter">
+            </a>
+            <a href="https://www.instagram.com">
+                <img id="icon-instagram" alt="Icono de instagram">
+            </a>
+        </section>
+        <section>
+            <p>&copy; GIFOS 2021&mdash; All Rights Reserved<p>
+            <div></div>
+        </section>
+    </footer>
+    <span id="line-below-footer"></span>
+    <script src="../scripts/my-gifos.js"></script>
+    <script src="../scripts/dark-mode.js"></script>
+    <script src="../scripts/trendings.js"></script>
+</body>
+</html>

@@ -1,5 +1,3 @@
-/*************     GIFOS TRENDINGS    *************/
-
 // Almaceno los endpoints que usaré más adelante
 const apiKey = '3573pz5lsjTE2QvU9Ii5g3t7Ky3svfUm'
 const urlTrending = "http://api.giphy.com/v1/gifs/trending?"
@@ -14,6 +12,8 @@ const btnNextG = document.getElementById("btn-next")
 const btnBackG = document.getElementById("btn-back")
 
 
+
+
 /*************     PROGRAMA PARA OBTENER LOS GIFS TRENDINGS Y COLOCARLOS EN LA SECCIÓN 'TRENDING GIFOS'     *************/
 
 let arrayTrendings = [];
@@ -25,7 +25,6 @@ const getTrendings = () => {
     .then(res => res.json() ) 
     .then(res => {
         limitResults = res.pagination.total_count
-        console.log(res)
         res.data.forEach(element => {   
             arrayTrendings.push(element);
         })
@@ -37,6 +36,7 @@ const getTrendings = () => {
             }
             
         }
+        
     })
     .catch((err) => {
         console.log(err)
@@ -50,7 +50,7 @@ let itemsToRender = 2;
 function trendingRender(){
     if(trendingsGifsContainer.childElementCount == 0){
         for(let i = 0; i <= itemsToRender; ++i){
-            // Elementos caja
+            // Parent elements
             let figureElement = document.createElement("figure")
             let gifElementImg = document.createElement("img")
             let layer = document.createElement('div')
@@ -90,7 +90,7 @@ function trendingRender(){
             titlesBox.appendChild(title)
 
             // Atributos de los elementos
-            figureElement.classList = "cardGifs"
+            figureElement.classList = "cards"
             btnDownloadImg.src = '/assets/icon-download.svg'
             btnLikeImg.src = '/assets/icon-fav.svg'
             btnExtendImg.src = '/assets/icon-max-normal.svg'
@@ -113,22 +113,22 @@ function trendingRender(){
             gifElementImg.src = arrayTrendings[i].images.preview_webp.url
     
             let btnLikeState = false;
-            btnLike.addEventListener('click', async (element) => {
-                saveFavoritesAtLocalStorage(gifElementImg.currentSrc, title.outerText, author.outerText)
+            btnLike.addEventListener('click', e => {
+                gifSaved(arrayTrendings[i].id, gifElementImg.currentSrc, title.outerText, author.outerText)
                 btnLikeImg.style.zIndex = '2'
-                element.target.src = '/assets/corazonsito.svg'
+                e.target.src = '/assets/corazonsito.svg'
                 btnLikeState = true;
             })
 
-            btnLike.addEventListener('mouseover', (element) => {
+            btnLike.addEventListener('mouseover', e => {
                 if(btnLikeState === false){
-                    element.target.src = '/assets/icon-fav-js.svg'
+                    e.target.src = '/assets/icon-fav-js.svg'
                 }
             })
 
-            btnLike.addEventListener('mouseout', (element) => {
+            btnLike.addEventListener('mouseout', e => {
                 if(btnLikeState === false){
-                    element.target.src = '/assets/icon-fav.svg'
+                    e.target.src = '/assets/icon-fav.svg'
                 }
             })
             
@@ -346,6 +346,7 @@ let trendingsRenderMobile = () => {
             elementsFavoritesLength = favoritesGifTrendings.length
             btnLike.addEventListener('click', async (element) => {
                 if(btnLikeState === false){
+                    console.log("Lo estoy guardando")
                     saveFavoritesAtLocalStorage(gifElementImg.currentSrc, title.outerText, author.outerText)
                     btnLikeImg.style.zIndex = '2'
                     element.target.src = '/assets/corazonsito.svg'
@@ -358,19 +359,11 @@ let trendingsRenderMobile = () => {
                     removeFavoriteItem(gifData)
                 }
             })
-
-
-
         })
     }
 }
 
-
-
-// Variable para ir iterando el indice y mostrar diferentes gifs
 let position = 2;
-
-// Llamo el elemento donde mostraré el mensaje 'Llegaste al inicio' si ya no hay más gifs anteriores que mostrar
 let btnNextClicks = 0;
 let clicksToGetMoreItems = 12;
 
@@ -441,6 +434,32 @@ btnBackG.addEventListener("click", () => {
         position = position - 3;
     }
 })
+
+let likes_saved = new Array()
+
+const gifSaved = (id, link, name, author) => {
+    // I verify if i saved this gif before
+    likes_saved = JSON.parse(localStorage.getItem("Favorites"))
+
+    let index = likes_saved.reduce((acc, el) => ({
+        ...acc,
+        [el.id]: el
+    }), {})
+
+    if(!likes_saved.includes(index[id])){
+        let json = {
+            id: id,
+            link: link,
+            name: name,
+            author: author
+        }
+        likes_saved.push(json)
+        localStorage.setItem("Favorites", JSON.stringify(likes_saved))
+    }else{
+        return null
+    }
+}
+
 
 
 

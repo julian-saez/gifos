@@ -14,9 +14,13 @@
     align-items: center;
 }
 
-// @include flexCenterColumn()
+@mixin buttonsConfig(){
+    outline: none;
+    border: 0;
+    background-color: transparent;
+}
 
-// @include alignCenter();
+// @include flexCenterColumn()
 
 // @mixin fonts($size, $weight) {
 //     font-family: $font;

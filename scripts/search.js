@@ -249,7 +249,7 @@ const showResults = () => {
         btnLikeImg.src = 'assets/icon-fav.svg'
         btnCopyImg.src = 'assets/icon-max-normal.svg'
         btnDownload.classList = 'icons-buttons-box'
-        gifUrl.classList = 'gif-url'
+        gifUrl.classList = 'animated-element'
         btnLike.classList = 'icons-buttons-box'
         btnCopy.classList = 'icons-buttons-box'
         buttonsBox.classList = 'buttons-box flex-container'
@@ -257,7 +257,7 @@ const showResults = () => {
         title.classList = "title-gif-results"
         creator.classList = "figcaption-creator"
         layer.classList = 'layer-hover'
-        box.classList = "cardGifs"
+        box.classList = "cards"
         
         title.innerHTML = results[i].title
         gifUrl.src = results[i].images.original.url
@@ -271,7 +271,7 @@ const showResults = () => {
         let btnLikeActive = false;
 
         btnLike.addEventListener('click', async (element) => {
-            saveFavoritesAtLocalStorage(gifUrl.currentSrc, title.outerText, creator.outerText)
+            saveFavoritesAtLocalStorage(results[i].id, results[i].images.original.url, results[i].title, results[i].username)
             btnLikeImg.style.zIndex = '2'
             element.target.src = 'assets/corazonsito.svg'
             btnLikeActive = true;
@@ -315,15 +315,15 @@ const showResults = () => {
  */
 
  let favoritesGifs = []
-const saveFavoritesAtLocalStorage = async (url, name, author) => {
-    let favorite = {
-        enlace: url,
-        nombre: name,
-        author: author
-    }
-    favoritesGifs.push(favorite)
-    localStorage.setItem("Favorites", JSON.stringify(favoritesGifs))
-}
+// const saveFavoritesAtLocalStorage = async (url, name, author) => {
+//     let favorite = {
+//         enlace: url,
+//         nombre: name,
+//         author: author
+//     }
+//     favoritesGifs.push(favorite)
+//     localStorage.setItem("Favorites", JSON.stringify(favoritesGifs))
+// }
 
 // Obtengo los gifs ya guardado para guardarlos en el array de favoritesGifs, asignarles un indice y luego subir todo junto. 
 const getFavoritesFromLocalStorage = () => {

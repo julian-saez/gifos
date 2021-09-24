@@ -10,9 +10,9 @@
 <body class="light" id="background-body">
     <div id="color"></div>
     <div class="wrapper">
-        <header>
+        <header class="flex-container">
             <div id="bar-header" class="flex-container">
-                <a href="index.html"><img id="logo" src="/assets/logo-desktop.svg" alt="Logo de gifos"></a>
+                <a href="../index.html"><img id="logo" src="/assets/logo-desktop.svg" alt="Logo de gifos"></a>
                 <button class="hamburger hamburger--squeeze" type="button">
                     <span class="hamburger-box">
                     <span class="hamburger-inner"></span>
@@ -22,11 +22,16 @@
                         </li>
                         <div class="line"></div>
                         <li>
-                            <a id="nav1" href="#">Favoritos</a>
+                            <a id="nav1" class="nav-items" href="#">Favoritos</a>
                         </li>
                         <div class="line"></div>
                         <li>
-                            <a id="nav2" href="#">Mis Gifos</a>
+                            <a id="nav2" class="nav-items" href="#">Mis Gifos</a>
+                        </li>
+                        <li>
+                            <a href="../docs/create-gif.html">
+                                <img id="create-gifo-button" src="../assets/button-crear-gifo.svg" alt="">
+                            </a>
                         </li>
                         <div class="line"></div>
                     </ol>
@@ -66,21 +71,28 @@
                 </div>
             </section>
         </main>
-        <footer>
-            <article id="share">
+        <footer class="flex-container wrapper">
+            <section class="flex-container">
                 <h4>Compartir en:</h4>
-                <img id="icon-facebook" src="" alt="Icono de facebook">
-                <img id="icon-twitter" src="" alt="Icono de twitter">
-                <img id="icon-instagram" src="" alt="Icono de instagram">
-            </article>
-            <article>
-                <p>&copy; GIFOS 2020&mdash; All Rights Reserved<p>
+                <a href="https://es-la.facebook.com">
+                    <img id="icon-facebook" alt="Icono de facebook">
+                </a>
+                <a href="https://twitter.com">
+                    <img id="icon-twitter" alt="Icono de twitter">
+                </a>
+                <a href="https://www.instagram.com">
+                    <img id="icon-instagram" alt="Icono de instagram">
+                </a>
+            </section>
+            <section>
+                <p>&copy; GIFOS 2021&mdash; All Rights Reserved<p>
                 <div></div>
-            </article>
+            </section>
         </footer>
+        <span id="line-below-footer"></span>
     </div>
     <script src="/scripts/trendings.js"></script>
     <script src="/scripts/dark-mode.js"></script>
-    <script src="/scripts/app-favorites.js"></script>
+    <script src="/scripts/likes.js"></script>
 </body>
 </html>

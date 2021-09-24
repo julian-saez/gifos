@@ -2,89 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles/style.css">
     <title>Crea tu GIFO - GIFOS</title>
 </head>
 <body class="light" id="fondo">
+    <span id="line-upper-header"></span>
     <div class="wrapper">
         <header>
-            <div id="barra-header" class="flex-container">
-                <img id="logo" src="assets/logo-desktop.svg" alt="Logo de gifos">
-                    <ol id="nav">
-                        <li>
-                            <a id="mode-btn">Modo Nocturno</a>
-                        </li>
-                        <li>
-                            <a href="#">Favoritos</a>
-                        </li>
-                        <li>
-                            <a href="#">Mis Gifos</a>
-                        </li>
-                    </ol>
+            <div id="bar-header" class="flex-container">
+                <a href="../index.html">
+                    <img id="logo" src="../assets/logo-desktop.svg" alt="Logo de gifos">
+                </a>
+                <ol id="menu flex-container" id="menu">
+                    <li>
+                        <a id="mode-btn">Modo Nocturno</a>
+                    </li>
+                    <li>
+                        <a href="../docs/favorites.html" class="nav-items primary-color">Favoritos</a>
+                    </li>
+                    <li>
+                        <a href="../docs/my-gifos.html" class="nav-items primary-color">Mis Gifos</a>
+                    </li>
+                </ol>
             </div>
         </header>
     </div>
 
     <main>
         <div class="wrapper">
-            <section id="making-gifo-container" class="light-making-container">
-                <div id="camara-animation-container" class="flex-container">
-                    <div id="cintas">
-                        <img class="cintas" src="assets/element_cinta1.svg" alt="Cinta pequeña en movimiento">
-                        <img class="cintas" src="assets/element_cinta2.svg" alt="Cinta grande en movimiento">
+            <section id="making-gifo-container" class="light-making-container flex-container">
+                <div id="camera-animation-container" class="flex-container">
+                    <div id="tapes">
+                        <img src="../assets/element_cinta1.svg" alt="Cinta pequeña en movimiento">
+                        <img src="../assets/element_cinta2.svg" alt="Cinta grande en movimiento">
                     </div>
-                    <div id="camara">
-                        <img src="assets/element-camara.svg" alt="Camara">
-                    </div>
+                    <img id="camera" src="../assets/element-camara.svg" alt="Camara">
                 </div>
-                <div id="recuadro-making-gifo">
-                    <div id="box" class="flex-container">
-                        <div id="text-box" class="flex-container">
-                            <h1>Aquí podrás <blockquote></blockquote> crear tus propios <span id="name">GIFOS</span></h1>
+                <div id="camera-container">
+                    <div id="camera-frame" class="flex-container">
+                        <div id="camera-titles" class="flex-container">
+                            <h1>Aquí podrás <blockquote></blockquote> crear tus propios <span id="gifos-title">GIFOS</span></h1>
                             <p>¡Crea tus gifos solo en 3 pasos!</p>
                             <p>(solo necesitas una cámara para grabar un video)</p>
                         </div>
-                        <video controls autoplay="true"></video>
+                        <video id="video-content" style="display: none;" controls autoplay loop muted src=""></video>
+                        <img id="gif-preview" style="display: none;">
+                        <div id="video-message" style="display: none;" class="flex-container">
+                            <div id="icons-video-uploaded">
+                                <button id="btn-download">
+                                    <img id="icon-download" src="../assets/icon-download.svg">
+                                </button>
+                                <button id="btn-link">
+                                    <img id="icon-link" src="../assets/icon-link-normal.svg" alt="">
+                                    <p id="url-to-copy" style="display: none;"></p>
+                                </button>
+                            </div>
+                            <img src="../assets/check.svg" alt="Checked">
+                            <span>GIFO subido con éxito</span>
+                        </div>
                     </div>
                 </div>
             </section>
-            <section id="recuadro-below" class="flex-container">
-                <div id="process-container" >
-                    <div id="process-icons">
-                        <img class="process-icons" src="assets/paso-a-paso-1.svg" alt="">
-                        <img class="process-icons" id="paso-2" src="assets/paso-a-paso-2.svg" alt="">
-                        <img class="process-icons" src="assets/paso-a-paso-3.svg" alt=""> 
+            <section id="steps-frame" class="flex-container">
+                <div id="steps-container" class="flex-container">
+                    <div id="steps-circles" class="flex-container">
+                        <div class="process-circles flex-container">1</div>
+                        <div class="process-circles flex-container">2</div>
+                        <div class="process-circles flex-container">3</div>
                     </div>
-                    <!-- <div id="cinta-pelicula">
-                        <img src="assets/pelicula.svg" alt="Cinta de pelicula">
-                    </div> -->
+                    <div id="video-information">
+                        <span id="video-lentgh" class="info-video-production"></span>
+                        <button id="repeat-video" style="display: none;" class="info-video-production">REPETIR CAPTURA</button>
+                    </div>
                 </div>
                 <div id="line-space"></div>
-                <button id="btn" class="btn">COMENZAR</button>
+                <button id="btn-start" class="buttons-camera-styles">COMENZAR</button>
+                <button id="btn-recording" style="display: none;" class="buttons-camera-styles">GRABAR</button>
+                <button id="btn-finish" style="display: none;" class="buttons-camera-styles">FINALIZAR</button>
+                <button id="btn-upload" style="display: none;" class="buttons-camera-styles flex-container">SUBIR</button>
+                <img id="icon-loader" style="display: none;" src="../assets/loader.svg" alt="Cargando...">
             </section>
 
         </div>
     </main>
 
-    <footer class="flex-container">
-            <div id="social-media" class="wrapper flex-container">
-                <h4>Compartir en:</h4>
-                <div id="icons"> 
-                    <a href=""><img src="assets/icon_facebook.svg" alt="Facebook"></a>
-                    <a href=""><img src="assets/icon-tw-normal.svg" alt="Twitter"></a>
-                    <a href=""><img src="assets/icon_instagram.svg" alt="Instagram"></a>
-                </div>
-            </div>
-            <div class="wrapper">
-                <p>&copy; GIFOS 2020&mdash; All Rights Reserved</p>
-            </div>
+    <footer class="flex-container wrapper">
+        <section class="flex-container">
+            <h4>Compartir en:</h4>
+            <a href="https://es-la.facebook.com">
+                <img id="icon-facebook" alt="Icono de facebook">
+            </a>
+            <a href="https://twitter.com">
+                <img id="icon-twitter" alt="Icono de twitter">
+            </a>
+            <a href="https://www.instagram.com">
+                <img id="icon-instagram" alt="Icono de instagram">
+            </a>
+        </section>
+        <section>
+            <p>&copy; GIFOS 2021&mdash; All Rights Reserved<p>
+            <div></div>
+        </section>
     </footer>
-    <div id="line-footer"></div>
-
-    <script src="app-cg.js"></script>
-    <script src="dark-mode-cg.js"></script>
+    <span id="line-below-footer"></span>
+    <script src="../scripts/create-my-gifo.js"></script>
+    <script src="../scripts/dark-mode.js"></script>
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 </body>
 </html>

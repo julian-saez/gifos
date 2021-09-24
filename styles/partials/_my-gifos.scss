@@ -1,0 +1,24 @@
+#my-gifos-container {
+    flex-direction: column;
+    align-items: center;
+}
+
+#my-gifos-container h2 {
+    margin-bottom: 30px;
+}
+
+#targets-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 0 100px;
+    gap: 1em;
+}
+
+#targets-container figure {
+    position: relative;
+}
+
+// .titles-my-gifos {
+//     position: absolute;
+// }
