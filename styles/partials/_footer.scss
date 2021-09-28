@@ -1,3 +1,44 @@
+@media screen and (max-width: 480px){
+    footer{
+        padding: 30px 0 30px;
+        flex-direction: column;
+        align-items: center;
+
+        section:nth-child(2n + 1){
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        section:nth-child(2n + 1) img {
+            padding: 0 25px;  
+        }
+
+        section:nth-child(2n + 1) h4 {
+            margin-top: 15px;
+            font-size: 1rem;
+        }   
+
+        section:nth-child(2n + 1) div {
+            margin-top: 28px;
+            display: flex;
+        }
+
+        section:nth-child(2n + 2) p {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            font-family: $font-secundario;
+        }
+    }
+                
+    #line-below-footer::after {
+        content: '';
+        display: block;
+        background-color: $primario;
+        height: 5px;
+        width: 100%;
+    }
+}
+
 @media screen and (min-width: 769px){
     footer{
         padding: 100px 0 40px;

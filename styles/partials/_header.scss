@@ -20,6 +20,9 @@
             margin-top: 22px;
         }
 
+        #create-gifo-row {
+            display: none;
+        }
         
         .hamburger {
             position: relative;
@@ -115,12 +118,12 @@
         }
 
         .hamburger ol{
+            z-index: 2;
             margin: 48px -15px;
             background-color: $primario;
             top: 0;
             right: 0;
             position: absolute;
-            opacity: 0.9;
             list-style: none;
         }
         
@@ -133,9 +136,9 @@
             cursor: pointer;
             font-family: $font-principal;
             font-weight: bolder;
+            z-index: 4;
         }
             
-        // Estilos cuando se aplique javascript
         .active {
             transform: translate(0, -50000px);
         }

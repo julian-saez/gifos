@@ -1,0 +1,420 @@
+@media screen and (max-width: 480px){
+    #input-buscador{
+        position: relative;
+    }
+
+    #bar-btn{
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 16px 25px 0 0;
+        outline: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    #categories.flex-container {
+        @include alignCenter();
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        width: 100%;
+        max-width: 50px;
+    }
+
+    #categories p:nth-child(2){
+        display: block;
+    }
+
+    .container-results-child {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+    }
+
+    #categories p{
+        margin-top: 5px;
+        width: 100%;
+        height: auto;
+        font-size: 0.85rem;
+        margin-left: 5px;
+    }
+
+    #container-results-child {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cards-gif-searched {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-height: 135px;
+        max-height: 135px;
+    }
+
+    .cards-gif-searched img {
+        width: 100%;
+        height: 100%;
+        min-height: 135px;
+        max-height: 135px;
+    }
+
+    #list-gifs{
+        width: auto;
+        margin-left: 5%;
+    }
+
+    #list-gifs img {
+        width: 100%;
+        height: 100%;
+        max-width: 250px;
+        min-width: 250px;
+        max-height: 180px;
+        min-height: 180px;
+        margin-right: 10px;
+        margin-bottom: 30px;
+    }
+
+    #extended-gif-bottom-container {
+        justify-content: space-between;
+        height: 100%;
+        max-width: 300px;
+        max-height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #extended-gif-top-container #gif-extend-img {
+        width: 100%;
+        height: 100%;
+        max-width: 300px;
+        max-height: 300px;
+        margin-top: 300px;
+    }
+
+    #extended-gif-top-container .buttons-styles img {
+        right: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        max-height: 25px;
+        max-width: 25px;
+        margin-top: 200px;
+        margin-right: 40px;
+    }
+
+    #left-section-from-bc {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #left-section-from-bc .figcaption-creator {
+        font-weight: 200;
+        color: black;
+        font-size: 0.85rem;
+        margin-left: 5px;
+    }
+
+    #left-section-from-bc .title-gif-results {
+        width: 100%;
+        max-width: 175px;
+        color: black;
+        font-size: 1.1rem;
+        margin-left: 5px;
+    }
+
+    #right-section-from-bc {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #right-section-from-bc button {
+        outline: none;
+        border: 0;
+    }
+
+    #right-section-from-bc img {
+        width: 100%;
+        height: 100%;
+        min-width: 40px;
+        min-height: 40px;
+        max-width: 40px;
+        max-height: 40px;
+        margin: 5px;
+    }
+}
+
+@media screen and (min-width: 769px){
+    #color {
+        width: 100%;
+        height: 5px;
+        background-color: $primario;
+    }
+
+    #bar-icon{
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 15px 25px 0 0;
+        outline: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    .wrapper {
+        margin: 0px 156px 0px;
+    }
+
+    main{
+        // Favorites elements container
+        #favorites-heading-title{
+            width: 100%;
+            @include flexCenterColumn()
+        }
+
+        #favorites-heading-title h1{
+            margin: 7px 0 80px;
+            font-size: 1.7rem;
+        }
+
+        #favorites-container{
+            width: 100%;
+        }
+
+        #no-content{
+            width: 100%;
+            max-width: 450px;
+            margin-top: 45px;
+            text-align: center;
+        }
+
+        #no-content h3{
+            margin: 15px 0 80px;
+            color: $secundario;
+            font-size: 1.3rem;
+        }
+        
+        &#home {
+            justify-content: center;
+        }
+        
+        h1 {
+            width: 700px;
+            font-size: 2.18rem;
+        }
+
+        input {
+            display: block;
+            @include alignCenter();
+            overflow: hidden;
+        }
+
+        label{
+            display: block;
+        }
+
+        #input-container{
+            position: relative;
+        }
+
+        #bar-btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 19px 25px 0 0;
+            outline: none;
+            background-color: transparent;
+            border: 0;
+        }
+
+        input[type=search]::-ms-clear {  
+            display: none; 
+            width : 0; 
+            height: 0; 
+        }
+        input[type=search]::-ms-reveal {  
+            display: none; 
+            width : 0; 
+            height: 0; 
+        }
+
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration { 
+            display: none; 
+        }
+
+        &#home img{
+            display: block;
+            @include alignCenter();
+        }
+
+        .container-results-child {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        #extended-gif-top-container{
+            flex-direction: column;
+        }
+
+        #extended-gif-bottom-container:nth-child(2){
+            margin-left: 100px;
+        }
+
+        #extended-gif-top-container img {
+            width: 100%;
+            height: 100%;
+            max-width: 695px;
+            max-height: 385px;
+        }
+
+        #cards-gif-searched {
+            position: relative;
+            z-index: 0;
+        }
+
+        .layer-content {
+            width: 100%;
+            height: 100%;
+            background-color: $primario;
+            z-index: 1;
+        }
+
+        #div-hover{
+            width: 100%;
+            height: 100%;
+            background-color: $primario;
+            opacity: 0.8;
+            z-index: 3;
+        }
+
+        #container-results.flex-container{
+            @include alignCenter();
+        }
+
+        #moreBtn{
+            margin-top: 100px;
+        }
+    }
+
+    div #categories{
+        justify-content: center;
+        align-items: center;
+    }
+
+    #container-trending {
+        width: 100%;
+        max-width: 1050px;
+    }
+
+    #container-trending::-webkit-scrollbar{
+        width: 0;
+    }
+
+    #container-trending::-webkit-scrollbar-thumb{
+        width: 0;
+    }
+
+    #trending.flex-container {
+        @include flexCenterColumn()
+    }
+
+    #list-gifs{
+        width: 100%;
+        max-width: max-content;
+        margin-bottom: 32px;
+    }
+
+    .gifs-trendings{
+        width: 280px;
+        height: 250px;
+        max-width: 100%;
+        max-height: 100%;
+        margin-left: 10px;
+    }
+
+    .overhead{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 280px;
+        max-height: 250px;
+        background-color: $primario;
+        opacity: 0.7;
+        visibility: visible;
+    }
+
+    .buttons-box{
+        position: absolute;
+        right: 0;
+        margin: 5px 5px 0 0;
+    }
+
+    .icons-buttons-box img {
+        width: 100%;
+        max-width: 40px;
+        height: 100%;
+        max-height: 40px;
+        border-radius: 5px;
+        padding-left: 5px;
+    }
+
+    .icons-buttons-box{
+        outline: none;
+        background: transparent;
+        border: 0;
+    }
+
+    .figcaption-creator{
+        font-size: 0.85rem;
+        font-weight: 200;
+    }
+
+    .titles-box{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 0 0 15px 15px;
+    }
+    
+    #btn-next {
+        outline: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    #btn-next img {
+        margin-left: 15px;
+        width: 100%;
+        max-width: 40px;
+        height: 100%;
+        max-height: 40px;
+    }
+
+    #btn-back{
+        outline: none;
+        background-color: transparent;
+        border: 0;
+    }
+
+    #btn-back img {
+        margin-right: 15px;
+        width: 100%;
+        max-width: 40px;
+        height: 100%;
+        max-height: 40px;
+    }
+
+    #message-content p{
+        font-family: $font-secundario;
+    }
+
+    #message-content {
+        margin-bottom: 30px;
+    }
+}

@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimun-scale=1.0">
+    <link rel="icon" href="../assets/logo-desktop.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Favoritos</title>
 </head>
 <body class="light" id="background-body">
+    <div id="max-gifo" class="max-gif" style="display: none;"></div>
     <div id="color"></div>
     <div class="wrapper">
-        <header class="flex-container">
+        <header>
             <div id="bar-header" class="flex-container">
-                <a href="../index.html"><img id="logo" src="/assets/logo-desktop.svg" alt="Logo de gifos"></a>
+                <a href="../index.html"><img id="logo" src="../assets/logo-desktop.svg" alt="Logo de gifos"></a>
                 <button class="hamburger hamburger--squeeze" type="button">
                     <span class="hamburger-box">
                     <span class="hamburger-inner"></span>
@@ -22,13 +24,13 @@
                         </li>
                         <div class="line"></div>
                         <li>
-                            <a id="nav1" class="nav-items" href="#">Favoritos</a>
+                            <a class="nav-items primary-color" href="/docs/favorites.html">Favoritos</a>
                         </li>
                         <div class="line"></div>
-                        <li>
-                            <a id="nav2" class="nav-items" href="#">Mis Gifos</a>
+                        <li id="my-gifos-row">
+                            <a class="nav-items primary-color" href="/docs/my-gifos.html">Mis Gifos</a>
                         </li>
-                        <li>
+                        <li id="create-gifo-row">
                             <a href="../docs/create-gif.html">
                                 <img id="create-gifo-button" src="../assets/button-crear-gifo.svg" alt="">
                             </a>
@@ -47,6 +49,10 @@
                     <h1>Favorites</h1>
                 </div>
 
+                <div id="favorites-no-content" style="display: none;">
+                    <img src="../assets/icon-fav-sin-contenido.svg" alt="">
+                    <h5>"¡Guarda tu primer GIFO en Favoritos para que se muestre aquí!"</h5>
+                </div>
                 <div id="favorites-container" class="flex-container"></div>
 
                 <div id="no-content">
@@ -74,15 +80,17 @@
         <footer class="flex-container wrapper">
             <section class="flex-container">
                 <h4>Compartir en:</h4>
-                <a href="https://es-la.facebook.com">
-                    <img id="icon-facebook" alt="Icono de facebook">
-                </a>
-                <a href="https://twitter.com">
-                    <img id="icon-twitter" alt="Icono de twitter">
-                </a>
-                <a href="https://www.instagram.com">
-                    <img id="icon-instagram" alt="Icono de instagram">
-                </a>
+                <div>
+                    <a href="https://es-la.facebook.com">
+                        <img id="icon-facebook" alt="Icono de facebook">
+                    </a>
+                    <a href="https://twitter.com">
+                        <img id="icon-twitter" alt="Icono de twitter">
+                    </a>
+                    <a href="https://www.instagram.com">
+                        <img id="icon-instagram" alt="Icono de instagram">
+                    </a>
+                </div>
             </section>
             <section>
                 <p>&copy; GIFOS 2021&mdash; All Rights Reserved<p>
@@ -91,8 +99,9 @@
         </footer>
         <span id="line-below-footer"></span>
     </div>
+    <script src="/scripts/likes.js"></script>
+    <script src="/scripts/menu-hamburguesa.js"></script>
     <script src="/scripts/trendings.js"></script>
     <script src="/scripts/dark-mode.js"></script>
-    <script src="/scripts/likes.js"></script>
 </body>
 </html>

@@ -60,8 +60,11 @@ change_mode_btn.addEventListener("click", () => {
 
         change_mode_btn.innerHTML = utils_dark_theme[3].text
         change_mode_btn.className = utils_dark_theme[2].mode
-        nav[0].className = `nav-items ${utils_dark_theme[2].mode}`
-        nav[1].className = `nav-items ${utils_dark_theme[2].mode}`
+
+        if(innerWidth > 769){
+            nav[0].className = `nav-items ${utils_dark_theme[2].mode}`
+            nav[1].className = `nav-items ${utils_dark_theme[2].mode}`
+        }
 
         if(moreBtn) moreBtn.className = utils_dark_theme[2].mode
 
@@ -72,6 +75,12 @@ change_mode_btn.addEventListener("click", () => {
         localStorage.setItem("Mode", JSON.stringify(utils_dark_theme))
         verifyLastTheme()
     }else{
+        if(innerWidth > 769){
+            change_mode_btn.className = utils_light_theme[2].mode
+            nav[0].className = `nav-items ${utils_light_theme[2].mode}`
+            nav[1].className = `nav-items ${utils_light_theme[2].mode}`
+        }
+
         body.className = utils_light_theme[0].mode
 
         if(backgroundTrending) backgroundTrending.className = utils_light_theme[1].mode
@@ -84,9 +93,7 @@ change_mode_btn.addEventListener("click", () => {
         titles[3].className = utils_light_theme[2].mode
 
         change_mode_btn.innerHTML = utils_light_theme[3].text
-        change_mode_btn.className = utils_light_theme[2].mode
-        nav[0].className = `nav-items ${utils_light_theme[2].mode}`
-        nav[1].className = `nav-items ${utils_light_theme[2].mode}`
+
 
         if(moreBtn) moreBtn.className = utils_light_theme[2].mode
 
@@ -110,16 +117,29 @@ function verifyLastTheme() {
         body.className = json[0].mode
         if(backgroundTrending) backgroundTrending.className = json[1].mode
 
+        if(innerWidth <= 480){
+            if(json[1].mode === 'dark-trending'){
+                document.querySelector("#menu").style.backgroundColor = "#000000"
+            }else{
+                document.querySelector("#menu").style.backgroundColor = "#6742E7"
+            }
+        }
+
+        if(titles[0]){
+            titles[0].className = json[2].mode
+        }
         titles[1].className = json[2].mode
         titles[2].className = json[2].mode
         titles[3].className = json[2].mode
 
         change_mode_btn.innerHTML = json[3].text
-        change_mode_btn.className = json[2].mode
 
         if(nav[0]){
-            nav[0].className = `nav-items ${json[2].mode}`
-            nav[1].className = `nav-items ${json[2].mode}`
+            if(json[2].mode !== 'light-text'){
+                change_mode_btn.className = json[2].mode
+                nav[0].className = `nav-items ${json[2].mode}`
+                nav[1].className = `nav-items ${json[2].mode}`
+            }
         }
 
         if(moreBtn) moreBtn.className = json[2].mode

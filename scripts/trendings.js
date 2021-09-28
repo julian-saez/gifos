@@ -12,8 +12,6 @@ const btnNextG = document.getElementById("btn-next")
 const btnBackG = document.getElementById("btn-back")
 
 
-
-
 /*************     PROGRAMA PARA OBTENER LOS GIFS TRENDINGS Y COLOCARLOS EN LA SECCIÓN 'TRENDING GIFOS'     *************/
 
 let arrayTrendings = [];
@@ -60,47 +58,46 @@ function trendingRender(){
 
             let title = document.createElement("figcaption")
             let author = document.createElement("figcaption")
+            let gif_id = document.createElement("span")
     
-            // Division de los contenedores
             let buttonsBox = document.createElement("div")
             let titlesBox = document.createElement("div")
 
-            // Botones al pasar el mouse
-            let btnLike = document.createElement("button")
-            let btnDownload = document.createElement("button")
-            let btnExtend = document.createElement("button")
+            let btn_like = document.createElement("button")
+            let btn_download = document.createElement("button")
+            let btn_max = document.createElement("button")
 
-            // Iconos para los botones
-            let btnLikeImg = document.createElement("img")
-            let btnDownloadImg = document.createElement("img")
-            let btnExtendImg = document.createElement("img")
+            let icon_like = document.createElement("img")
+            let icon_download = document.createElement("img")
+            let icon_max = document.createElement("img")
 
             // Declaro los hijos de...
             figureElement.appendChild(layer)
             layer.appendChild(buttonsBox)
             layer.appendChild(titlesBox)
             layer.style.display = 'none'
-            buttonsBox.appendChild(btnLike)
-            buttonsBox.appendChild(btnDownload)
-            buttonsBox.appendChild(btnExtend)
-            btnLike.appendChild(btnLikeImg)
-            btnDownload.appendChild(btnDownloadImg)
-            btnExtend.appendChild(btnExtendImg)
+            buttonsBox.appendChild(btn_like)
+            buttonsBox.appendChild(btn_download)
+            buttonsBox.appendChild(btn_max)
+            btn_like.appendChild(icon_like)
+            btn_download.appendChild(icon_download)
+            btn_max.appendChild(icon_max)
             titlesBox.appendChild(author)
             titlesBox.appendChild(title)
+            titlesBox.appendChild(gif_id)
 
-            // Atributos de los elementos
             figureElement.classList = "cards"
-            btnDownloadImg.src = '/assets/icon-download.svg'
-            btnLikeImg.src = '/assets/icon-fav.svg'
-            btnExtendImg.src = '/assets/icon-max-normal.svg'
-            btnDownload.classList = 'icons-buttons-box'
-            btnLike.classList = 'icons-buttons-box'
-            btnExtend.classList = 'icons-buttons-box'
+            icon_download.src = '/assets/icon-download.svg'
+            icon_like.src = '/assets/icon-fav.svg'
+            icon_max.src = '/assets/icon-max-normal.svg'
+            btn_download.classList = 'icons-buttons-box'
+            btn_like.classList = 'icons-buttons-box'
+            btn_max.classList = 'icons-buttons-box'
             buttonsBox.classList = 'buttons-box flex-container'
             titlesBox.classList = 'titles-box'
             title.classList = "title-gif-results"
             author.classList = "figcaption-creator"
+            gif_id.style.display = "none"
 
             if(arrayTrendings[i].username == ""){
                 author.innerHTML = 'Autor desconocido'
@@ -110,32 +107,50 @@ function trendingRender(){
 
             gifElementImg.classList = "gifs-trendings"
             title.innerHTML = arrayTrendings[i].title
-            gifElementImg.src = arrayTrendings[i].images.preview_webp.url
+            gifElementImg.src = arrayTrendings[i].images.original.url
+            gif_id.innerHTML = arrayTrendings[i].id
+
     
-            let btnLikeState = false;
-            btnLike.addEventListener('click', e => {
-                gifSaved(arrayTrendings[i].id, gifElementImg.currentSrc, title.outerText, author.outerText)
-                btnLikeImg.style.zIndex = '2'
+            btn_like.addEventListener('click', () => {
+                if(!favorites_gifs.includes(indexed[gif_id.outerText])){
+                    saveFavoritesAtLocalStorage(gif_id.outerText, gifElementImg.src, title.outerText, author.outerText)
+                    icon_like.style.zIndex = '2'
+                }
+            })
+
+            btn_like.addEventListener('mouseover', e => {
                 e.target.src = '/assets/corazonsito.svg'
-                btnLikeState = true;
             })
 
-            btnLike.addEventListener('mouseover', e => {
-                if(btnLikeState === false){
-                    e.target.src = '/assets/icon-fav-js.svg'
-                }
+            btn_like.addEventListener('mouseout', e => {
+                e.target.src = '/assets/icon-fav.svg'
             })
 
-            btnLike.addEventListener('mouseout', e => {
-                if(btnLikeState === false){
-                    e.target.src = '/assets/icon-fav.svg'
-                }
+            btn_download.addEventListener("click", () => {
+                downloadGifo(arrayTrendings[i].images.original.mp4)
             })
+
+            btn_download.addEventListener("mouseover", e => {
+                e.target.src = "/assets/icon-download-hover.svg"
+            })
+
+            btn_download.addEventListener("mouseout", e => {
+                e.target.src = "/assets/icon-download.svg"
+            })
+
+            btn_max.addEventListener("mouseover", e => {
+                e.target.src = "/assets/icon-max-hover.svg"
+            })
+
+            btn_max.addEventListener("mouseout", e => {
+                e.target.src = "/assets/icon-max-normal.svg"
+            })
+
             
             if(innerWidth > 768){
                 figureElement.addEventListener('mouseover', () => {
                     layer.style.display = 'block'
-                    layer.classList = 'layerTrendingsBackground'
+                    layer.classList = 'overhead'
                     title.style.color = '#ffffff'
                     title.style.opacity = '1'
                     title.style.zIndex = '4'
@@ -146,51 +161,86 @@ function trendingRender(){
                     layer.style.display = 'none'
                 })   
 
-                btnExtend.addEventListener("click", () => {
-                    // Creo los elementos
-                    let extendedGifContainer = document.createElement("figure")
-                    let extendedGifTopContainer = document.createElement("div")
-                    let extendedGifBottomContainer = document.createElement("div")
-                    let gifExtend = document.createElement("img")
-                    let exitBtn = document.createElement("button")
-                    let imgExitBtn = document.createElement("img")
-                    let authorExtend = document.createElement("figcaption")
-                    let titleExtend = document.createElement("figcaption")
+                btn_max.addEventListener("click", () => {
+                    // Parents  
+                    let max_container = document.querySelector("#max-gifo")
+                    let max_child = document.createElement("figure")
+                    let column_max = document.createElement("div")
+                    let below_max_container = document.createElement("div")
+                    let titles_max_container = document.createElement("div")
+        
+                    max_container.appendChild(max_child)
+                    max_child.appendChild(column_max)
+                    column_max.appendChild(below_max_container)
+                    below_max_container.appendChild(titles_max_container)
+                    
+                    below_max_container.id = "below-max-container"
+                    column_max.style.display = "flex"
+                    column_max.id = "column-max"
+                    
+                    // Child elements
+                    let gif_max = document.createElement("img")
+                    gif_max.id = "gif-max"
+                    let gif_max_title = document.createElement("figcaption")
+                    let gif_max_username = document.createElement("figcaption")
+                    let btn_exit = document.createElement("button")
+                    let icon_delete = document.createElement("img")
+                    let buttons_content_max = document.createElement("div")
+                    let btn_download_max = document.createElement("button")
+                    let btn_like_max = document.createElement("button")
+                    let icon_download_max = document.createElement("img")
+                    let icon_like_max = document.createElement("img")
+                    
+                    column_max.appendChild(gif_max)
+                    column_max.appendChild(below_max_container)
+                    titles_max_container.appendChild(gif_max_username)
+                    titles_max_container.appendChild(gif_max_title)
+                    max_child.appendChild(btn_exit)
+                    btn_exit.appendChild(icon_delete)
+                    below_max_container.appendChild(buttons_content_max)
+                    buttons_content_max.id = "buttons-content-max"
+                    buttons_content_max.appendChild(btn_like_max)
+                    btn_like_max.appendChild(icon_like_max)
     
-                    // Declaro los hijos de los elementos
-                    extendedGifContainer.appendChild(extendedGifTopContainer)
-                    extendedGifContainer.appendChild(extendedGifBottomContainer)
-    
-                    // Boton salir
-                    extendedGifTopContainer.appendChild(exitBtn)
-                    exitBtn.appendChild(imgExitBtn)
-    
-                    //Gif
-                    extendedGifTopContainer.appendChild(gifExtend)
-    
-                    // Titulo del gif y creador
-                    extendedGifBottomContainer.appendChild(authorExtend)
-                    extendedGifBottomContainer.appendChild(titleExtend)
-
-    
-                    // Le asignó los atributos a los elementos creados 
-                    extendedGifTopContainer.className = "flex-container"
-                    extendedGifBottomContainer.className = "flex-container"
-                    extendedGifTopContainer.id = "extended-gif-top-container"
-                    extendedGifBottomContainer.id = "extended-gif-bottom-container"
-                    extendedGifContainer.id = "div-container-results"
-                    gifExtend.src = gifElementImg.currentSrc
-                    imgExitBtn.src = "/assets/close.svg"
-                    gifExtend.innerHTML = gifElementImg.currentSrc
-                    authorExtend.innerHTML = author.innerHTML
-                    titleExtend.classList = "title-gif-results"
-                    authorExtend.classList = "figcaption-creator"
-                    exitBtn.classList = "buttons-styles"
-    
-                    homeSectionContainer.appendChild(extendedGifContainer)
-                    // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
-                    exitBtn.addEventListener("click", () => {
-                        extendedGifContainer.remove(gifExtend)
+                    if(favorites_gifs.includes(indexed[gif_id.outerText])){
+                        icon_like_max.src = '../assets/corazonsito.svg'
+                    }else{
+                        icon_like_max.src = "../assets/icon-fav.svg"
+                    }
+                   
+                    buttons_content_max.appendChild(btn_download_max)
+                    btn_download_max.appendChild(icon_download_max)
+                    icon_download_max.src = "../assets/icon-download.svg"
+        
+                    gif_max.src = gifElementImg.src
+                    btn_exit.id = "btn-exit"
+                    max_child.id = "max-gifo-child"
+                    gif_max_username.innerHTML = author.outerText
+                    if(title.outerText){
+                        gif_max_title.innerHTML = title.outerText
+                    }else{
+                        gif_max_title.innerHTML = "Untitled gifo"
+                    }
+                    
+                    max_container.style.display = "flex"
+                    max_child.id = "gifo-max-child"
+                    max_child.classList = "flex-container"
+                    icon_delete.src = "../assets/close.svg"
+        
+                    btn_exit.addEventListener("click", () => {
+                        max_container.style.display = "none"
+                        max_container.removeChild(max_child)
+                    })
+        
+                    btn_like_max.addEventListener("click", () => {
+                        if(!favorites_gifs.includes(indexed[gif_id.outerText])){
+                            saveFavoritesAtLocalStorage(gif_id.outerText, gifElementImg.src, title.outerText, author.outerText)
+                            icon_like_max.src = "../assets/corazonsito.svg"
+                        }
+                    })
+        
+                    btn_download_max.addEventListener("click", () => {
+                        downloadGifo(arrayTrendings[i].images.original.mp4)
                     })
                 })
             }
@@ -207,157 +257,105 @@ const removeFavoriteItem = (element) => {
         newFavoritesGifs.push(favoritesGifTrendings[i]);
       }
     }
-    console.log(newFavoritesGifs)
     favoritesGifs = newFavoritesGifs
     saveFavoritesAtLocalStorage()
 }
 
 let y = 0
+
 let trendingsRenderMobile = () => {
     for(y; y <= itemsToRender; ++y){
-        // Elementos caja
+        let index = y
         let figureElement = document.createElement("figure")
         let gifElementImg = document.createElement("img")
-        let layer = document.createElement('div')
         trendingsGifsContainer.appendChild(figureElement)
         figureElement.appendChild(gifElementImg)
-        figureElement.appendChild(layer)
-
-        let title = document.createElement("figcaption")
-        let author = document.createElement("figcaption")
-
-        // Division de los contenedores
-        let buttonsBox = document.createElement("div")
-        let titlesBox = document.createElement("div")
-
-        // Botones al pasar el mouse
-        let btnLike = document.createElement("button")
-        let btnDownload = document.createElement("button")
-        let btnExtend = document.createElement("button")
-
-        // Iconos para los botones
-        let btnLikeImg = document.createElement("img")
-        let btnDownloadImg = document.createElement("img")
-        let btnExtendImg = document.createElement("img")
-
-        // Declaro los hijos de...
-        figureElement.appendChild(layer)
-        layer.appendChild(buttonsBox)
-        layer.appendChild(titlesBox)
-        layer.style.display = 'none'
-        buttonsBox.appendChild(btnExtend)
-        btnLike.appendChild(btnLikeImg)
-        btnDownload.appendChild(btnDownloadImg)
-        btnExtend.appendChild(btnExtendImg)
-        titlesBox.appendChild(author)
-        titlesBox.appendChild(title)
-
-        // Atributos de los elementos
         figureElement.classList = "cardGifs"
-        btnDownloadImg.src = '/assets/icon-download.svg'
-        btnLikeImg.src = '/assets/icon-fav.svg'
-        btnExtendImg.src = '/assets/icon-max-normal.svg'
-        btnDownload.classList = 'icons-buttons-box'
-        btnLike.classList = 'icons-buttons-box'
-        btnExtend.classList = 'icons-buttons-box'
-        buttonsBox.classList = 'buttons-box flex-container'
-        titlesBox.classList = 'titles-box'
-        title.classList = "title-gif-results"
-        author.classList = "figcaption-creator"
-
-        if(arrayTrendings[y].username == ""){
-            author.innerHTML = 'Autor desconocido'
-        }else{
-            author.innerHTML = `${arrayTrendings[y].username}`
-        }
-
         gifElementImg.classList = "gifs-trendings"
-        title.innerHTML = arrayTrendings[y].title
         gifElementImg.src = arrayTrendings[y].images.preview_webp.url
+        let isLiked = favorites_gifs.includes(indexed[arrayTrendings[y].id])
 
-        figureElement.addEventListener("click", () => {
-            // Creo los elementos
-            let extendedGifContainer = document.createElement("figure")
-            let extendedGifTopContainer = document.createElement("div")
-            let extendedGifBottomContainer = document.createElement("div")
-            let leftSectionFromBottomContainer = document.createElement("div")
-            let rightSectionFromBottomContainer = document.createElement("div")
-            let gifExtend = document.createElement("img")
-            let exitBtn = document.createElement("button")
-            let imgExitBtn = document.createElement("img")
-            let authorExtend = document.createElement("figcaption")
-            let titleExtend = document.createElement("figcaption")
+        gifElementImg.addEventListener("click", e => {
+            // Parents  
+            let max_container = document.querySelector("#max-gifo")
+            let max_child = document.createElement("figure")
+            let column_max = document.createElement("div")
+            let below_max_container = document.createElement("div")
+            let titles_max_container = document.createElement("div")
 
-            // Declaro los hijos de los elementos
-            extendedGifContainer.appendChild(extendedGifTopContainer)
-            extendedGifContainer.appendChild(extendedGifBottomContainer)
-            extendedGifBottomContainer.appendChild(leftSectionFromBottomContainer)
-            extendedGifBottomContainer.appendChild(rightSectionFromBottomContainer)
+            max_container.appendChild(max_child)
+            max_child.appendChild(column_max)
+            column_max.appendChild(below_max_container)
+            below_max_container.appendChild(titles_max_container)
+            
+            below_max_container.id = "below-max-container"
+            column_max.style.display = "flex"
+            column_max.id = "column-max"
+            
+            // Child elements
+            let gif_max = document.createElement("img")
+            gif_max.id = "gif-max"
+            let gif_max_title = document.createElement("figcaption")
+            let gif_max_username = document.createElement("figcaption")
+            let btn_exit = document.createElement("button")
+            let icon_delete = document.createElement("img")
+            let buttons_content_max = document.createElement("div")
+            let btn_download_max = document.createElement("button")
+            let btn_like_max = document.createElement("button")
+            let icon_download_max = document.createElement("img")
+            let icon_like_max = document.createElement("img")
+            
+            column_max.appendChild(gif_max)
+            column_max.appendChild(below_max_container)
+            titles_max_container.appendChild(gif_max_username)
+            titles_max_container.appendChild(gif_max_title)
+            max_child.appendChild(btn_exit)
+            btn_exit.appendChild(icon_delete)
+            below_max_container.appendChild(buttons_content_max)
+            buttons_content_max.id = "buttons-content-max"
+            buttons_content_max.appendChild(btn_like_max)
+            btn_like_max.appendChild(icon_like_max)
 
-            // Boton salir
-            extendedGifTopContainer.appendChild(exitBtn)
-            exitBtn.appendChild(imgExitBtn)
+            if(isLiked){
+                icon_like_max.src = '../assets/corazonsito.svg'
+            }else{
+                icon_like_max.src = "../assets/icon-fav.svg"
+            }
+           
+            buttons_content_max.appendChild(btn_download_max)
+            btn_download_max.appendChild(icon_download_max)
+            icon_download_max.src = "../assets/icon-download.svg"
 
-            //Gif
-            extendedGifTopContainer.appendChild(gifExtend)
+            gif_max.src = e.target.src
+            btn_exit.id = "btn-exit"
+            max_child.id = "max-gifo-child"
+            gif_max_username.innerHTML = arrayTrendings[y].username
+            if(arrayTrendings[y].title){
+                gif_max_title.innerHTML = arrayTrendings[y].title
+            }else{
+                gif_max_title.innerHTML = "my untitled gifo"
+            }
+            
+            max_container.style.display = "flex"
+            max_child.id = "gifo-max-child"
+            max_child.classList = "flex-container"
+            icon_delete.src = "../assets/close.svg"
 
-            // Titulo del gif y creador
-            leftSectionFromBottomContainer.appendChild(authorExtend)
-            leftSectionFromBottomContainer.appendChild(titleExtend)
-
-            rightSectionFromBottomContainer.appendChild(btnDownload)
-            rightSectionFromBottomContainer.appendChild(btnLike)
-
-
-            // Le asignó los atributos a los elementos creados 
-            extendedGifTopContainer.className = "flex-container"
-            extendedGifBottomContainer.className = "flex-container"
-            extendedGifTopContainer.id = "extended-gif-top-container"
-            extendedGifBottomContainer.id = "extended-gif-bottom-container"
-            leftSectionFromBottomContainer.id = "left-section-from-bc"
-            rightSectionFromBottomContainer.id = "right-section-from-bc"
-            extendedGifContainer.id = "div-container-results"
-            gifExtend.src = gifElementImg.currentSrc
-            gifExtend.id = "gif-extend-img"
-            imgExitBtn.src = "/assets/close.svg"
-            gifExtend.innerHTML = gifElementImg.currentSrc
-            authorExtend.innerHTML = author.innerHTML
-            titleExtend.innerHTML = title.innerHTML
-            titleExtend.classList = "title-gif-results"
-            authorExtend.classList = "figcaption-creator"
-            exitBtn.classList = "buttons-styles"
-
-            homeSectionContainer.appendChild(extendedGifContainer)
-            // Elimino el div que contiene el gif, el titulo, user, me gusta y descarga
-            exitBtn.addEventListener("click", () => {
-                extendedGifContainer.remove(gifExtend)
+            btn_exit.addEventListener("click", () => {
+                max_container.style.display = "none"
+                max_container.removeChild(max_child)
+            })
+            
+            btn_like_max.addEventListener("click", () => {
+                if(!isLiked){
+                    saveFavoritesAtLocalStorage(arrayTrendings[index].id, arrayTrendings[index].images.original.url, arrayTrendings[index].title, arrayTrendings[index].username)
+                    icon_like_max.src = '../assets/corazonsito.svg'
+                    isLiked = true;
+                }
             })
 
-
-
-            let btnLikeState = false;
-            let nombre = titleExtend.innerHTML
-            const gifSeleccionado = favoritesGifs.find(element => element.nombre === nombre)
-            if(gifSeleccionado){
-                btnLikeImg.src = '/assets/corazonsito.svg'
-                btnLikeState = true
-            }
-            favoritesGifTrendings = favoritesGifs
-            elementsFavoritesLength = favoritesGifTrendings.length
-            btnLike.addEventListener('click', async (element) => {
-                if(btnLikeState === false){
-                    console.log("Lo estoy guardando")
-                    saveFavoritesAtLocalStorage(gifElementImg.currentSrc, title.outerText, author.outerText)
-                    btnLikeImg.style.zIndex = '2'
-                    element.target.src = '/assets/corazonsito.svg'
-                    btnLikeState = true;
-                }else{
-                    btnLikeState = false;
-                    let gifData = gifElementImg.currentSrc
-                    console.log(gifData)
-                    element.target.src = '/assets/icon-fav.svg'
-                    removeFavoriteItem(gifData)
-                }
+            btn_download_max.addEventListener("click", () => {
+                downloadGifo(arrayTrendings[y].images.original.mp4)
             })
         })
     }
@@ -367,12 +365,10 @@ let position = 2;
 let btnNextClicks = 0;
 let clicksToGetMoreItems = 12;
 
-// Boton para ver los gifs siguientes
 if(innerWidth < 480){
     btnNextG.addEventListener('click', () => {
         itemsToRender += 3
         trendingsRenderMobile()
-        // Compruebo la cantidad de clicks que el usuario realizo para que al llegar aL valor de clicksToGetMoreItems, se realice un request con nuevos resultados
         if(btnNextClicks === clicksToGetMoreItems){
             clicksToGetMoreItems += 12;
             offset += 50;
@@ -381,25 +377,30 @@ if(innerWidth < 480){
     })
 }else{
     btnNextG.addEventListener('click', () => {
-        btnNextClicks += 1
-        // Borro el mensaje de 'LLegaste al inicio' si se tocó alguna vez el boton de 'volver'
+        btnNextClicks += 1 
         messageContent.children[0].innerText = ''
     
-        // Plasmo los nuevos resultados
         trendingsGifsContainer.children[0].children[0].setAttribute('src', '')
         trendingsGifsContainer.children[0].children[0].setAttribute('src', arrayTrendings[position + 1].images.preview_webp.url)
+        trendingsGifsContainer.children[0].children[1].children[1].children[0].innerHTML = arrayTrendings[position + 1].username
+        trendingsGifsContainer.children[0].children[1].children[1].children[1].innerHTML = arrayTrendings[position + 1].title
+        trendingsGifsContainer.children[0].children[1].children[1].children[2].innerHTML = arrayTrendings[position + 1].id
     
         trendingsGifsContainer.children[1].children[0].setAttribute('src', '')
         trendingsGifsContainer.children[1].children[0].setAttribute('src', arrayTrendings[position + 2].images.preview_webp.url)
+        trendingsGifsContainer.children[1].children[1].children[1].children[0].innerHTML = arrayTrendings[position + 2].username
+        trendingsGifsContainer.children[1].children[1].children[1].children[1].innerHTML = arrayTrendings[position + 2].title
+        trendingsGifsContainer.children[1].children[1].children[1].children[2].innerHTML = arrayTrendings[position + 2].id
     
         trendingsGifsContainer.children[2].children[0].setAttribute('src', '')
         trendingsGifsContainer.children[2].children[0].setAttribute('src', arrayTrendings[position + 3].images.preview_webp.url)
+        trendingsGifsContainer.children[2].children[1].children[1].children[0].innerHTML = arrayTrendings[position + 3].username
+        trendingsGifsContainer.children[2].children[1].children[1].children[1].innerHTML = arrayTrendings[position + 3].title
+        trendingsGifsContainer.children[2].children[1].children[1].children[2].innerHTML = arrayTrendings[position + 3].id
+
         btnBackG.children[0].setAttribute('src', '/assets/button-slider-left-hover.svg')
     
-        // Le aumento el valor a la variable por si el usuario vuelve a pedir nuevos resultados o para no olvidar el índice del src
         position += 3;
-    
-        // Compruebo la cantidad de clicks que el usuario realizo para que al llegar aL valor de clicksToGetMoreItems, se realice un request con nuevos resultados
         if(btnNextClicks === clicksToGetMoreItems){
             clicksToGetMoreItems += 12;
             offset += 50;
@@ -409,28 +410,30 @@ if(innerWidth < 480){
 }
 
 
-// Boton para ver los gifs anteriores
 btnBackG.addEventListener("click", () => {
-    // Pregunto si el indice del src es == a 0, y si es así, muestro el mensaje...
     if(trendingsGifsContainer.children[0].children[0].src == arrayTrendings[0].images.preview_webp.url){
         messageContent.children[0].innerText = "¡Volviste al inicio!"
-
     }else{
-        // Si es indiferente de 0, itero los resultados anteriores...
         if(trendingsGifsContainer.children[0].src == arrayTrendings[3].images.preview_webp.url){
             btnBackG.children[0].setAttribute('src', '/assets/button-slider-left-hover.svg')
         }
-
-        // Plasmo los resultados
         trendingsGifsContainer.children[0].children[0].setAttribute('src', '')
-        trendingsGifsContainer.children[1].children[0].setAttribute('src', '')
-        trendingsGifsContainer.children[2].children[0].setAttribute('src', '')
-    
         trendingsGifsContainer.children[0].children[0].setAttribute('src', arrayTrendings[position - 5].images.preview_webp.url)
+        trendingsGifsContainer.children[0].children[1].children[1].children[0].innerHTML = arrayTrendings[position - 5].username
+        trendingsGifsContainer.children[0].children[1].children[1].children[1].innerHTML = arrayTrendings[position - 5].title
+        trendingsGifsContainer.children[0].children[1].children[1].children[2].innerHTML = arrayTrendings[position - 5].id
+
+        trendingsGifsContainer.children[1].children[0].setAttribute('src', '')
         trendingsGifsContainer.children[1].children[0].setAttribute('src', arrayTrendings[position - 4].images.preview_webp.url)
+        trendingsGifsContainer.children[1].children[1].children[1].children[0].innerHTML = arrayTrendings[position - 4].username
+        trendingsGifsContainer.children[1].children[1].children[1].children[1].innerHTML = arrayTrendings[position - 4].title
+        trendingsGifsContainer.children[1].children[1].children[1].children[2].innerHTML = arrayTrendings[position - 4].id
+
+        trendingsGifsContainer.children[2].children[0].setAttribute('src', '')
         trendingsGifsContainer.children[2].children[0].setAttribute('src', arrayTrendings[position - 3].images.preview_webp.url)
-    
-        // Resto la posición por si se vulve a tocar el botón de volver atrás
+        trendingsGifsContainer.children[2].children[1].children[1].children[0].innerHTML = arrayTrendings[position - 3].username
+        trendingsGifsContainer.children[2].children[1].children[1].children[1].innerHTML = arrayTrendings[position - 3].title
+        trendingsGifsContainer.children[2].children[1].children[1].children[2].innerHTML = arrayTrendings[position - 3].id
         position = position - 3;
     }
 })

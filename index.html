@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="assets/logo-desktop.svg" />
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, minimun-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -9,6 +10,7 @@
     <title>GIFOS</title>
 </head>
 <body class="light">
+    <div id="max-gifo" class="max-gif" style="display: none;"></div>
     <span id="line-upper-header"></span>
     <div class="wrapper">
         <header>
@@ -26,12 +28,12 @@
                             <a class="nav-items primary-color" href="/docs/favorites.html">Favoritos</a>
                         </li>
                         <div class="line"></div>
-                        <li>
-                            <a class="nav-items primary-color" href="/docs/create-gif.html">Mis Gifos</a>
+                        <li id="my-gifos-row">
+                            <a class="nav-items primary-color" href="/docs/my-gifos.html">Mis Gifos</a>
                         </li>
-                        <li>
+                        <li id="create-gifo-row">
                             <a href="../docs/create-gif.html">
-                                <img id="create-gifo-button" src="../assets/button-crear-gifo.svg" alt="">
+                                <img id="create-gifo-button" src="../assets/button-crear-gifo.svg" alt="boton-crear-gifo">
                             </a>
                         </li>
                         <div class="line"></div>
@@ -56,27 +58,27 @@
                         </fieldset>
                         <fieldset id="autocomplete-list">
                             <div class="flex-container">
-                                <img src="assets/icon-search.svg" alt="">
+                                <img src="assets/icon-search.svg" alt="icono-buscar">
                                 <span class="dropmenu-items-text"></span>
                             </div>
                             <div class="flex-container">
-                                <img src="assets/icon-search.svg" alt="">
+                                <img src="assets/icon-search.svg" alt="icono-buscar">
                                 <span class="dropmenu-items-text"></span>
                             </div>
                             <div class="flex-container">
-                                <img src="assets/icon-search.svg" alt="">
+                                <img src="assets/icon-search.svg" alt="icono-buscar">
                                 <span class="dropmenu-items-text"></span>
                             </div>
                             <div class="flex-container">
-                                <img src="assets/icon-search.svg" alt="">
+                                <img src="assets/icon-search.svg" alt="icono-buscar">
                                 <span class="dropmenu-items-text"></span>
                             </div>
                         </fieldset>
                     </form>
                     <div id="trending-categories">
                         <h3>Trending:</h3>
-                        <div id="categories">
-                            <p>Actions, Adjectives, Animals, Anime, Art & Design</p>
+                        <div id="categories" class="flex-container">
+                            <div class="flex-container"></div>
                         </div>
                     </div>
                     <div id="spacebetween"></div>
@@ -109,15 +111,17 @@
         <footer class="flex-container wrapper">
             <section class="flex-container">
                 <h4>Compartir en:</h4>
-                <a href="https://es-la.facebook.com">
-                    <img id="icon-facebook" alt="Icono de facebook">
-                </a>
-                <a href="https://twitter.com">
-                    <img id="icon-twitter" alt="Icono de twitter">
-                </a>
-                <a href="https://www.instagram.com">
-                    <img id="icon-instagram" alt="Icono de instagram">
-                </a>
+                <div>
+                    <a href="https://es-la.facebook.com">
+                        <img id="icon-facebook" alt="Icono de facebook">
+                    </a>
+                    <a href="https://twitter.com">
+                        <img id="icon-twitter" alt="Icono de twitter">
+                    </a>
+                    <a href="https://www.instagram.com">
+                        <img id="icon-instagram" alt="Icono de instagram">
+                    </a>
+                </div>
             </section>
             <section>
                 <p>&copy; GIFOS 2021&mdash; All Rights Reserved<p>
@@ -126,9 +130,9 @@
         </footer>
     </div>
     <span id="line-below-footer"></span>
+    <script src="scripts/likes.js"></script>
     <script src="scripts/dark-mode.js"></script>
     <script src="scripts/menu-hamburguesa.js"></script>
-    <!-- <script src="scripts/likes.js"></script> -->
     <script src="scripts/trendings.js"></script>
     <script src="scripts/search.js"></script>
 </body>

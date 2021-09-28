@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/logo-desktop.svg" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
     <title>Mis Gifos</title>
 </head>
 <body>
+    <div id="max-gifo" class="max-gif" style="display: none;"></div>
     <span id="line-upper-header"></span>
     <main>
         <div class="wrapper">
@@ -37,8 +39,12 @@
             </header>
         </div>
         <section id="my-gifos-container" class="flex-container wrapper">
-            <img src="" alt="">
+            <img id="icon-my-gifos" src="" alt="">
             <h2>Mis GIFOS</h2>
+            <div id="my-gifos-no-content" style="display: none;">
+                <img id="icon-my-gifos-no-content" src="../assets/icon-mis-gifos-sin-contenido.svg" alt="">
+                <h5>¡Anímate a crear tu primer GIFO!</h5>
+            </div>
             <div id="targets-container"></div>
         </section>
         <section class="light-trending" id="trending-gifos">
