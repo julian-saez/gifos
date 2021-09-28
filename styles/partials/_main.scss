@@ -251,7 +251,6 @@ input:focus{
 
     .categories {
         @include buttonsConfig();
-        color: white;
         font-family: $font-principal;
         margin: 3px;
         font-size: 0.8rem;
@@ -298,7 +297,6 @@ input:focus{
 
     .categories {
         @include buttonsConfig();
-        color: white;
         font-family: $font-principal;
         margin: 3px;
         font-size: 1rem;

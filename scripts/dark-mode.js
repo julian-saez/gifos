@@ -17,6 +17,8 @@ const titles = [
     document.querySelectorAll("h4")
 ]
 
+const categories_words = document.querySelector("#categories").children[0]
+
 const nav = document.querySelectorAll(".nav-items")
 const create_gifo_button = document.querySelector("#create-gifo-button")
 let icon_facebook = document.querySelector("#icon-facebook")
@@ -61,6 +63,13 @@ change_mode_btn.addEventListener("click", () => {
         change_mode_btn.innerHTML = utils_dark_theme[3].text
         change_mode_btn.className = utils_dark_theme[2].mode
 
+        categories_words.children[0].className = `categories ${utils_dark_theme[2].mode}`
+        categories_words.children[1].className = `categories ${utils_dark_theme[2].mode}`
+        categories_words.children[2].className = `categories ${utils_dark_theme[2].mode}`
+        categories_words.children[3].className = `categories ${utils_dark_theme[2].mode}`
+        categories_words.children[4].className = `categories ${utils_dark_theme[2].mode}`
+        categories_words.children[5].className = `categories ${utils_dark_theme[2].mode}`
+
         if(innerWidth > 769){
             nav[0].className = `nav-items ${utils_dark_theme[2].mode}`
             nav[1].className = `nav-items ${utils_dark_theme[2].mode}`
@@ -88,6 +97,12 @@ change_mode_btn.addEventListener("click", () => {
         if(titles[0]){
             titles[0].className = utils_light_theme[2].mode  
         }
+        categories_words.children[0].className = `categories ${utils_light_theme[2].mode}`
+        categories_words.children[1].className = `categories ${utils_light_theme[2].mode}`
+        categories_words.children[2].className = `categories ${utils_light_theme[2].mode}`
+        categories_words.children[3].className = `categories ${utils_light_theme[2].mode}`
+        categories_words.children[4].className = `categories ${utils_light_theme[2].mode}`
+        categories_words.children[5].className = `categories ${utils_light_theme[2].mode}`
         titles[1].className = utils_light_theme[2].mode
         titles[2].className = utils_light_theme[2].mode
         titles[3].className = utils_light_theme[2].mode
@@ -133,6 +148,7 @@ function verifyLastTheme() {
         titles[3].className = json[2].mode
 
         change_mode_btn.innerHTML = json[3].text
+        change_mode_btn.className = json[2].mode
 
         if(nav[0]){
             if(json[2].mode !== 'light-text'){
@@ -141,6 +157,18 @@ function verifyLastTheme() {
                 nav[1].className = `nav-items ${json[2].mode}`
             }
         }
+
+        setTimeout(() => {
+            if(categories_words){
+                categories_words.children[0].className = `categories ${json[2].mode}`
+                categories_words.children[1].className = `categories ${json[2].mode}`
+                categories_words.children[2].className = `categories ${json[2].mode}`
+                categories_words.children[3].className = `categories ${json[2].mode}`
+                categories_words.children[4].className = `categories ${json[2].mode}`
+                categories_words.children[5].className = `categories ${json[2].mode}`
+            }    
+        }, 1500)
+
 
         if(moreBtn) moreBtn.className = json[2].mode
 

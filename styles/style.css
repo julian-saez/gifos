@@ -646,7 +646,6 @@ input:focus {
     outline: none;
     border: 0;
     background-color: transparent;
-    color: white;
     font-family: "Montserrat", sans-serif;
     margin: 3px;
     font-size: 0.8rem;
@@ -703,7 +702,6 @@ input:focus {
     outline: none;
     border: 0;
     background-color: transparent;
-    color: white;
     font-family: "Montserrat", sans-serif;
     margin: 3px;
     font-size: 1rem;
