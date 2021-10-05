@@ -31,7 +31,7 @@ const utils_dark_theme = [
     {mode: "dark-trending"},
     {mode: "dark-text"},
     {text: "Modo Diurno"},
-    {socialmedia: "../assets/icon_facebook_noc.svg"},
+    {socialmedia: "../../GIFOS/assets/icon_facebook_noc.svg"},
     {socialmedia: "../assets/icon_twitter_noc.svg"},
     {socialmedia: "../assets/icon_instagram_noc.svg"},
     {normal:"../assets/CTA-crear-gifo-modo-noc.svg", hover:"../assets/CTA-crear-gifo-hover-modo-noc.svg"}
@@ -83,7 +83,7 @@ change_mode_btn.addEventListener("click", () => {
 
         localStorage.setItem("Mode", JSON.stringify(utils_dark_theme))
         verifyLastTheme()
-    }else{
+    }else{  
         if(innerWidth > 769){
             change_mode_btn.className = utils_light_theme[2].mode
             nav[0].className = `nav-items ${utils_light_theme[2].mode}`
